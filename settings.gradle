@@ -1,0 +1,1 @@
+include ':app', ':TestTabbedActivity2', ':TestRecyclerViewInFragment', ':TestScrollingActivity', ':TestLogin', ':TestLogin2', ':TestAlarm'

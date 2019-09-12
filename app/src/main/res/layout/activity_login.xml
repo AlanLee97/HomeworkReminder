@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.homeworkreminder.activity.RegisterActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录系统"
+        android:textSize="30sp"
+        android:textColor="#03A9F4"
+        android:textAlignment="center"
+        android:layout_marginTop="100dp"
+        />
+
+    <EditText
+        android:id="@+id/et_login_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="帐号"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        />
+    <EditText
+        android:id="@+id/et_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textColor="#fff"
+        android:background="#03A9F4"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:layout_margin="20dp"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/login_return_result"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="10dp"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:background="#7E03A9F4"-->
+<!--        android:textColor="#000"-->
+<!--        android:text="返回的结果"/>-->
+
+
+
+
+</LinearLayout>

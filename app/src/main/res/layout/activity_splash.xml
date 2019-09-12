@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dip">
+
+        <LinearLayout
+            android:id="@+id/ll_guide_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v_guide_redpoint"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/point_deep"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_startExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="25dp"
+        android:background="#03A9F4"
+        android:textColor="#fff"
+        android:textSize="25sp"
+        android:padding="10dp"
+        android:text="进入主页"
+        />
+
+</RelativeLayout>
