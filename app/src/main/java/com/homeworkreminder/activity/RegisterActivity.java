@@ -1,6 +1,7 @@
 package com.homeworkreminder.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.homeworkreminder.R;
+import com.homeworkreminder.utils.UserUtil.CheckUserInfoUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,8 +100,13 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
 
                         //跳转到登录界面
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
+                        Intent intent = getIntent();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("registerState", "true");
+                        intent.putExtras(bundle);
+                        setResult(200, intent);
+
+                        finish();
 
                         //使用Gson解析json数据
                         //parseJsonByGson(result);
@@ -129,5 +136,25 @@ public class RegisterActivity extends AppCompatActivity {
 
         //3、将请求添加到队列
         requestQueue.add(stringRequest);
+    }
+
+
+    String registerState;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 200 && resultCode == 200){
+            Bundle bundle = data.getExtras();
+            registerState = bundle.getString("loginState");
+
+            CheckUserInfoUtil userInfoUtil = new CheckUserInfoUtil(RegisterActivity.this);
+            registerState = userInfoUtil.readUserInfo("login");
+            if (registerState.equals("true")){
+                Toast.makeText(this, "已登录", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "未登录", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

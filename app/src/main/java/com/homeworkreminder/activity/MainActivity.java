@@ -1,11 +1,16 @@
 package com.homeworkreminder.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
@@ -18,12 +23,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.homeworkreminder.R;
 import com.homeworkreminder.fragment.HomeFragment;
 import com.homeworkreminder.fragment.SettingFragment;
 import com.homeworkreminder.fragment.HomeworkFragment;
-import com.homeworkreminder.service.MusicService;
+import com.homeworkreminder.utils.UserUtil.CheckUserInfoUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,10 +55,19 @@ public class MainActivity extends AppCompatActivity
             new SettingFragment()
     };
 
+    //保存登录状态
+    private String loginState;
+    private String registerState;
+    private CheckUserInfoUtil userInfoUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initPermission();
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -84,17 +103,83 @@ public class MainActivity extends AppCompatActivity
         //切换Fragment
         switchFragment("首页");
 
+        //检查用户状态
+        checkUserState();
 
-        //获取左侧抽屉头像控件
+        //获取导航栏左侧的头像和用户名控件的点击事件，并显示当前用户名
+        getLeftImgAndUsername(navigationView);
+
+
+
+    }
+
+    /**
+     * 检查用户状态
+     * 通过SharedPreference将用户状态保存
+     * 通过读取保存的用户状态信息，设置当前用户状态
+     */
+    public void checkUserState(){
+        //检查注册状态
+        userInfoUtil = new CheckUserInfoUtil(getApplicationContext());
+        registerState = userInfoUtil.readUserInfo("register");
+        Toast.makeText(this, "注册状态：" + registerState, Toast.LENGTH_LONG).show();
+        Log.d("userinfo", "注册状态：" + registerState);
+
+        //检查登录状态
+        loginState = userInfoUtil.readUserInfo("login");
+        Toast.makeText(this, "登录状态：" + loginState, Toast.LENGTH_LONG).show();
+        Log.d("login", "登录状态：" + loginState);
+    }
+
+
+    /**
+     * 获取左侧导航栏的头像和用户名的点击事件
+     * 根据用户状态显示当前用户的用户名
+     * @param navigationView NavigationView
+     */
+    public void getLeftImgAndUsername(NavigationView navigationView){
+        //获取左侧抽屉用户头像控件
         View headView = navigationView.getHeaderView(0);
         headView.findViewById(R.id.iv_user_head).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(MainActivity.this, UserActivity.class));
-
+                //根据用户状态跳转相应界面
+                toWhatActivity();
             }
         });
+
+        //获取左侧抽屉用户名控件，并设置显示当前用户的用户名
+        View headViewUsername = navigationView.getHeaderView(0);
+        TextView nav_header_username = headViewUsername.findViewById(R.id.nav_header_username);
+        if (loginState.equals("true")){
+            //读取用户名
+            String username = userInfoUtil.readUserInfo("username");
+            Log.d("userinfo", "username: " + username);
+            nav_header_username.setText(username);
+        }
+        //点击用户名的事件
+        nav_header_username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toWhatActivity();
+            }
+        });
+    }
+
+    /**
+     * 根据用户状态跳转相应界面
+     */
+    public void toWhatActivity(){
+        if (registerState.equals("false") && loginState.equals("false")){ //未注册，跳转到注册界面
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivityForResult(intent, 200);
+        }else if (loginState.equals("false")){//未登录，跳转到登录界面
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 200);
+        }else {//已注册，已登录，跳转到个人中心
+            Intent intent = new Intent(MainActivity.this, UserActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -223,6 +308,79 @@ public class MainActivity extends AppCompatActivity
         this.getSupportActionBar().setTitle(title);
 
     }
+
+
+    /**
+     * 动态权限申请 start=======================================
+     */
+    //权限数组
+    public String[] permissions = {
+            Manifest.permission. INTERNET,
+            Manifest.permission. WRITE_EXTERNAL_STORAGE,
+            Manifest.permission. MOUNT_UNMOUNT_FILESYSTEMS,
+            Manifest.permission. VIBRATE,
+            Manifest.permission. SYSTEM_ALERT_WINDOW
+    };
+
+    //未授权列表
+    private List<String> unPermissionList = new ArrayList<>();
+    //授权请求码
+    private final static int mRequestCode = 200;
+
+    /**
+     * 权限申请
+     */
+    public void initPermission(){
+        unPermissionList.clear();   //清空未申请的权限
+        //将没有申请的权限放到权限列表里
+        for (int i = 0; i < permissions.length; i++) {
+            if (ContextCompat.checkSelfPermission(this, permissions[i])
+                    != PackageManager.PERMISSION_GRANTED){
+                unPermissionList.add(permissions[i]);
+            }
+        }
+
+        //申请权限
+        if (unPermissionList.size() > 0){
+            ActivityCompat.requestPermissions(this,permissions,mRequestCode);
+        }
+
+    }
+
+
+    /**
+     * 请求权限后回调的方法
+     * @param requestCode 是我们自己定义的权限请求码
+     * @param permissions 是我们请求的权限名称数组
+     * @param grantResults 是我们在弹出页面后是否允许权限的标识数组，数组的长度对应的是权限
+     *                     名称数组的长度，数组的数据0表示允许权限，-1表示我们点击了禁止权限
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //是否有拒绝的权限
+        boolean hasPermissionDismiss = false;
+        if (mRequestCode == requestCode){
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] == -1){
+                    hasPermissionDismiss = true;
+                    break;
+                }
+            }
+        }
+        if (hasPermissionDismiss){
+            Toast.makeText(this, "请手动开启权限", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "权限申请成功", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    /**
+     * 动态权限申请 end------------------------------------
+     */
 
 
 

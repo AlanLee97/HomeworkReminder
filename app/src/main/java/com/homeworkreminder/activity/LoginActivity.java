@@ -1,6 +1,7 @@
 package com.homeworkreminder.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
+import com.homeworkreminder.utils.UserUtil.CheckUserInfoUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //请求的url地址
     private String url = "http://www.nibuguai.cn/index.php/index/User/loginDoWith?";
+    private String loginState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +131,24 @@ public class LoginActivity extends AppCompatActivity {
                         //System.out.println("result:" + result);
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 
+                        CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(LoginActivity.this);
+                        checkUserInfoUtil.writeUserInfo("true","login");
+
+                        String login_username = etLoginUsername.getText().toString();
+                        checkUserInfoUtil.writeUserInfo(login_username,"username");
+
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+
+
                         //跳转到主界面
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+//                        Intent intent = getIntent();
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("loginState", "true");
+//                        intent.putExtras(bundle);
+//                        setResult(200, intent);
+
+                        finish();
 
                         //使用Gson解析json数据
                         //parseJsonByGson(result);
@@ -176,5 +194,26 @@ public class LoginActivity extends AppCompatActivity {
 
         //3、将数据显示到TextView中
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        /*
+        if (requestCode == 200 && resultCode == 200){
+            Bundle bundle = data.getExtras();
+            loginState = bundle.getString("loginState");
+
+            CheckUserInfoUtil userInfoUtil = new CheckUserInfoUtil(LoginActivity.this);
+            loginState = userInfoUtil.readUserInfo("login");
+            if (loginState.equals("true")){
+                Toast.makeText(this, "已登录", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(this, "未登录", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+         */
     }
 }

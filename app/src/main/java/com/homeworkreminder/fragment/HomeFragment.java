@@ -82,8 +82,6 @@ public class HomeFragment extends Fragment  {
         //addRecyclerView(myRecyclerView);
 
 
-
-
     }
 
 
@@ -217,16 +215,7 @@ public class HomeFragment extends Fragment  {
                         homeworkDataBeanList = homeworkData.getData();
                         addRecyclerView(myRecyclerView, homeworkDataBeanList);
 
-                        /*
-                        homeDataRecyclerViewAdapter = new HomeDataRecyclerViewAdapter(getActivity(), homeworkDataBeanList);
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        myRecyclerView.setLayoutManager(linearLayoutManager);
-                        myRecyclerView.setAdapter(homeDataRecyclerViewAdapter);
-
-                         */
-
-                        Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
                     }
                 },
                 //参数3：请求失败的监听事件
