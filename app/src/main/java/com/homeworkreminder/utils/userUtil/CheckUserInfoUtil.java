@@ -1,8 +1,7 @@
-package com.homeworkreminder.utils.UserUtil;
+package com.homeworkreminder.utils.userUtil;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

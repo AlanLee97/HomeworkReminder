@@ -47,8 +47,12 @@ import okhttp3.Response;
  */
 public class NewHomeworkActivity extends AppCompatActivity {
 
-    private EditText tvHomeworkTitle;   //标题
-    private EditText tvHomeworkContent; //内容
+    private EditText etHomeworkTitle;   //标题
+    private EditText etHomeworkContent; //内容
+    private EditText etHomeworkTag;
+
+
+
 
     private TextView tvChooseDate;      //选择日期
     private TextView tvChooseTime;      //选择时间
@@ -61,13 +65,18 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
     Handler handler;
 
-    String TAG = "volley";  //打印日志用的标签
+    String TAG = "NewHomeworkActivity";  //打印日志用的标签
 
     //保存请求url得到的结果
     String result = "空";
 
     //请求的url
     String url = "http://nibuguai.cn/index.php/index/homework/addHomeworkDoWith?";
+    private String title;
+    private String content;
+    private String remind_time;
+    private String remind_date;
+    private String tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,19 +111,18 @@ public class NewHomeworkActivity extends AppCompatActivity {
                 //useVolleyPOST(url);
 
                 /**
-                 * 拿view中的数据
+                 * 拿到view中的数据
                  **/
-                final String title = tvHomeworkTitle.getText().toString();
-                final String content = tvHomeworkContent.getText().toString();
-                final String remind_time = tvChooseTime.getText().toString();
-                final String remind_date = tvChooseDate.getText().toString();
+                getViewData();
 
 
                 url = url + "title=" + title
                         + "&content=" + content
                         + "&remind_date=" + remind_date
                         + "&remind_time=" + remind_time
-                        + "&tag=" + "tag";
+                        + "&tag=" + tag;
+
+                //将数据传到服务器
                 useVolleyGET(url);
 
                 /*
@@ -132,7 +140,6 @@ public class NewHomeworkActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
 
 
-                Toast.makeText(NewHomeworkActivity.this, "请求结果" + result, Toast.LENGTH_SHORT).show();
 
 
                 //跳转到首页
@@ -140,14 +147,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
             }
         });
 
-        /*handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
 
-                Toast.makeText(NewHomeworkActivity.this, "请求结果：" + result, Toast.LENGTH_SHORT).show();
-            }
-        };*/
 
         //useOkHttp3_POST_KV(url);
 
@@ -182,9 +182,10 @@ public class NewHomeworkActivity extends AppCompatActivity {
     private void initView() {
         tvChooseDate = (TextView) findViewById(R.id.tv_chooseDate);
         tvChooseTime = (TextView) findViewById(R.id.tv_chooseTime);
+        etHomeworkTag = (EditText) findViewById(R.id.et_homework_tag);
 
-        tvHomeworkTitle = (EditText) findViewById(R.id.tv_homework_title);
-        tvHomeworkContent = (EditText) findViewById(R.id.tv_homework_content);
+        etHomeworkTitle = (EditText) findViewById(R.id.et_homework_title);
+        etHomeworkContent = (EditText) findViewById(R.id.et_homework_content);
 
     }
 
@@ -264,8 +265,8 @@ public class NewHomeworkActivity extends AppCompatActivity {
         /**
          * 拿view中的数据
          **/
-        String title = tvHomeworkTitle.getText().toString();
-        String content = tvHomeworkContent.getText().toString();
+        String title = etHomeworkTitle.getText().toString();
+        String content = etHomeworkContent.getText().toString();
         String remind_time = tvChooseTime.getText().toString();
         String remind_date = tvChooseDate.getText().toString();
 
@@ -345,13 +346,10 @@ public class NewHomeworkActivity extends AppCompatActivity {
      * @param url url
      */
     private void useVolleyPOST(String url) {
-        /**
-         * 拿view中的数据
-         **/
-        final String title = tvHomeworkTitle.getText().toString();
-        final String content = tvHomeworkContent.getText().toString();
-        final String remind_time = tvChooseTime.getText().toString();
-        final String remind_date = tvChooseDate.getText().toString();
+        //获取view中的数据
+        getViewData();
+
+
 
         System.out.println("title:" + title);
         System.out.println("content:" + content);
@@ -429,6 +427,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
                         result = response;
                         //将请求的原始json数据放到EditText中
                         Toast.makeText(NewHomeworkActivity.this, "请求成功 result:" + result, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onResponse: 请求结果" + response);
                     }
                 },
                 //参数3：请求失败的监听事件
@@ -441,5 +440,18 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
         //3、将请求添加到队列
         requestQueue.add(stringRequest);
+    }
+
+    /**
+     * 拿view中的数据
+     **/
+    public void getViewData(){
+
+        title = etHomeworkTitle.getText().toString();
+        content = etHomeworkContent.getText().toString();
+        tag = etHomeworkTag.getText().toString();
+        remind_time = tvChooseTime.getText().toString();
+        remind_date = tvChooseDate.getText().toString();
+
     }
 }

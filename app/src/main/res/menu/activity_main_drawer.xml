@@ -27,6 +27,11 @@
             android:icon="@drawable/menu_register"
             android:title="@string/menu_login" />
 
+        <item
+            android:id="@+id/nav_test_bmob"
+            android:icon="@drawable/menu_register"
+            android:title="@string/menu_test" />
+
     </group>
 
     <item android:title="Communicate">

@@ -8,6 +8,7 @@
     tools:context="com.homeworkreminder.activity.RegisterActivity">
 
     <TextView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="注册帐号"
@@ -45,6 +46,20 @@
         android:textSize="25sp"
         android:padding="10dp"
         android:layout_margin="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+        <TextView
+            android:id="@+id/tv_to_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已注册？直接登录吧"
+            android:textColor="#03A9F4"
+            android:textSize="22sp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
 
 <!--    <TextView-->

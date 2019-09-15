@@ -14,28 +14,30 @@
         android:padding="15dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加作业"
-            android:textColor="@color/primary_dark"
-            android:textSize="30sp"
-            android:padding="10dp"/>
+
 
         <EditText
-            android:id="@+id/tv_homework_title"
+            android:id="@+id/et_homework_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="标题"/>
         <EditText
-            android:id="@+id/tv_homework_content"
+            android:id="@+id/et_homework_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="内容"
             android:inputType="textMultiLine"
             android:lines="10"
+            android:gravity="top"
+
 
             />
+
+        <EditText
+            android:id="@+id/et_homework_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="标签（选填）"/>
 
         <LinearLayout
             android:layout_width="match_parent"

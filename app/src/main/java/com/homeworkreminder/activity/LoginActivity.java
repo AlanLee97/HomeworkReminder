@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -18,7 +18,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
-import com.homeworkreminder.utils.UserUtil.CheckUserInfoUtil;
+import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     /**
@@ -134,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                         CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(LoginActivity.this);
                         checkUserInfoUtil.writeUserInfo("true","login");
 
+                        //将用户名存入SharedPreference文件
                         String login_username = etLoginUsername.getText().toString();
                         checkUserInfoUtil.writeUserInfo(login_username,"username");
 
@@ -200,20 +204,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        /*
-        if (requestCode == 200 && resultCode == 200){
-            Bundle bundle = data.getExtras();
-            loginState = bundle.getString("loginState");
 
-            CheckUserInfoUtil userInfoUtil = new CheckUserInfoUtil(LoginActivity.this);
-            loginState = userInfoUtil.readUserInfo("login");
-            if (loginState.equals("true")){
-                Toast.makeText(this, "已登录", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this, "未登录", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-         */
     }
 }

@@ -111,5 +111,6 @@
     <string name="menu_login">登录</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="title_activity_homework_detail">HomeworkDetailActivity</string>
+    <string name="menu_test">测试Bmob</string>
 
 </resources>

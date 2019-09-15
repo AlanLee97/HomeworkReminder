@@ -2,11 +2,13 @@ package com.homeworkreminder.utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -23,6 +25,7 @@ public class MyApplication extends Application {
     private static RequestQueue mQueue;
 
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,6 +33,8 @@ public class MyApplication extends Application {
         initImageLoader(getApplicationContext());
         //初始化Volley的队列对象
         mQueue = Volley.newRequestQueue(getApplicationContext());
+
+
     }
 
     public static void initImageLoader(Context context) {
@@ -76,5 +81,9 @@ public class MyApplication extends Application {
     public static void removeRequest(Object tag) {
         mQueue.cancelAll(tag);
     }
+
+
+
+
 
 }

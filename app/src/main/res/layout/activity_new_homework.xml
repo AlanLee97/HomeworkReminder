@@ -22,7 +22,7 @@
             app:contentScrim="@color/primary"
             android:background="@color/primary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="创建作业题"
+            app:title="创建作业题提醒"
             app:toolbarId="@+id/toolbar">
 
             <RelativeLayout

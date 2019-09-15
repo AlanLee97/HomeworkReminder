@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F8F8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.homeworkreminder.activity.UserActivity"
     tools:showIn="@layout/activity_user">
@@ -13,13 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="20dp"
-        android:padding="10dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#fff"
+
+            >
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -32,7 +36,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
+            android:background="#fff"
+            android:padding="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="帐号"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:id="@+id/tv_userinfo_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="username"
+                android:textColor="#D55F5F5F"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="#fff"
+            android:padding="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -41,23 +75,26 @@
                 android:layout_weight="1"
                 android:text="昵称"
                 android:textColor="#000"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textAlignment="center"
                 />
             <TextView
+                android:id="@+id/tv_userinfo_nickname"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Alan"
                 android:textColor="#D55F5F5F"
                 android:textAlignment="center"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="2dp"
+            android:padding="10dp"
+            android:background="#fff"
             android:orientation="horizontal">
 
             <TextView
@@ -66,23 +103,26 @@
                 android:layout_weight="1"
                 android:text="学校"
                 android:textColor="#000"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textAlignment="center"
                 />
             <TextView
+                android:id="@+id/tv_userinfo_school"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="中山大学新华学院"
                 android:textColor="#D55F5F5F"
                 android:textAlignment="center"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="2dp"
+            android:padding="10dp"
+            android:background="#fff"
             android:orientation="horizontal">
 
             <TextView
@@ -91,18 +131,58 @@
                 android:layout_weight="1"
                 android:text="专业"
                 android:textColor="#000"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textAlignment="center"
                 />
             <TextView
+                android:id="@+id/tv_userinfo_major"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="软件工程"
                 android:textColor="#D55F5F5F"
                 android:textAlignment="center"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:padding="10dp"
+            android:background="#fff"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="班级"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:id="@+id/tv_userinfo_class"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="A班"
+                android:textColor="#D55F5F5F"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:textSize="22sp"
+            android:textColor="#fff"
+            android:background="#F44336"
+            android:padding="10dp"
+            android:layout_margin="20dp"/>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

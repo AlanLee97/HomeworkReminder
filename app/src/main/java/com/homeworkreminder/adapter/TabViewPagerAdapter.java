@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class TabViewPagerAdapter extends PagerAdapter {
     private List<View> viewList;
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
+    public static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
     private Context mContext;
 
 

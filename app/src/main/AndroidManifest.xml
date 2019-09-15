@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.homeworkreminder">
 
     <application
@@ -11,11 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.EditUserInfoActivity"></activity>
+        <activity android:name=".activity.TestBmobActivity" />
         <activity
             android:name=".activity.HomeworkDetailActivity"
             android:label="@string/title_activity_homework_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.UserActivity"
             android:label="@string/title_activity_user"
@@ -36,21 +40,30 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- =================== 接收器receiver start ===================== -->
+        </activity>
+        <activity android:name=".activity.BaseActivity" /> <!-- =================== 接收器receiver start ===================== -->
         <!-- 闹钟接收器 -->
+        <provider
+            android:name="cn.bmob.v3.util.BmobContentProvider"
+            android:authorities="com.homeworkreminder.BmobContentProvider" /> <!-- =================== 接收器receiver end ===================== -->
+        <!-- =================== 服务service start ===================== -->
+        <!-- 音乐服务 -->
         <receiver
             android:name=".receiver.ClockReceiver"
             android:enabled="true"
-            android:exported="true" /> <!-- =================== 接收器receiver end ===================== -->
+            android:exported="true" /> <!-- =================== 服务service end ===================== -->
         <!-- =================== 服务service start ===================== -->
-        <!-- 音乐服务 -->
         <service android:name=".service.MusicService" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 允许联网 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>

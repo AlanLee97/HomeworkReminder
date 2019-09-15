@@ -1,5 +1,7 @@
 package com.homeworkreminder.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class HomeworkData {
@@ -37,6 +39,9 @@ public class HomeworkData {
         this.data = data;
     }
 
+
+
+
     public static class DataBean {
         /**
          * id : 1
@@ -44,9 +49,9 @@ public class HomeworkData {
          * title : JavaEE作业
          * content : 书本P29
          * tag : JavaEE
-         * uid : null
          * remind_date : 2019-09-10
          * remind_time : 21:00
+         * username : aaaaaa
          */
 
         private int id;
@@ -54,9 +59,9 @@ public class HomeworkData {
         private String title;
         private String content;
         private String tag;
-        private Object uid;
         private String remind_date;
         private String remind_time;
+        private String username;
 
         public int getId() {
             return id;
@@ -98,14 +103,6 @@ public class HomeworkData {
             this.tag = tag;
         }
 
-        public Object getUid() {
-            return uid;
-        }
-
-        public void setUid(Object uid) {
-            this.uid = uid;
-        }
-
         public String getRemind_date() {
             return remind_date;
         }
@@ -120,6 +117,14 @@ public class HomeworkData {
 
         public void setRemind_time(String remind_time) {
             this.remind_time = remind_time;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
         }
     }
 }

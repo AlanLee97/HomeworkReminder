@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.homeworkreminder.activity.EditUserInfoActivity">
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="昵称："
+                android:textColor="#000"
+                android:textSize="25sp"
+                android:textAlignment="center"
+                />
+            <EditText
+                android:id="@+id/et_edit_nickname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="昵称"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="学校："
+                android:textColor="#000"
+                android:textSize="25sp"
+                android:textAlignment="center"
+                />
+            <EditText
+                android:id="@+id/et_edit_school"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="昵称"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="专业："
+                android:textColor="#000"
+                android:textSize="25sp"
+                android:textAlignment="center"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="昵称"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/et_edit_major"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="班级："
+                android:textColor="#000"
+                android:textSize="25sp"
+                android:textAlignment="center"
+                />
+            <EditText
+                android:id="@+id/et_edit_class"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="昵称"
+                android:layout_weight="3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_edit_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改信息"
+        android:textColor="#fff"
+        android:background="@drawable/color_shape"
+        android:textSize="25sp"
+        android:layout_margin="20dp"
+        android:padding="10dp"/>
+
+
+</LinearLayout>

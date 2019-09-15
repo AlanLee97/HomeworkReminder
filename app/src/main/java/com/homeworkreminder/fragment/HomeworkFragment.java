@@ -8,9 +8,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 
 
 import com.homeworkreminder.R;
@@ -18,6 +21,7 @@ import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.TabViewPagerAdapter;
 import com.homeworkreminder.adapter.MyFragmentPagerAdapter;
 import com.homeworkreminder.entity.HomeData;
+import com.homeworkreminder.entity.HomeworkData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,23 +96,27 @@ public class HomeworkFragment extends Fragment {
          //*/
 
         initView(view);
-        //addViewPager(tabLayout);
+        addViewPager(tabLayout);
         addViewPagerFragment(tabLayout);
     }
 
+    /**
+     * 添加ViewPager
+     * @param tabLayout
+     */
     private void addViewPager(TabLayout tabLayout) {
         //获取布局填充器
         LayoutInflater layoutInflater = getLayoutInflater();
         viewList = new ArrayList<>();
 
-        View view1 = layoutInflater.inflate(R.layout.fragment_undo_homework, null, false);
-        View view2 = layoutInflater.inflate(R.layout.fragment_done_homework, null, false);
+        View fragment_undo_homework = layoutInflater.inflate(R.layout.fragment_undo_homework, null, false);
+        View fragment_done_homework = layoutInflater.inflate(R.layout.fragment_done_homework, null, false);
 
         //获取布局填充器
         //LayoutInflater layoutInflater = getLayoutInflater();
         //将视图添加到集合中
-        viewList.add(view1);
-        viewList.add(view2);
+        viewList.add(fragment_undo_homework);
+        viewList.add(fragment_done_homework);
 
         //初始化适配器，将视图添加到适配器中
         tabViewPagerAdapter = new TabViewPagerAdapter(viewList, getContext());
@@ -119,9 +127,13 @@ public class HomeworkFragment extends Fragment {
         tabLayout.setupWithViewPager(myViewPager);
     }
 
+    /**
+     * 在添加ViewPager中添加Fragment
+     * @param tabLayout
+     */
     public void addViewPagerFragment(TabLayout tabLayout) {
 
-        addViewPager(tabLayout);
+        //addViewPager(tabLayout);
 
         fragmentList = new ArrayList<>();
         fragmentList.add(new UndoHomeworkFragment());
@@ -132,6 +144,12 @@ public class HomeworkFragment extends Fragment {
         myViewPager.setAdapter(myFragmentPagerAdapter);
 
         tabLayout.setupWithViewPager(myViewPager);
+
+        //解决tab标签文字不显示的问题
+        int[] tabTexts = TabViewPagerAdapter.TAB_TITLES;
+        for(int i = 0 ; i < tabTexts.length; i++){
+            tabLayout.getTabAt(i).setText(tabTexts[i]);
+        }
 
 
         //初始化第一个页面
@@ -146,4 +164,8 @@ public class HomeworkFragment extends Fragment {
         //myRecyclerView = view.findViewById(R.id.homework_recyclerView);
         tabLayout = view.findViewById(R.id.tabs);
     }
+
+
+
+
 }

@@ -28,19 +28,10 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
     private List<HomeworkData.DataBean> homeworkDataBeanList = new ArrayList<>();
     private LayoutInflater layoutInflater;
 
-
-    /*
-    public HomeDataRecyclerViewAdapter(Context context, List<HomeData> homeDataList) {
-        this.context = context;
-        this.homeDataList = homeDataList;
-    }
-
-     //*/
-
     //*
-    public UndoDataRecyclerViewAdapter(Context context, List<HomeData> homeDataList) {
+    public UndoDataRecyclerViewAdapter(Context context, List<HomeworkData.DataBean> homeworkDataBeanList) {
         this.context = context;
-        this.homeDataList = homeDataList;
+        this.homeworkDataBeanList = homeworkDataBeanList;
     }
 
      //*/
@@ -64,28 +55,12 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
     //填充onCreateViewHolder返回的控件
-        //获取数据
-        //*
-        HomeData homeData = homeDataList.get(position);
-        myViewHolder.cardTouxiang.setImageResource(homeData.getImg());
-        myViewHolder.cardNickname.setText(homeData.getNickname());
-        myViewHolder.cardDate.setText(homeData.getDate());
-        myViewHolder.cardTitle.setText(homeData.getTitle());
-        myViewHolder.cardContent.setText(homeData.getContent());
-        myViewHolder.cardTag.setText(homeData.getTag());
-//*/
-        /*
-        HomeworkData homeworkData = homeworkDataList.get(position);
-        myViewHolder.cardTitle.setText(homeworkData.getData().get(position).getTitle());
-        myViewHolder.cardContent.setText(homeworkData.getData().get(position).getContent());
-        myViewHolder.cardTag.setText(homeworkData.getData().get(position).getTag());
-        myViewHolder.cardDate.setText(homeworkData.getData().get(position).getDate());
-
-
-         */
 
         //更新数据到RecyclerView
         //myViewHolder.updateData();
+
+        //更新数据到RecyclerView
+        myViewHolder.updateData();
 
 
         //设置监听器的点击事件
@@ -101,7 +76,7 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
 
     @Override
     public int getItemCount() {
-        return homeDataList.size();
+        return homeworkDataBeanList.size();
     }
 
 
@@ -145,11 +120,5 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
             cardTag.setText(dataBean.getTag());
         }
     }
-
-
-
-
-
-
 
 }

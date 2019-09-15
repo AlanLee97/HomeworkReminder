@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.homeworkreminder.activity.TestBmobActivity">
+
+    <Button
+        android:id="@+id/addData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加数据"
+        android:textColor="#000"
+        android:textSize="25sp"
+        />
+
+    <Button
+        android:id="@+id/queryData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查询数据"
+        android:textColor="#000"
+        android:textSize="25sp"
+        />
+
+    <Button
+        android:id="@+id/modifyData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改数据"
+        android:textColor="#000"
+        android:textSize="25sp"
+        />
+
+    <Button
+        android:id="@+id/deleteData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除数据"
+        android:textColor="#000"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:id="@+id/resultData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3B2196F3"
+        android:textColor="#000"
+        android:layout_margin="5dp"
+        android:text="结果"
+        android:padding="20dp"/>
+
+</LinearLayout>

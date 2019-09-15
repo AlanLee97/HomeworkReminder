@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -30,12 +29,13 @@ import com.homeworkreminder.R;
 import com.homeworkreminder.fragment.HomeFragment;
 import com.homeworkreminder.fragment.SettingFragment;
 import com.homeworkreminder.fragment.HomeworkFragment;
-import com.homeworkreminder.utils.UserUtil.CheckUserInfoUtil;
+import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager fragmentManager;            //Fragment管理器
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
     private Fragment mFragment = new HomeFragment();
 
     //导航栏选项名称数组
-    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录"};
+    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录", "测试Bmob"};
 
     //Fragment数组
     Fragment[] fragments = {
@@ -55,9 +55,13 @@ public class MainActivity extends AppCompatActivity
             new SettingFragment()
     };
 
+    private MyApplication app = (MyApplication) getApplication();
+
     //保存登录状态
     private String loginState;
+    //保存注册状态
     private String registerState;
+    //检查用户信息工具类
     private CheckUserInfoUtil userInfoUtil;
 
     @Override
@@ -110,6 +114,9 @@ public class MainActivity extends AppCompatActivity
         getLeftImgAndUsername(navigationView);
 
 
+//        String TAG = "user_state";
+//        Log.d(TAG, "MainActivity>registerState: " + MyApplication.registerState);
+//        Log.d(TAG, "MainActivity>loginState: " + MyApplication.loginState);
 
     }
 
@@ -172,10 +179,12 @@ public class MainActivity extends AppCompatActivity
     public void toWhatActivity(){
         if (registerState.equals("false") && loginState.equals("false")){ //未注册，跳转到注册界面
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-            startActivityForResult(intent, 200);
-        }else if (loginState.equals("false")){//未登录，跳转到登录界面
+            startActivity(intent);
+
+        }else if (loginState.equals("false") && registerState.equals("true")){//未登录，跳转到登录界面
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivityForResult(intent, 200);
+            startActivity(intent);
+
         }else {//已注册，已登录，跳转到个人中心
             Intent intent = new Intent(MainActivity.this, UserActivity.class);
             startActivity(intent);
@@ -263,6 +272,11 @@ public class MainActivity extends AppCompatActivity
 
         if (title.equals("登录")) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+
+        if (title.equals("测试Bmob")) {
+            Intent intent = new Intent(MainActivity.this, TestBmobActivity.class);
             startActivity(intent);
         }
 

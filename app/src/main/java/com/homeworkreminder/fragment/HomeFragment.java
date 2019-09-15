@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +39,10 @@ public class HomeFragment extends Fragment  {
 
     private HomeDataRecyclerViewAdapter homeDataRecyclerViewAdapter;
     private RecyclerView myRecyclerView;
+    private SwipeRefreshLayout homeSwipeRefreshLayout;
+
+
+
     //private int headImg;
     private String nickname;
     private String date;
@@ -48,6 +53,8 @@ public class HomeFragment extends Fragment  {
     private String user;
     private List<HomeworkData.DataBean> homeworkDataBeanList;
     private HomeworkData homeworkData;
+    //请求的url
+    private String url;
 
     /**
      * 这里要填充布局文件
@@ -70,16 +77,20 @@ public class HomeFragment extends Fragment  {
 
 
         initView(view);
-        initData();
 
-
-
-
-        String url = "http://nibuguai.cn/index.php/index/homework/getHomework";
+        url = "http://nibuguai.cn/index.php/index/homework/queryHomeworkDoWith";
 
         useVolleyGET(url);
 
         //addRecyclerView(myRecyclerView);
+
+        //下拉刷新的监听事件
+        homeSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                useVolleyGET(url);
+            }
+        });
 
 
     }
@@ -92,22 +103,10 @@ public class HomeFragment extends Fragment  {
      */
     private void initView(View view) {
         myRecyclerView = view.findViewById(R.id.recyclerView);
-
-
+        homeSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_SwipeRefreshLayout);
     }
 
 
-
-    List<HomeData> homeDataList = new ArrayList<>();
-    List<HomeworkData> homeworkDataList = new ArrayList<>();
-    List<HomeworkData.DataBean> HomeworkDataBeanList = new ArrayList<>();
-
-    /**
-     * 初始化数据
-     */
-    private void initData() {
-
-    }
 
     /**
      * 添加RecyclerView
@@ -135,7 +134,7 @@ public class HomeFragment extends Fragment  {
 
                 //通过Bundle向Activity传递数据
                 //headImg = homeDataList.get(position).getImg();
-                //nickname = HomeworkDataBeanList.get(position).getNickname();
+                nickname = homeworkDataBeanList.get(position).getUsername();
                 //*
                 date = homeworkDataBeanList.get(position).getDate();
                 title = homeworkDataBeanList.get(position).getTitle();
@@ -177,7 +176,7 @@ public class HomeFragment extends Fragment  {
      */
     public void convertDataToActivity(Bundle bundle){
         //bundle.putInt("headImg",headImg);
-        //bundle.putCharSequence("nickname", nickname);
+        bundle.putCharSequence("nickname", nickname);
         bundle.putCharSequence("title", title);
         bundle.putCharSequence("content", content);
         bundle.putCharSequence("tag", tag);
@@ -212,8 +211,13 @@ public class HomeFragment extends Fragment  {
                         parseJsonByGson(result);
 
 
+                        //请求成功后addRecyclerView显示数据
                         homeworkDataBeanList = homeworkData.getData();
                         addRecyclerView(myRecyclerView, homeworkDataBeanList);
+
+                        //停止刷新
+                        homeSwipeRefreshLayout.setRefreshing(false);
+
 
                         //Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
                     }

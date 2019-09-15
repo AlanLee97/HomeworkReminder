@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.homeworkreminder.R;
-import com.homeworkreminder.utils.UserUtil.CheckUserInfoUtil;
+import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etRegUsername;
     private EditText etRegPassword;
+    private TextView tvToLogin;
     private Button btnRegister;
     //private TextView regReturnResult;
     private String result;  //保存请求的结果
@@ -46,6 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
         //注册方法
         register();
 
+        //去登录
+        toLogin();
+
+
+
     }
 
     /**
@@ -65,6 +73,15 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    public void toLogin(){
+        tvToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
+    }
+
     /**
      * 初始化View
      */
@@ -73,6 +90,11 @@ public class RegisterActivity extends AppCompatActivity {
         etRegPassword = (EditText) findViewById(R.id.et_reg_password);
         btnRegister = (Button) findViewById(R.id.btn_register);
         //regReturnResult = (TextView) findViewById(R.id.reg_return_result);
+
+
+
+        tvToLogin = (TextView) findViewById(R.id.tv_to_login);
+
     }
 
     /**
@@ -99,12 +121,19 @@ public class RegisterActivity extends AppCompatActivity {
                         //System.out.println("result:" + result);
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
 
+                        CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(RegisterActivity.this);
+                        checkUserInfoUtil.writeUserInfo("true", "register");
+
+
                         //跳转到登录界面
+                        /*
                         Intent intent = getIntent();
                         Bundle bundle = new Bundle();
                         bundle.putString("registerState", "true");
                         intent.putExtras(bundle);
                         setResult(200, intent);
+
+                         */
 
                         finish();
 
@@ -144,6 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        /*
         if (requestCode == 200 && resultCode == 200){
             Bundle bundle = data.getExtras();
             registerState = bundle.getString("loginState");
@@ -156,5 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "未登录", Toast.LENGTH_SHORT).show();
             }
         }
+
+         */
     }
 }

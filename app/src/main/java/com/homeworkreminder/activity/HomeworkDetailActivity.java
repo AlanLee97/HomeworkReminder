@@ -1,7 +1,6 @@
 package com.homeworkreminder.activity;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,7 +44,7 @@ public class HomeworkDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         //ivDetailHead.setImageResource(headImg);
-        //tvDetailNickname.setText(bundle.getCharSequence("nickname"));
+        tvDetailNickname.setText(bundle.getCharSequence("nickname"));
         tvDetailDate.setText(bundle.getCharSequence("date"));
         tvDetailTitle.setText(bundle.getCharSequence("title"));
         tvDetailContent.setText(bundle.getCharSequence("content"));
