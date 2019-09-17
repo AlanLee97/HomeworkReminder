@@ -61,7 +61,7 @@ public class HomeDataRecyclerViewAdapter extends RecyclerView.Adapter<HomeDataRe
 
         //更新数据到RecyclerView
         myViewHolder.updateData();
-
+        
 
         //设置监听器的点击事件
         if (myRecyclerViewOnItemClickListener != null){

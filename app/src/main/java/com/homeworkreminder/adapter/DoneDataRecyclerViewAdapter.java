@@ -15,6 +15,7 @@ import com.homeworkreminder.R;
 import com.homeworkreminder.entity.HomeData;
 import com.homeworkreminder.entity.HomeworkData;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener;
+import com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,28 +30,28 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
     private LayoutInflater layoutInflater;
 
 
-    /*
-    public HomeDataRecyclerViewAdapter(Context context, List<HomeData> homeDataList) {
-        this.context = context;
-        this.homeDataList = homeDataList;
-    }
-
-     //*/
 
     //*
-    public DoneDataRecyclerViewAdapter(Context context, List<HomeData> homeDataList) {
+    public DoneDataRecyclerViewAdapter(Context context, List<HomeworkData.DataBean> homeworkDataBeanList) {
         this.context = context;
-        this.homeDataList = homeDataList;
+        this.homeworkDataBeanList = homeworkDataBeanList;
     }
 
      //*/
 
-    //定义监听器
+    //定义单击事件事件监听器
     private MyRecyclerViewOnItemClickListener myRecyclerViewOnItemClickListener;
-
     public void setMyRecyclerViewOnItemClickListener(MyRecyclerViewOnItemClickListener myRecyclerViewOnItemClickListener) {
         this.myRecyclerViewOnItemClickListener = myRecyclerViewOnItemClickListener;
     }
+
+    //定义长按事件监听器
+    private MyRecyclerViewOnItemLongPressListener myRecyclerViewOnItemLongPressListener;
+    public void setMyRecyclerViewOnItemLongPressListener(MyRecyclerViewOnItemLongPressListener myRecyclerViewOnItemLongPressListener) {
+        this.myRecyclerViewOnItemLongPressListener = myRecyclerViewOnItemLongPressListener;
+    }
+
+
 
     @NonNull
     @Override
@@ -65,7 +66,7 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
     //填充onCreateViewHolder返回的控件
         //获取数据
-        //*
+        /*
         HomeData homeData = homeDataList.get(position);
         myViewHolder.cardTouxiang.setImageResource(homeData.getImg());
         myViewHolder.cardNickname.setText(homeData.getNickname());
@@ -73,19 +74,12 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
         myViewHolder.cardTitle.setText(homeData.getTitle());
         myViewHolder.cardContent.setText(homeData.getContent());
         myViewHolder.cardTag.setText(homeData.getTag());
-//*/
-        /*
-        HomeworkData homeworkData = homeworkDataList.get(position);
-        myViewHolder.cardTitle.setText(homeworkData.getData().get(position).getTitle());
-        myViewHolder.cardContent.setText(homeworkData.getData().get(position).getContent());
-        myViewHolder.cardTag.setText(homeworkData.getData().get(position).getTag());
-        myViewHolder.cardDate.setText(homeworkData.getData().get(position).getDate());
-
 
          */
 
+
         //更新数据到RecyclerView
-        //myViewHolder.updateData();
+        myViewHolder.updateData();
 
 
         //设置监听器的点击事件
@@ -97,12 +91,46 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
                 }
             });
         }
+
+        //设置监听器的长按事件
+        if (myRecyclerViewOnItemLongPressListener != null){
+            myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (myRecyclerViewOnItemLongPressListener != null){
+                        myRecyclerViewOnItemLongPressListener.onItemLongPressListener(v, position);
+                    }
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return homeDataList.size();
+        return homeworkDataBeanList.size();
     }
+
+    /**
+     * 添加item
+     * @param position
+     */
+    public void addData(int position, HomeData data){
+        homeDataList.add(data);
+        notifyItemChanged(position);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 删除item项
+     * @param position
+     */
+    public void removeData(int position){
+        homeworkDataBeanList.remove(position);
+        notifyItemChanged(position);
+        notifyDataSetChanged();
+    }
+
 
 
     /**
@@ -144,6 +172,10 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
             cardContent.setText(dataBean.getContent());
             cardTag.setText(dataBean.getTag());
         }
+
+
+
+
     }
 
 

@@ -8,6 +8,8 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.homeworkreminder.entity.UserInfo;
+import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,7 +26,17 @@ public class MyApplication extends Application {
     //Volley网络请求的队列对象
     private static RequestQueue mQueue;
 
+    private CheckUserInfoUtil userInfoUtil;
 
+    private UserInfo userInfo;
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 
     @Override
     public void onCreate() {
@@ -33,6 +45,8 @@ public class MyApplication extends Application {
         initImageLoader(getApplicationContext());
         //初始化Volley的队列对象
         mQueue = Volley.newRequestQueue(getApplicationContext());
+
+        getUserInfoFromSharedPreference();
 
 
     }
@@ -83,6 +97,19 @@ public class MyApplication extends Application {
     }
 
 
+    private String TAG = "MyApplication";
+    public void getUserInfoFromSharedPreference(){
+        userInfoUtil = new CheckUserInfoUtil(getApplicationContext());
+        String userinfo = userInfoUtil.readUserInfo("userinfo");
+        Log.d(TAG, "getUserInfoFromSharedPreference: " + userinfo);
+
+        VolleyUtil volleyUtil = new VolleyUtil(getApplicationContext());
+        if (!userinfo.equals("false")){
+            UserInfo userInfo1 = volleyUtil.parseJsonByGson(userinfo, UserInfo.class);
+            Log.d(TAG, "getUserInfoFromSharedPreference: userInfo1:" + userInfo1);
+            setUserInfo(userInfo1);
+        }
+    }
 
 
 

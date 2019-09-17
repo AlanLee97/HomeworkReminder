@@ -18,10 +18,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
+import com.homeworkreminder.entity.UserInfo;
 import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,9 +35,19 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     //private TextView loginReturnResult;
 
+    CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(LoginActivity.this);
+
+
     //请求的url地址
-    private String url = "http://www.nibuguai.cn/index.php/index/User/loginDoWith?";
+    private String url = "http://www.nibuguai.cn/index.php/index/User/api_loginDoWith?";
     private String loginState;
+
+    private int id;
+    private String mUsername;
+    private String nickname;
+    private String school;
+    private String major;
+    private String clazz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,20 +140,46 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         result = response;
-                        //将请求的原始json数据放到EditText中
-                        //loginReturnResult.setText(result);
 
-                        //System.out.println("result:" + result);
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 
-                        CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(LoginActivity.this);
+                        System.out.println(response);
+
+                        checkUserInfoUtil.writeUserInfo(response, "userinfo");
+
+
+
+                        UserInfo userInfo = parseJsonByGson(response);
+
+                        MyApplication app = new MyApplication();
+                        app = (MyApplication) getApplication();
+                        app.setUserInfo(userInfo);
+                        UserInfo userInfo1 = app.getUserInfo();
+                        System.out.println("MyApplication->userinfo1:" + userInfo1);
+
+
+                        UserInfo.DataBean dataBean = userInfo1.getData().get(0);
+                        id = dataBean.getId();
+//                        mUsername = dataBean.getUsername();
+//                        nickname = dataBean.getNickname();
+//                        school = dataBean.getSchool();
+//                        clazz = dataBean.getClassX();
+//                        major = dataBean.getMajor();
+
+                        //将登陆状态写入SharedPreference文件
                         checkUserInfoUtil.writeUserInfo("true","login");
 
                         //将用户名存入SharedPreference文件
                         String login_username = etLoginUsername.getText().toString();
                         checkUserInfoUtil.writeUserInfo(login_username,"username");
 
+                        checkUserInfoUtil.writeUserInfo("" + id, "uid");
+
+
+
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                        finish();
 
 
 
@@ -188,16 +226,17 @@ public class LoginActivity extends AppCompatActivity {
      * 使用Gson解析json数据，这个比较简单，以下是使用步骤(3步，其实前2步就算拿到数据了)
      * @param json 要解析的json
      */
-    public void parseJsonByGson(String json){
+    public UserInfo parseJsonByGson(String json){
         //1、创建Gson对象
         Gson gson = new Gson();
         //2、调用Gson的fromJson()方法，将json转成javaBean，将要显示的数据封装到这个javaBean
         //fromJson(参数1，参数2)方法 参数1：需要解析的json 参数2：一个javaBean，接收需要封装的数据（总数据的javaBean）
 
-        //Weather weather = gson.fromJson(result, Weather.class);
+        UserInfo userInfo = gson.fromJson(json, UserInfo.class);
 
-        //3、将数据显示到TextView中
+        Log.d("userInfo", "parseJsonByGson: userinfo : " + userInfo);
 
+        return userInfo;
     }
 
     @Override

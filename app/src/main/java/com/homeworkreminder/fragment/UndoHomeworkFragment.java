@@ -1,11 +1,13 @@
 package com.homeworkreminder.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,8 +30,12 @@ import com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter;
 import com.homeworkreminder.entity.HomeData;
 import com.homeworkreminder.entity.HomeworkData;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener;
+import com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener;
+import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,8 +55,10 @@ public class UndoHomeworkFragment extends Fragment {
     private String content;
     private String tag;
 
+    private MyApplication app;
+
     //请求的url
-    private String url = "http://nibuguai.cn/index.php/index/homework/queryHomeworkByUidDoWith?t_user_id=";
+    private String url = "http://nibuguai.cn/index.php/index/homework/api_queryHomeworkByUidDoWith?t_user_id=";
 
 
     @Nullable
@@ -76,8 +84,10 @@ public class UndoHomeworkFragment extends Fragment {
 
         //initData();
 
+        int uid = getUid();
+
         //拼接url
-        url = url + "5";
+        url = url + uid;
 
         //addRecyclerView();
         useVolleyGET(url);
@@ -92,6 +102,13 @@ public class UndoHomeworkFragment extends Fragment {
             }
         });
 
+    }
+
+    private int getUid() {
+        app = new MyApplication();
+        app = (MyApplication) getActivity().getApplication();
+
+        return app.getUserInfo().getData().get(0).getId();
     }
 
 
@@ -136,8 +153,43 @@ public class UndoHomeworkFragment extends Fragment {
 
                 intent.putExtras(bundle);
                 startActivity(intent);
+                //getActivity().finish();
 
                 //*/
+
+            }
+        });
+
+
+        //设置长按事件监听器
+        undoDataRecyclerViewAdapter.setMyRecyclerViewOnItemLongPressListener(new MyRecyclerViewOnItemLongPressListener() {
+            @Override
+            public void onItemLongPressListener(View view, final int position) {
+                //Toast.makeText(getContext(), homeDataList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                final String[] items = {"添加到已完成列表","删除"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setIcon(R.mipmap.ic_launcher_round);
+                builder.setTitle("选择操作");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), items[which], Toast.LENGTH_SHORT).show();
+
+                        //添加item：添加到已完成列表
+//                        if (items[which].equals("添加到已完成列表")){
+//                            undoDataRecyclerViewAdapter.addData(position, homeworkDataBeanList.get(position));
+//                        }
+
+
+                        //删除item
+                        if (items[which].equals("删除")){
+                            undoDataRecyclerViewAdapter.removeData(position);
+                        }
+
+
+                    }
+                });
+                builder.create().show();
             }
         });
     }
@@ -187,6 +239,15 @@ public class UndoHomeworkFragment extends Fragment {
 
                         //请求成功后addRecyclerView显示数据
                         homeworkDataBeanList = homeworkData.getData();
+                        Collections.reverse(homeworkDataBeanList);
+
+                        for (int i = 0; i < homeworkDataBeanList.size(); i++) {
+                            System.out.println("数据" + i + ": " + homeworkDataBeanList.get(i).getTitle());
+                        }
+
+
+                        //Collections.reverse(homeworkDataBeanList);
+                        
                         addRecyclerView(myRecyclerView, homeworkDataBeanList);
 
                         //停止刷新

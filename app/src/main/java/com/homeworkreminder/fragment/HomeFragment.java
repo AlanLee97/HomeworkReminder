@@ -29,6 +29,7 @@ import com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener;
 import com.homeworkreminder.entity.HomeData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -78,7 +79,7 @@ public class HomeFragment extends Fragment  {
 
         initView(view);
 
-        url = "http://nibuguai.cn/index.php/index/homework/queryHomeworkDoWith";
+        url = "http://nibuguai.cn/index.php/index/homework/api_queryHomeworkDoWith";
 
         useVolleyGET(url);
 
@@ -213,6 +214,13 @@ public class HomeFragment extends Fragment  {
 
                         //请求成功后addRecyclerView显示数据
                         homeworkDataBeanList = homeworkData.getData();
+
+                        Collections.reverse(homeworkDataBeanList);
+
+                        for (int i = 0; i < homeworkDataBeanList.size(); i++) {
+                            System.out.println("数据" + i + ": " + homeworkDataBeanList.get(i).getTitle());
+                        }
+
                         addRecyclerView(myRecyclerView, homeworkDataBeanList);
 
                         //停止刷新

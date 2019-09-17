@@ -15,6 +15,7 @@ import com.homeworkreminder.R;
 import com.homeworkreminder.entity.HomeData;
 import com.homeworkreminder.entity.HomeworkData;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener;
+import com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,20 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
 
      //*/
 
-    //定义监听器
+    //定义单击事件监听器
     private MyRecyclerViewOnItemClickListener myRecyclerViewOnItemClickListener;
-
     public void setMyRecyclerViewOnItemClickListener(MyRecyclerViewOnItemClickListener myRecyclerViewOnItemClickListener) {
         this.myRecyclerViewOnItemClickListener = myRecyclerViewOnItemClickListener;
     }
+
+
+    //定义长按事件事件监听器
+    private MyRecyclerViewOnItemLongPressListener myRecyclerViewOnItemLongPressListener;
+
+    public void setMyRecyclerViewOnItemLongPressListener(MyRecyclerViewOnItemLongPressListener myRecyclerViewOnItemLongPressListener) {
+        this.myRecyclerViewOnItemLongPressListener = myRecyclerViewOnItemLongPressListener;
+    }
+
 
     @NonNull
     @Override
@@ -57,9 +66,6 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
     //填充onCreateViewHolder返回的控件
 
         //更新数据到RecyclerView
-        //myViewHolder.updateData();
-
-        //更新数据到RecyclerView
         myViewHolder.updateData();
 
 
@@ -72,12 +78,58 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
                 }
             });
         }
+
+
+        //设置监听器的长按事件
+        if (myRecyclerViewOnItemLongPressListener != null){
+            myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (myRecyclerViewOnItemLongPressListener != null){
+                        myRecyclerViewOnItemLongPressListener.onItemLongPressListener(v, position);
+                    }
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return homeworkDataBeanList.size();
+        if (homeworkDataBeanList != null){
+            return homeworkDataBeanList.size();
+        }else {
+            return 0;
+        }
     }
+
+
+
+
+
+    /**
+     * 添加item
+     * @param position
+     */
+    public void addData(int position, HomeworkData.DataBean data){
+        homeworkDataBeanList.add(data);
+        notifyItemChanged(position);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 删除item项
+     * @param position
+     */
+    public void removeData(int position){
+        homeDataList.remove(position);
+        notifyItemChanged(position);
+        notifyDataSetChanged();
+    }
+
+
+
+
 
 
     /**

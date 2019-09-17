@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.homeworkreminder.R;
+import com.homeworkreminder.entity.UserInfo;
 import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
@@ -34,9 +36,7 @@ public class UserActivity extends AppCompatActivity {
 
         initView();
 
-        app = (MyApplication) getApplication();
-
-
+        showData();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,6 +56,21 @@ public class UserActivity extends AppCompatActivity {
         logout();
     }
 
+    private void showData() {
+        app = (MyApplication) getApplication();
+        UserInfo userInfo = app.getUserInfo();
+        System.out.println("==============UserActivity->app.getUserInfo():" + userInfo);
+        if (userInfo != null){
+            UserInfo.DataBean dataBean = userInfo.getData().get(0);
+            tvUserinfoUsername.setText(dataBean.getUsername());
+            tvUserinfoNickname.setText(dataBean.getNickname());
+            tvUserinfoSchool.setText(dataBean.getSchool());
+            tvUserinfoMajor.setText(dataBean.getMajor());
+            tvUserinfoClass.setText(dataBean.getClassX());
+        }else {
+            Toast.makeText(this, "没有获取到用户信息", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
     private String TAG = "user_state";
@@ -69,6 +84,8 @@ public class UserActivity extends AppCompatActivity {
                 userInfoUtil.writeUserInfo("false", "register");
                 userInfoUtil.writeUserInfo("false", "login");
                 startActivity(new Intent(UserActivity.this, MainActivity.class));
+
+                finish();
             }
         });
     }

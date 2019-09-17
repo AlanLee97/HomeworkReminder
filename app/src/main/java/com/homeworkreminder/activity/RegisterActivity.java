@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     //private TextView regReturnResult;
     private String result;  //保存请求的结果
     //请求的url地址
-    private String url = "http://www.nibuguai.cn/index.php/index/user/registerdowith?";
+    private String url = "http://www.nibuguai.cn/index.php/index/user/api_registerdowith?";
 
 
 
@@ -78,6 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+
+                finish();
             }
         });
     }

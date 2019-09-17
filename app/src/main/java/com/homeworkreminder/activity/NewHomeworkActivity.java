@@ -28,6 +28,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.homeworkreminder.R;
 import com.homeworkreminder.receiver.ClockReceiver;
+import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.TimeUtil;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -46,6 +48,7 @@ import okhttp3.Response;
  * 创建作业提醒类
  */
 public class NewHomeworkActivity extends AppCompatActivity {
+    MyApplication app = new MyApplication();
 
     private EditText etHomeworkTitle;   //标题
     private EditText etHomeworkContent; //内容
@@ -61,6 +64,13 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
     private long triggerTimeMillis;     //触发闹钟时间
 
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mHour;
+    private int mMin;
+    private int mSec;
+
 
 
     Handler handler;
@@ -71,12 +81,13 @@ public class NewHomeworkActivity extends AppCompatActivity {
     String result = "空";
 
     //请求的url
-    String url = "http://nibuguai.cn/index.php/index/homework/addHomeworkDoWith?";
+    String url = "http://nibuguai.cn/index.php/index/homework/api_addHomeworkDoWith?";
     private String title;
     private String content;
     private String remind_time;
     private String remind_date;
     private String tag;
+    private int uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +99,8 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        calendar = Calendar.getInstance();
 
         //选择日期
         chooseDate();
@@ -115,26 +128,18 @@ public class NewHomeworkActivity extends AppCompatActivity {
                  **/
                 getViewData();
 
-
+                uid = getUid();
                 url = url + "title=" + title
                         + "&content=" + content
                         + "&remind_date=" + remind_date
                         + "&remind_time=" + remind_time
-                        + "&tag=" + tag;
+                        + "&tag=" + tag
+                        + "&uid=" + uid;
 
                 //将数据传到服务器
-                useVolleyGET(url);
-
-                /*
-                handler = new Handler(){
-
-                    @Override
-                    public void handleMessage(Message msg) {
-                        super.handleMessage(msg);
+                //useVolleyGET(url);
 
 
-                    }
-                };*/
 
                 Snackbar.make(view, "创建成功", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -143,7 +148,9 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
 
                 //跳转到首页
-                startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
+                //startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
+
+                //finish();
             }
         });
 
@@ -153,12 +160,22 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
     }
 
+    private int getUid() {
+        app = (MyApplication) getApplication();
+        return app.getUserInfo().getData().get(0).getId();
+    }
+
     /**
      * 开启闹钟
      */
     private void startAlarm() {
-        //获取设定的时间
-        triggerTimeMillis = calendar.getTimeInMillis();
+        long tmpTime = TimeUtil.transformateFromDateToMilis(mYear, mMonth, mDay, mHour, mMin);
+        triggerTimeMillis = tmpTime - calendar.getTimeInMillis();
+
+        Log.d("setTime", "tmpTime:" + tmpTime);
+        Log.d("setTime", "currentTime:" + calendar.getTimeInMillis());
+
+        Log.d("setTime", "triggerTimeMillis:" + triggerTimeMillis);
 
         Intent intent = new Intent(NewHomeworkActivity.this, ClockReceiver.class);
         //intent.putExtra("newReminder", "newReminder的值");
@@ -173,8 +190,11 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
         //设定闹钟
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + triggerTimeMillis, pendingIntent);
+
+        Log.d("setTime", "triggerAtMillis: " + (calendar.getTimeInMillis() + triggerTimeMillis));
     }
+
 
     /**
      * 初始化视图
@@ -197,7 +217,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
         tvChooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendar = Calendar.getInstance();
+                //calendar = Calendar.getInstance();
 
                 TimePickerDialog timePickerDialog = new TimePickerDialog(
                         NewHomeworkActivity.this,
@@ -206,6 +226,14 @@ public class NewHomeworkActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 String pickedTime = "时间：" + hourOfDay + ":" + minute;
                                 tvChooseTime.setText(pickedTime);
+
+                                mHour = hourOfDay;
+                                mMin = minute;
+
+                                Log.d("setTime", "mHour: " + mHour);
+                                Log.d("setTime", "mMin: " + mMin);
+
+
                                 Toast.makeText(NewHomeworkActivity.this, "选择的时间" + pickedTime, Toast.LENGTH_SHORT).show();
                             }
                         },
@@ -226,7 +254,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
         tvChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendar = Calendar.getInstance();
+                //calendar = Calendar.getInstance();
 
                 //使用DatePickerDialog的构造方法创建DatePickerDialog日期选择器
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -235,7 +263,16 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                month = month + 1;
+
+
+                                mYear = year;
+                                mMonth = month;
+                                mDay = dayOfMonth;
+
+                                Log.d("setTime", "mYear: " + mYear);
+                                Log.d("setTime", "mMonth: " + mMonth);
+                                Log.d("setTime", "mDay: " + mDay);
+
                                 String pickedDate = "" + year + "年" + month + "月" + dayOfMonth + "日";
                                 tvChooseDate.setText(pickedDate);
                                 Toast.makeText(NewHomeworkActivity.this, "选择了日期" + pickedDate, Toast.LENGTH_SHORT).show();
