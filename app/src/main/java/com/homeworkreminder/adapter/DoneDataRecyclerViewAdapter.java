@@ -115,8 +115,8 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
      * 添加item
      * @param position
      */
-    public void addData(int position, HomeData data){
-        homeDataList.add(data);
+    public void addData(int position, HomeworkData.DataBean data){
+        homeworkDataBeanList.add(data);
         notifyItemChanged(position);
         notifyDataSetChanged();
     }
@@ -167,6 +167,7 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
         public void updateData(){
             int position = this.getLayoutPosition();
             HomeworkData.DataBean dataBean = homeworkDataBeanList.get(position);
+            cardNickname.setText(dataBean.getUsername());
             cardTitle.setText(dataBean.getTitle());
             cardDate.setText(dataBean.getDate());
             cardContent.setText(dataBean.getContent());

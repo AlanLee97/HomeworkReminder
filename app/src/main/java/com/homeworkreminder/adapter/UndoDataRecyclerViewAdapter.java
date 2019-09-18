@@ -104,9 +104,6 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
     }
 
 
-
-
-
     /**
      * 添加item
      * @param position
@@ -122,13 +119,10 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
      * @param position
      */
     public void removeData(int position){
-        homeDataList.remove(position);
+        homeworkDataBeanList.remove(position);
         notifyItemChanged(position);
         notifyDataSetChanged();
     }
-
-
-
 
 
 
@@ -166,6 +160,7 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
         public void updateData(){
             int position = this.getLayoutPosition();
             HomeworkData.DataBean dataBean = homeworkDataBeanList.get(position);
+            cardNickname.setText(dataBean.getUsername());
             cardTitle.setText(dataBean.getTitle());
             cardDate.setText(dataBean.getDate());
             cardContent.setText(dataBean.getContent());

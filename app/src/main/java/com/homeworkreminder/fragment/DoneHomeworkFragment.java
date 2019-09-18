@@ -1,6 +1,7 @@
 package com.homeworkreminder.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
+import com.homeworkreminder.activity.HomeworkDetailActivity;
 import com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
 import com.homeworkreminder.entity.HomeData;
@@ -48,8 +50,22 @@ public class DoneHomeworkFragment extends Fragment {
     private List<HomeworkData.DataBean> homeworkDataBeanList = new ArrayList<>();
 
     //请求的url
-    private String url = "http://nibuguai.cn/index.php/index/homework/api_queryHomeworkByUidDoWith?t_user_id=";
+    private String url = "http://www.nibuguai.cn/index.php/index/homework/api_queryDoneHomework?t_user_id=";
+
+    //设置为未做的请求地址
+    private String url2 = "http://www.nibuguai.cn/index.php/index/homework/api_setUndoHomework?t_user_id=";
+    private int uid;
+    private int t_hid;
+
+
     private HomeworkData homeworkData;
+
+    //private int headImg;
+    private String nickname;
+    private String date;
+    private String title;
+    private String content;
+    private String tag;
 
     private MyApplication app;
 
@@ -61,6 +77,10 @@ public class DoneHomeworkFragment extends Fragment {
         view =  inflater.inflate(R.layout.fragment_done_homework, container, false);
 
         initView(view);
+
+        homeworkDoneSwipeRefreshLayout.setRefreshing(true);
+
+        uid = getUid();
 
         //initData();
 
@@ -75,6 +95,8 @@ public class DoneHomeworkFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        homeworkDoneSwipeRefreshLayout.setRefreshing(true);
 
 
         int uid = getUid();
@@ -123,7 +145,7 @@ public class DoneHomeworkFragment extends Fragment {
      * 添加RecyclerView
      */
     //*
-    public void addRecyclerView(RecyclerView recyclerView, List<HomeworkData.DataBean> homeworkDataBeanList){
+    public void addRecyclerView(RecyclerView recyclerView, final List<HomeworkData.DataBean> homeworkDataBeanList){
 
         //设置RecyclerView的布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayout.VERTICAL,false));
@@ -141,7 +163,23 @@ public class DoneHomeworkFragment extends Fragment {
         doneDataRecyclerViewAdapter.setMyRecyclerViewOnItemClickListener(new MyRecyclerViewOnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
-                Toast.makeText(getContext(), homeDataList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), homeworkDataBeanList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+
+
+                nickname = homeworkDataBeanList.get(position).getUsername();
+                date = homeworkDataBeanList.get(position).getDate();
+                title = homeworkDataBeanList.get(position).getTitle();
+                content = homeworkDataBeanList.get(position).getContent();
+                tag = homeworkDataBeanList.get(position).getTag();
+
+                //callbackValueToActivity.sendValue(nickname);
+                Intent intent = new Intent(getActivity(), HomeworkDetailActivity.class);
+                Bundle bundle = new Bundle();
+
+                convertDataToActivity(bundle);
+
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -158,6 +196,20 @@ public class DoneHomeworkFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity(), items[which], Toast.LENGTH_SHORT).show();
+
+                        //添加item：添加到已完成列表
+                        if (items[which].equals("添加到未完成列表")){
+                            //doneDataRecyclerViewAdapter.addData(position, homeworkDataBeanList.get(position));
+                            t_hid = homeworkDataBeanList.get(position).getId();
+
+                            url2 = url2 + uid + "&t_hid=" + t_hid;
+                            useVolleyGET2(url2);
+
+                            //homeworkDoneSwipeRefreshLayout.setRefreshing(true);
+
+                        }
+
+
 
                         //删除item
                         if (items[which].equals("删除")){
@@ -251,5 +303,51 @@ public class DoneHomeworkFragment extends Fragment {
         app = (MyApplication) getActivity().getApplication();
 
         return app.getUserInfo().getData().get(0).getId();
+    }
+
+
+    /**
+     * 通过Bundle向Activity中传值
+     */
+    public void convertDataToActivity(Bundle bundle){
+        //bundle.putInt("headImg",headImg);
+        bundle.putCharSequence("nickname", nickname);
+        bundle.putCharSequence("title", title);
+        bundle.putCharSequence("content", content);
+        bundle.putCharSequence("tag", tag);
+        bundle.putCharSequence("date", date);
+
+    }
+
+
+    /**
+     * get请求
+     * @param url url
+     */
+    public void useVolleyGET2(String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        final StringRequest stringRequest = new StringRequest(
+                //参数1：请求的url
+                url,
+                //参数2：请求成功的监听事件
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        result = response;
+
+                        Toast.makeText(getActivity(), "添加到已完成列表", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                //参数3：请求失败的监听事件
+                new com.android.volley.Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //loginReturnResult.setText("请求失败");
+                        Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        //3、将请求添加到队列
+        requestQueue.add(stringRequest);
     }
 }

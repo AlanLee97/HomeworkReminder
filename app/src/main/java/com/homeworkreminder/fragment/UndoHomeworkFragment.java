@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
 import com.homeworkreminder.activity.HomeworkDetailActivity;
+import com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter;
 import com.homeworkreminder.entity.HomeData;
@@ -46,6 +47,7 @@ public class UndoHomeworkFragment extends Fragment {
     private List<HomeData> homeDataList;
     private View view;
     private UndoDataRecyclerViewAdapter undoDataRecyclerViewAdapter;
+    private DoneDataRecyclerViewAdapter doneDataRecyclerViewAdapter;
     private SwipeRefreshLayout homework_undo_SwipeRefreshLayout;
 
     //private int headImg;
@@ -58,7 +60,12 @@ public class UndoHomeworkFragment extends Fragment {
     private MyApplication app;
 
     //请求的url
-    private String url = "http://nibuguai.cn/index.php/index/homework/api_queryHomeworkByUidDoWith?t_user_id=";
+    private String url = "http://www.nibuguai.cn/index.php/index/homework/api_queryUndoHomework?t_user_id=";
+
+    //设置为已做的请求地址
+    private String url2 = "http://www.nibuguai.cn/index.php/index/homework/api_setDoneHomework?t_user_id=";
+    private int uid;
+    private int t_hid;
 
 
     @Nullable
@@ -81,10 +88,11 @@ public class UndoHomeworkFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initView();
+        homework_undo_SwipeRefreshLayout.setRefreshing(true);
 
         //initData();
 
-        int uid = getUid();
+        uid = getUid();
 
         //拼接url
         url = url + uid;
@@ -122,6 +130,7 @@ public class UndoHomeworkFragment extends Fragment {
 
         //初始化适配器
         undoDataRecyclerViewAdapter = new UndoDataRecyclerViewAdapter(getActivity(), homeworkDataBeanList);
+        doneDataRecyclerViewAdapter = new DoneDataRecyclerViewAdapter(getActivity(), homeworkDataBeanList);
         //homeDataRecyclerViewAdapter = new HomeDataRecyclerViewAdapter(getActivity(), homeworkDataList);
 
         //设置动画
@@ -138,7 +147,7 @@ public class UndoHomeworkFragment extends Fragment {
 
                 //通过Bundle向Activity传递数据
                 //headImg = homeDataList.get(position).getImg();
-                //nickname = HomeworkDataBeanList.get(position).getNickname();
+                nickname = homeworkDataBeanList.get(position).getUsername();
                 //*
                 date = homeworkDataBeanList.get(position).getDate();
                 title = homeworkDataBeanList.get(position).getTitle();
@@ -176,9 +185,14 @@ public class UndoHomeworkFragment extends Fragment {
                         Toast.makeText(getActivity(), items[which], Toast.LENGTH_SHORT).show();
 
                         //添加item：添加到已完成列表
-//                        if (items[which].equals("添加到已完成列表")){
-//                            undoDataRecyclerViewAdapter.addData(position, homeworkDataBeanList.get(position));
-//                        }
+                        if (items[which].equals("添加到已完成列表")){
+                            //doneDataRecyclerViewAdapter.addData(position, homeworkDataBeanList.get(position));
+                            t_hid = homeworkDataBeanList.get(position).getId();
+
+                            url2 = url2 + uid + "&t_hid=" + t_hid;
+                            useVolleyGET2(url2);
+
+                        }
 
 
                         //删除item
@@ -192,6 +206,8 @@ public class UndoHomeworkFragment extends Fragment {
                 builder.create().show();
             }
         });
+
+
     }
 
 
@@ -200,7 +216,7 @@ public class UndoHomeworkFragment extends Fragment {
      */
     public void convertDataToActivity(Bundle bundle){
         //bundle.putInt("headImg",headImg);
-        //bundle.putCharSequence("nickname", nickname);
+        bundle.putCharSequence("nickname", nickname);
         bundle.putCharSequence("title", title);
         bundle.putCharSequence("content", content);
         bundle.putCharSequence("tag", tag);
@@ -252,6 +268,45 @@ public class UndoHomeworkFragment extends Fragment {
 
                         //停止刷新
                         homework_undo_SwipeRefreshLayout.setRefreshing(false);
+
+
+                        //Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                //参数3：请求失败的监听事件
+                new com.android.volley.Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //loginReturnResult.setText("请求失败");
+                        Log.d(TAG, "onErrorResponse: " + error);
+                        Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        //3、将请求添加到队列
+        requestQueue.add(stringRequest);
+    }
+
+
+
+    /**
+     * get请求
+     * @param url url
+     */
+    public void useVolleyGET2(String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        final StringRequest stringRequest = new StringRequest(
+                //参数1：请求的url
+                url,
+                //参数2：请求成功的监听事件
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        result = response;
+
+                        Toast.makeText(getActivity(), "添加到已完成列表", Toast.LENGTH_SHORT).show();
+
+
 
 
                         //Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();

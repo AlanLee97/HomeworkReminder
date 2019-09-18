@@ -44,6 +44,50 @@
         android:textSize="25sp"
         />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_phone_num"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="手机号码"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/sendSMS"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="发送短信"
+            android:textColor="#000"
+            android:textSize="25sp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_sms_code"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="短信验证码"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/verifySMS"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="验证短信"
+            android:textColor="#000"
+            android:textSize="25sp"
+            />
+    </LinearLayout>
+
+
+
     <TextView
         android:id="@+id/resultData"
         android:layout_width="match_parent"

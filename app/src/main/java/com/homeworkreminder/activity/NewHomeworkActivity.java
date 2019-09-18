@@ -27,9 +27,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.homeworkreminder.R;
+import com.homeworkreminder.entity.HomeworkID;
 import com.homeworkreminder.receiver.ClockReceiver;
 import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.TimeUtil;
+import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -88,13 +90,14 @@ public class NewHomeworkActivity extends AppCompatActivity {
     private String remind_date;
     private String tag;
     private int uid;
+    private int t_hid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_homework);
 
-        //初始化视图组件
+        //初始化视图控件
         initView();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -120,9 +123,6 @@ public class NewHomeworkActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 
 
-                //将数据传到服务器
-                //useVolleyPOST(url);
-
                 /**
                  * 拿到view中的数据
                  **/
@@ -136,8 +136,15 @@ public class NewHomeworkActivity extends AppCompatActivity {
                         + "&tag=" + tag
                         + "&uid=" + uid;
 
+
+
                 //将数据传到服务器
-                //useVolleyGET(url);
+                useVolleyGET(url);
+
+//                String url2 = "http://www.nibuguai.cn/index.php/index/homework/api_setDoneHomework?";
+//                url2 = url2 + "t_user_id=" + uid;
+//                url2 = url2 + "&t_hid=" + t_hid;
+//                useVolleyGET2(url2);
 
 
 
@@ -148,9 +155,9 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
 
                 //跳转到首页
-                //startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
+                startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
 
-                //finish();
+                finish();
             }
         });
 
@@ -465,6 +472,41 @@ public class NewHomeworkActivity extends AppCompatActivity {
                         //将请求的原始json数据放到EditText中
                         Toast.makeText(NewHomeworkActivity.this, "请求成功 result:" + result, Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onResponse: 请求结果" + response);
+
+                        VolleyUtil volleyUtil = new VolleyUtil(NewHomeworkActivity.this);
+                        HomeworkID homeworkID = volleyUtil.parseJsonByGson(result, HomeworkID.class);
+                        t_hid = homeworkID.getData().get(0).getT_hid();
+                    }
+                },
+                //参数3：请求失败的监听事件
+                new com.android.volley.Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(NewHomeworkActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        //3、将请求添加到队列
+        requestQueue.add(stringRequest);
+    }
+
+    /**
+     * get请求
+     * @param url
+     */
+    private void useVolleyGET2(String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        final StringRequest stringRequest = new StringRequest(
+                //参数1：请求的url
+                url,
+                //参数2：请求成功的监听事件
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        result = response;
+                        //将请求的原始json数据放到EditText中
+                        Toast.makeText(NewHomeworkActivity.this, "请求成功 result:" + result, Toast.LENGTH_SHORT).show();
+
                     }
                 },
                 //参数3：请求失败的监听事件
