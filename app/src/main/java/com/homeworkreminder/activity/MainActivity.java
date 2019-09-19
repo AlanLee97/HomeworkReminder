@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity
     private Fragment mFragment = new HomeFragment();
 
     //导航栏选项名称数组
-    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录", "测试Bmob"};
+    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录", "测试Bmob", "测试QMUI"};
 
     //Fragment数组
     Fragment[] fragments = {
@@ -280,6 +280,11 @@ public class MainActivity extends BaseActivity
             startActivity(intent);
         }
 
+        if (title.equals("测试QMUI")) {
+            Intent intent = new Intent(MainActivity.this, TestQMUIActivity.class);
+            startActivity(intent);
+        }
+
         //切换Fragment的方法
         switchFragment(title);
 
@@ -322,6 +327,11 @@ public class MainActivity extends BaseActivity
         this.getSupportActionBar().setTitle(title);
 
     }
+
+
+
+
+
 
 
     /**

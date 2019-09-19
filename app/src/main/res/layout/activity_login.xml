@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/reg_bg"
     tools:context="com.homeworkreminder.activity.RegisterActivity">
 
     <TextView
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:text="登录"
         android:textColor="#fff"
-        android:background="#03A9F4"
+        android:background="@drawable/color_shape_radius"
         android:textSize="25sp"
         android:padding="10dp"
         android:layout_margin="20dp"/>

@@ -31,6 +31,7 @@ import com.homeworkreminder.entity.HomeworkID;
 import com.homeworkreminder.receiver.ClockReceiver;
 import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.TimeUtil;
+import com.homeworkreminder.utils.networkUtil.MyGson;
 import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
 import java.io.IOException;
@@ -55,8 +56,6 @@ public class NewHomeworkActivity extends AppCompatActivity {
     private EditText etHomeworkTitle;   //标题
     private EditText etHomeworkContent; //内容
     private EditText etHomeworkTag;
-
-
 
 
     private TextView tvChooseDate;      //选择日期
@@ -231,7 +230,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                String pickedTime = "时间：" + hourOfDay + ":" + minute;
+                                String pickedTime = hourOfDay + ":" + minute;
                                 tvChooseTime.setText(pickedTime);
 
                                 mHour = hourOfDay;
@@ -280,7 +279,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
                                 Log.d("setTime", "mMonth: " + mMonth);
                                 Log.d("setTime", "mDay: " + mDay);
 
-                                String pickedDate = "" + year + "年" + month + "月" + dayOfMonth + "日";
+                                String pickedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
                                 tvChooseDate.setText(pickedDate);
                                 Toast.makeText(NewHomeworkActivity.this, "选择了日期" + pickedDate, Toast.LENGTH_SHORT).show();
                             }
@@ -473,8 +472,8 @@ public class NewHomeworkActivity extends AppCompatActivity {
                         Toast.makeText(NewHomeworkActivity.this, "请求成功 result:" + result, Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onResponse: 请求结果" + response);
 
-                        VolleyUtil volleyUtil = new VolleyUtil(NewHomeworkActivity.this);
-                        HomeworkID homeworkID = volleyUtil.parseJsonByGson(result, HomeworkID.class);
+                        //VolleyUtil volleyUtil = new VolleyUtil(NewHomeworkActivity.this);
+                        HomeworkID homeworkID = MyGson.parseJsonByGson(result, HomeworkID.class);
                         t_hid = homeworkID.getData().get(0).getT_hid();
                     }
                 },

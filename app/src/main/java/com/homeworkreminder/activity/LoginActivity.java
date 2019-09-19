@@ -1,11 +1,14 @@
 package com.homeworkreminder.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -54,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if(Build.VERSION.SDK_INT >= 24) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+
         //初始化view
         initView();
 
@@ -65,8 +75,14 @@ public class LoginActivity extends AppCompatActivity {
                 String inp_username = etLoginUsername.getText().toString();
                 String inp_password = etLoginPassword.getText().toString();
 
-                //使用Volley框架， 发送POST请求
-                useVolleyPOST(url, inp_username, inp_password);
+                if (inp_username.equals("") || inp_password.equals("")){
+                    Toast.makeText(LoginActivity.this, "帐号、密码不能为空", Toast.LENGTH_SHORT).show();
+                }else {
+                    //使用Volley框架， 发送POST请求
+                    useVolleyPOST(url, inp_username, inp_password);
+                }
+
+
 
             }
         });
@@ -177,20 +193,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, EditUserInfoActivity.class));
 
                         finish();
 
-
-
-                        //跳转到主界面
-//                        Intent intent = getIntent();
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("loginState", "true");
-//                        intent.putExtras(bundle);
-//                        setResult(200, intent);
-
-                        finish();
 
                         //使用Gson解析json数据
                         //parseJsonByGson(result);

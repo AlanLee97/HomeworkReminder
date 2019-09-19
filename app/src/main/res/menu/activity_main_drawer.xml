@@ -32,6 +32,11 @@
             android:icon="@drawable/menu_register"
             android:title="@string/menu_test" />
 
+        <item
+            android:id="@+id/nav_test_qmui"
+            android:icon="@drawable/menu_register"
+            android:title="@string/menu_qmui" />
+
     </group>
 
     <item android:title="Communicate">

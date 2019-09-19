@@ -20,7 +20,9 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            android:background="@drawable/info_header_bg"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="个人信息"
             app:toolbarId="@+id/toolbar">
 
             <android.support.v7.widget.Toolbar
@@ -40,7 +42,8 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:backgroundTint="#fff"
+        app:srcCompat="@drawable/icon_edit" />
 
     <include layout="@layout/content_user" />
 

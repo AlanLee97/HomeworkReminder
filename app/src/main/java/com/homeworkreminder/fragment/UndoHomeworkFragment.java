@@ -255,16 +255,25 @@ public class UndoHomeworkFragment extends Fragment {
 
                         //请求成功后addRecyclerView显示数据
                         homeworkDataBeanList = homeworkData.getData();
-                        Collections.reverse(homeworkDataBeanList);
 
-                        for (int i = 0; i < homeworkDataBeanList.size(); i++) {
-                            System.out.println("数据" + i + ": " + homeworkDataBeanList.get(i).getTitle());
-                        }
 
 
                         //Collections.reverse(homeworkDataBeanList);
+
+                        if (homeworkDataBeanList == null){
+                            Toast.makeText(getActivity(), "没有数据喔", Toast.LENGTH_SHORT).show();
+                        }else {
+
+                            Collections.reverse(homeworkDataBeanList);
+
+                            for (int i = 0; i < homeworkDataBeanList.size(); i++) {
+                                System.out.println("数据" + i + ": " + homeworkDataBeanList.get(i).getTitle());
+                            }
+
+                            addRecyclerView(myRecyclerView, homeworkDataBeanList);
+
+                        }
                         
-                        addRecyclerView(myRecyclerView, homeworkDataBeanList);
 
                         //停止刷新
                         homework_undo_SwipeRefreshLayout.setRefreshing(false);

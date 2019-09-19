@@ -9,6 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.homeworkreminder.entity.UserInfo;
+import com.homeworkreminder.utils.networkUtil.MyGson;
 import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -103,9 +104,9 @@ public class MyApplication extends Application {
         String userinfo = userInfoUtil.readUserInfo("userinfo");
         Log.d(TAG, "getUserInfoFromSharedPreference: " + userinfo);
 
-        VolleyUtil volleyUtil = new VolleyUtil(getApplicationContext());
+//        VolleyUtil volleyUtil = new VolleyUtil(getApplicationContext());
         if (!userinfo.equals("false")){
-            UserInfo userInfo1 = volleyUtil.parseJsonByGson(userinfo, UserInfo.class);
+            UserInfo userInfo1 = MyGson.parseJsonByGson(userinfo,UserInfo.class);
             Log.d(TAG, "getUserInfoFromSharedPreference: userInfo1:" + userInfo1);
             setUserInfo(userInfo1);
         }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
+    android:background="@color/app_bg_graywhite"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.homeworkreminder.activity.UserActivity"
     tools:showIn="@layout/activity_user">
@@ -24,11 +24,12 @@
             android:background="#fff"
 
             >
-            <ImageView
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                app:qmui_is_circle="true"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="20dp"
-                android:src="@mipmap/ic_launcher_round"
+                android:src="@drawable/head"
                 android:layout_centerInParent="true"
                 />
         </RelativeLayout>

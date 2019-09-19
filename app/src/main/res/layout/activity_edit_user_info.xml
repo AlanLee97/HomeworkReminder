@@ -5,11 +5,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/qmui_config_color_white"
     tools:context="com.homeworkreminder.activity.EditUserInfoActivity">
 
     <LinearLayout
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="修改信息"
+            android:textSize="25sp"
+            android:padding="20dp"
+            android:textColor="@color/primary_dark"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="vertical"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,125 +33,129 @@
             android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="昵称："
-                android:textColor="#000"
-                android:textSize="25sp"
-                android:textAlignment="center"
+                android:text="@string/tv_nickname"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/tv_tip_small"
                 />
             <EditText
                 android:id="@+id/et_edit_nickname"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="昵称"
-                android:layout_weight="3"/>
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:background="@color/app_bg_graywhite"
+                />
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="学校："
-                android:textColor="#000"
-                android:textSize="25sp"
-                android:textAlignment="center"
+                android:text="@string/tv_school"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/tv_tip_small"
                 />
             <EditText
                 android:id="@+id/et_edit_school"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="昵称"
-                android:layout_weight="3"/>
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:background="@color/app_bg_graywhite"
+                />
 
         </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="专业："
-                android:textColor="#000"
-                android:textSize="25sp"
-                android:textAlignment="center"
+                android:text="@string/tv_major"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/tv_tip_small"
                 />
             <EditText
-                android:layout_width="0dp"
+                android:id="@+id/et_edit_major"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="昵称"
-                android:layout_weight="3"/>
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:background="@color/app_bg_graywhite"
+                />
 
         </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
-                android:id="@+id/et_edit_major"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="班级："
-                android:textColor="#000"
-                android:textSize="25sp"
-                android:textAlignment="center"
+                android:text="@string/tv_class"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/tv_tip_small"
                 />
             <EditText
                 android:id="@+id/et_edit_class"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="昵称"
-                android:layout_weight="3"/>
+                android:textSize="25sp"
+                android:padding="10dp"
+                android:background="@color/app_bg_graywhite"
+                />
 
         </LinearLayout>
 
+
     </LinearLayout>
 
-    <Button
+
+
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
         android:id="@+id/btn_edit_userinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="修改信息"
-        android:textColor="#fff"
-        android:background="@drawable/color_shape"
+        android:text="@string/text_save"
+
+        android:textColor="#03A9F4"
         android:textSize="25sp"
         android:layout_margin="20dp"
         android:padding="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_edit_jump"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳过"
+            android:layout_centerInParent="true"
+            android:textColor="@color/tv_tip_small"/>
+    </RelativeLayout>
 
 
 </LinearLayout>

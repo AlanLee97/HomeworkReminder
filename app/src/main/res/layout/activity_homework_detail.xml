@@ -42,7 +42,8 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:backgroundTint="@color/qmui_config_color_white"
+        app:srcCompat="@drawable/icon_add_to_my" />
 
     <include layout="@layout/content_homework_detail" />
 

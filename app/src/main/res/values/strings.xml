@@ -112,5 +112,16 @@
     <string name="title_activity_user">UserActivity</string>
     <string name="title_activity_homework_detail">HomeworkDetailActivity</string>
     <string name="menu_test">测试Bmob</string>
+    <string name="menu_qmui">测试QMUI</string>
+    <string name="new_homework_hint_title">请输入标题</string>
+    <string name="tv_tip_alarm">设置闹钟提醒</string>
+    <string name="tv_tag">标签</string>
+    <string name="tv_deadtime">截止时间</string>
+    <string name="tv_alarmtime">闹钟时间</string>
+    <string name="tv_nickname">昵称</string>
+    <string name="tv_school">学校</string>
+    <string name="tv_class">班级</string>
+    <string name="tv_major">专业</string>
+    <string name="text_save">保存</string>
 
 </resources>

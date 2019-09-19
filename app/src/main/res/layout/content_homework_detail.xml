@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/qmui_config_color_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.homeworkreminder.activity.HomeworkDetailActivity"
     tools:showIn="@layout/activity_homework_detail">
@@ -12,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:padding="10dp">
+        android:layout_marginTop="10dp"
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,11 +22,12 @@
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             >
-            <ImageView
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
                 android:id="@+id/iv_detail_head"
+                app:qmui_is_circle="true"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:src="@drawable/head"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -50,47 +52,130 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_detail_title"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="标题"
-            android:textSize="25sp"
-            android:layout_marginBottom="10dp"
-            android:textColor="#000"
-            />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="标题"
+                android:textSize="30sp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#000"
+                />
+
+
+        </LinearLayout>
+
 
         <TextView
-            android:id="@+id/tv_detail_content"
-            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="内容"
-            android:textColor="#000"
-            android:textSize="22sp"/>
+            android:textColor="@color/tv_tip_small"
+            android:text="作业内容"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_detail_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="内容"
+                android:textColor="@color/tv_content"
+                android:padding="10dp"
+                android:background="@color/app_bg_graywhite"
+                android:textSize="@dimen/tv_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/tv_tip_small"
+            android:text="@string/tv_deadtime"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_detail_deadtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_deadtime"
+                android:textColor="@color/tv_color_deadtime"
+
+
+                android:padding="10dp"
+                android:background="@color/app_bg_graywhite"
+                android:textSize="@dimen/tv_content"/>
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="#505050"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/divider"/>
 
-        <LinearLayout
+        <TextView
+
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_tag"
+
+            android:textColor="@color/tv_tip_small"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_detail_tag"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="标签"
-                android:textSize="22sp"
-                android:textColor="#000"/>
+                android:text="@string/tv_tag"
+                android:textSize="@dimen/tv_content"
+                android:textColor="#6CCC6D"
+                android:background="@color/app_bg_graywhite"
+                android:padding="10dp"
+                />
+
 
         </LinearLayout>
 
 
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/tv_tip_small"
+            android:text="@string/tv_alarmtime"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_detail_alarmtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_alarmtime"
+                android:textColor="#03A9F4"
+
+
+                android:padding="10dp"
+                android:background="@color/app_bg_graywhite"
+                android:textSize="@dimen/tv_content"/>
+        </LinearLayout>
 
 
 

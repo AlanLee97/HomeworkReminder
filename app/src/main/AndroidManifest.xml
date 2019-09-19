@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.homeworkreminder">
-
+    <!-- 允许联网 -->
     <application
         android:name=".utils.MyApplication"
         android:allowBackup="true"
@@ -14,7 +14,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.EditUserInfoActivity"></activity>
+        <activity android:name=".activity.SetSMCActivity"></activity>
+        <activity android:name=".activity.TestQMUIActivity" />
+        <activity
+            android:name=".activity.EditUserInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.TestBmobActivity" />
         <activity
             android:name=".activity.HomeworkDetailActivity"
@@ -24,9 +28,15 @@
             android:name=".activity.UserActivity"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ReminderActivity" />
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoginActivity" />
+        <activity
+            android:name=".activity.ReminderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.NewHomeworkActivity"
             android:label="@string/title_activity_new_homework"
@@ -54,13 +64,13 @@
             android:exported="true" /> <!-- =================== 服务service end ===================== -->
         <!-- =================== 服务service start ===================== -->
         <service android:name=".service.MusicService" />
-    </application>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 允许联网 -->
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 获取wifi网络状态的信息 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取sd卡写的权限，用于文件上传和下载 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    </application> <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 获取wifi网络状态的信息 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许读取手机状态 用于创建BmobInstallation -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 

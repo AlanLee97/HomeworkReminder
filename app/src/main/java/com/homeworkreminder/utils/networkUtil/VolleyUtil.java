@@ -4,75 +4,64 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.entity.UserInfo;
+import com.homeworkreminder.utils.MyApplication;
+
+import java.util.Map;
 
 
 public class VolleyUtil {
-    private Context context;
-    public String result;
+    private static Context context;
+    //private RequestQueue requestQueue;
 
-    public VolleyUtil(Context context){
-        this.context = context;
-    }
+//    public VolleyUtil(Context context){
+//        this.context = context;
+//        this.requestQueue = Volley.newRequestQueue(this.context);
+//    }
 
 
-    /**
-     * get请求
-     * @param url url
-     */
-    public void useVolleyGET(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        final StringRequest stringRequest = new StringRequest(
-                //参数1：请求的url
-                url,
-                //参数2：请求成功的监听事件
-                new com.android.volley.Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result = response;
-                        //将请求的原始json数据放到EditText中
-                        //loginReturnResult.setText(result);
+    public static StringRequest stringRequest;
 
-                        //使用Gson解析json数据
-                        //parseJsonByGson(result);
+    public static void volleyGET(
+            Context mcontext,String url,String tag,VolleyInterface vif){
+        //防止重复请求，所以先取消tag标识的请求队列
+        MyApplication.getHttpQueue().cancelAll(tag);
+        stringRequest=new StringRequest(Request.Method.GET, url,
+                vif.loadingListener(),
+                vif.errorListener()
+        );
+        stringRequest.setTag(tag);
+        MyApplication.getHttpQueue().add(stringRequest);
 
-                        Toast.makeText(context, "请求成功", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                //参数3：请求失败的监听事件
-                new com.android.volley.Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //loginReturnResult.setText("请求失败");
-                        Toast.makeText(context, "请求失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        //3、将请求添加到队列
-        requestQueue.add(stringRequest);
+        //注意千万不要调用start来开启。这样写是不对的。
+        //因为在源码里，当我们调用Volley.newRequestQueue()来实例化一个请求队列的时候
+        //就已经使用queue.start(); 方法来开启了一个工作线程，所以我们如果多次调用
+        //newRequestQueue来实例化请求队列就会多次调用start方法，这样做势必增加性能的消耗
+        //所以我们一定要把volley的请求队列全局化（可以使用单例模式或在application初始化）。
+        //并且我们不应当手动调用start。
+//      MyApplication.getHttpQueue().start();
     }
 
 
 
-    /**
-     * 使用Gson解析json数据，这个比较简单，以下是使用步骤(3步，其实前2步就算拿到数据了)
-     * @param json 要解析的json
-     */
-    public <T> T parseJsonByGson(String json, Class<T> t){
-        //1、创建Gson对象
-        Gson gson = new Gson();
-        //2、调用Gson的fromJson()方法，将json转成javaBean，将要显示的数据封装到这个javaBean
-        //fromJson(参数1，参数2)方法 参数1：需要解析的json 参数2：一个javaBean，接收需要封装的数据（总数据的javaBean）
-
-        T data = (T) gson.fromJson(json, t);
-
-        Log.d("data", "parseJsonByGson: data : " + data);
-
-        return data;
+    public static void volleyPOST(Context context,String url,String tag,final Map<String, String> params,
+                                   VolleyInterface vif){
+        MyApplication.getHttpQueue().cancelAll(tag);
+        stringRequest = new StringRequest(url, vif.loadingListener(), vif.errorListener()){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return params;
+            }
+        };
+        stringRequest.setTag(tag);
+        MyApplication.getHttpQueue().add(stringRequest);
     }
+
 }

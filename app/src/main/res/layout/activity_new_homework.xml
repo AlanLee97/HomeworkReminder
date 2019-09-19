@@ -54,8 +54,9 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:backgroundTint="@color/primary_dark"
-        app:srcCompat="@drawable/ok" />
+        app:backgroundTint="#fff"
+
+        app:srcCompat="@drawable/new_homework_ok" />
 
     <include layout="@layout/content_new_homework" />
 

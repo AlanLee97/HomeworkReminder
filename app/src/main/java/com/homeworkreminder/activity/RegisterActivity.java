@@ -1,11 +1,14 @@
 package com.homeworkreminder.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,6 +46,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        if(Build.VERSION.SDK_INT >= 24) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+
         //初始化View
         initView();
 
@@ -67,8 +77,13 @@ public class RegisterActivity extends AppCompatActivity {
                 String inp_username = etRegUsername.getText().toString();
                 String inp_password = etRegPassword.getText().toString();
 
-                //使用Volley框架，发送POST请求
-                useVolleyPOST(url, inp_username, inp_password);
+                if (inp_username.equals("") || inp_password.equals("")){
+                    Toast.makeText(RegisterActivity.this, "帐号、密码不能为空", Toast.LENGTH_SHORT).show();
+                }else {
+                    //使用Volley框架，发送POST请求
+                    useVolleyPOST(url, inp_username, inp_password);
+                }
+
             }
         });
     }
