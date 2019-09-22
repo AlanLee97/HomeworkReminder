@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
 import com.homeworkreminder.activity.HomeworkDetailActivity;
+import com.homeworkreminder.activity.MyHomeworkDetailActivity;
 import com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter;
@@ -33,6 +34,8 @@ import com.homeworkreminder.entity.HomeworkData;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener;
 import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.networkUtil.VolleyInterface;
+import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.ArrayList;
@@ -56,6 +59,8 @@ public class UndoHomeworkFragment extends Fragment {
     private String title;
     private String content;
     private String tag;
+    private String course;
+    private String deadtime;
 
     private MyApplication app;
 
@@ -66,6 +71,8 @@ public class UndoHomeworkFragment extends Fragment {
     private String url2 = "http://www.nibuguai.cn/index.php/index/homework/api_setDoneHomework?t_user_id=";
     private int uid;
     private int t_hid;
+
+    private String deleteUrl = "http://www.nibuguai.cn/index.php/index/homework/api_deleteHomeworkDoWith?id=";
 
 
     @Nullable
@@ -143,19 +150,21 @@ public class UndoHomeworkFragment extends Fragment {
         undoDataRecyclerViewAdapter.setMyRecyclerViewOnItemClickListener(new MyRecyclerViewOnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
-                System.out.println("position = " + position);
 
                 //通过Bundle向Activity传递数据
                 //headImg = homeDataList.get(position).getImg();
+                t_hid = homeworkDataBeanList.get(position).getId();
                 nickname = homeworkDataBeanList.get(position).getUsername();
                 //*
                 date = homeworkDataBeanList.get(position).getDate();
                 title = homeworkDataBeanList.get(position).getTitle();
                 content = homeworkDataBeanList.get(position).getContent();
                 tag = homeworkDataBeanList.get(position).getTag();
+                course = homeworkDataBeanList.get(position).getCourse();
+                deadtime = homeworkDataBeanList.get(position).getDeadtime();
 
                 //callbackValueToActivity.sendValue(nickname);
-                Intent intent = new Intent(getActivity(), HomeworkDetailActivity.class);
+                Intent intent = new Intent(getActivity(), MyHomeworkDetailActivity.class);
                 Bundle bundle = new Bundle();
 
                 convertDataToActivity(bundle);
@@ -197,17 +206,34 @@ public class UndoHomeworkFragment extends Fragment {
 
                         //删除item
                         if (items[which].equals("删除")){
-                            undoDataRecyclerViewAdapter.removeData(position);
+                            t_hid = homeworkDataBeanList.get(position).getId();
+                            deleteUrl = deleteUrl + t_hid;
+                            VolleyUtil.volleyGET(getContext(), deleteUrl, "101",
+                                    new VolleyInterface(
+                                            getContext(),
+                                            VolleyInterface.mListener,
+                                            VolleyInterface.mErrorListener) {
+                                @Override
+                                public void onMySuccess(String result) {
+                                    System.out.println("删除作业请求的url：" + deleteUrl);
+                                    Toast.makeText(getContext(), "作业在数据库中删除成功", Toast.LENGTH_SHORT).show();
+
+
+                                    undoDataRecyclerViewAdapter.removeData(position);
+                                }
+
+                                @Override
+                                public void onMyError(VolleyError error) {
+                                    Toast.makeText(getContext(), "作业在数据库中删除失败", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
                         }
-
-
                     }
                 });
                 builder.create().show();
             }
         });
-
-
     }
 
 
@@ -221,6 +247,9 @@ public class UndoHomeworkFragment extends Fragment {
         bundle.putCharSequence("content", content);
         bundle.putCharSequence("tag", tag);
         bundle.putCharSequence("date", date);
+        bundle.putCharSequence("course", course);
+        bundle.putCharSequence("deadtime", deadtime);
+        bundle.putCharSequence("hid", t_hid + "");
 
     }
 

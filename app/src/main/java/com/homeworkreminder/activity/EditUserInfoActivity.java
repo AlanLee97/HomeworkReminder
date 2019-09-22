@@ -27,7 +27,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
     private String school;
     private String major;
     private String clazz;
-    private String url;
+    private String url = "http://www.nibuguai.cn/index.php/index/user/api_editUserInfoDoWith?";
 
     private MyApplication app;
 
@@ -40,6 +40,15 @@ public class EditUserInfoActivity extends AppCompatActivity {
 
 
         initView();
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        receiveDataFormBundle(bundle);
+
+//        etEditNickname.setText(nickname);
+//        etEditSchool.setText(school);
+//        etEditMajor.setText(major);
+//        etEditClass.setText(clazz);
 
         btnEditUserinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,16 +69,17 @@ public class EditUserInfoActivity extends AppCompatActivity {
     private void sendRequest() {
         getData();
         int uid = app.getUserInfo().getData().get(0).getId();
-        url = "?" + "nickname=" + nickname
+        url = url + "nickname=" + nickname
                 + "&school=" + school
                 + "&class=" + clazz
                 + "&major=" + major
-                + "uid=" + uid;
+                + "&id=" + uid;
         VolleyUtil.volleyGET(getApplicationContext(), url, "100",
                 new VolleyInterface(getApplicationContext(),VolleyInterface.mListener, VolleyInterface.mErrorListener) {
             @Override
             public void onMySuccess(String result) {
                 Toast.makeText(getApplication(), "请求成功", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(EditUserInfoActivity.this, MainActivity.class));
             }
 
             @Override
@@ -97,5 +107,18 @@ public class EditUserInfoActivity extends AppCompatActivity {
 
         tvEditJump = (TextView) findViewById(R.id.tv_edit_jump);
 
+    }
+
+
+    public void receiveDataFormBundle(Bundle bundle){
+        etEditNickname.setText(bundle.getCharSequence("nickname"));
+        etEditSchool.setText(bundle.getCharSequence("school"));
+        etEditMajor.setText(bundle.getCharSequence("major"));
+        etEditClass.setText(bundle.getCharSequence("class"));
+
+        System.out.println("nickname:" + bundle.getCharSequence("nickname"));
+        System.out.println("school:" + bundle.getCharSequence("school"));
+        System.out.println("major:" + bundle.getCharSequence("major"));
+        System.out.println("class:" + bundle.getCharSequence("class"));
     }
 }

@@ -68,28 +68,76 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+
                 <TextView
                     android:id="@+id/card_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="标题"
+                    android:textSize="25sp"
                     android:textColor="#000"
                     android:padding="10dp"
                     />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/card_course"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_tip_course"
+                        android:maxLines="3"
+                        android:textColor="@color/primary"
+                        android:padding="10dp"
+                        />
+
+                </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/card_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="内容"
-                    android:textColor="#000"
+                    android:text="@string/tv_content"
+                    android:maxLines="3"
+                    android:textColor="@color/tv_content"
                     android:padding="10dp"
                     />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_deadtime"
+                        android:maxLines="3"
+                        android:textColor="@color/tv_color_deadtime"
+                        android:padding="10dp"
+                        />
+                    <TextView
+                        android:id="@+id/card_deadtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_deadtime"
+                        android:maxLines="3"
+                        android:textColor="@color/tv_color_deadtime"
+                        android:padding="10dp"
+                        />
+                </LinearLayout>
+
+
                 <TextView
                     android:id="@+id/card_tag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="标签"
-                    android:textColor="#000"
+                    android:textColor="#DD44C548"
                     android:padding="10dp"
                     />
             </LinearLayout>

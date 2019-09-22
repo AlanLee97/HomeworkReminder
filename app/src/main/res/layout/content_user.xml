@@ -84,7 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Alan"
+                android:text="nickname"
                 android:textColor="#D55F5F5F"
                 android:textAlignment="center"
                 android:textSize="20sp"/>
@@ -112,7 +112,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="中山大学新华学院"
+                android:text="school"
                 android:textColor="#D55F5F5F"
                 android:textAlignment="center"
                 android:textSize="20sp"/>
@@ -140,7 +140,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="软件工程"
+                android:text="major"
                 android:textColor="#D55F5F5F"
                 android:textAlignment="center"
                 android:textSize="20sp"/>
@@ -168,7 +168,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="A班"
+                android:text="class"
                 android:textColor="#D55F5F5F"
                 android:textAlignment="center"
                 android:textSize="20sp"/>

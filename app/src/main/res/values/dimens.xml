@@ -7,5 +7,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">220dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="tv_content">18sp</dimen>
+    <dimen name="tv_content">16sp</dimen>
+    <dimen name="content_line_hight">25dp</dimen>
 </resources>

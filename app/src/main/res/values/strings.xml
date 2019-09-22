@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HomeworkReminder</string>
+    <string name="app_name">共享作业提醒</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">注册/登录</string>
@@ -123,5 +123,30 @@
     <string name="tv_class">班级</string>
     <string name="tv_major">专业</string>
     <string name="text_save">保存</string>
+    <string name="title_activity_my_homework_detail">MyHomeworkDetailActivity</string>
+    <string name="title_activity_edit_homework">EditHomeworkActivity</string>
+    <string name="btn_start">开始</string>
+    <string name="btn_pause">暂停</string>
+    <string name="btn_resume">继续</string>
+    <string name="btn_stop">放弃</string>
+    <string name="btn_skip">跳过</string>
+    <string name="scene_work">工作</string>
+    <string name="scene_short_break">短时休息</string>
+    <string name="scene_long_break">长时消息</string>
+    <string name="menu_tomato">番茄时钟</string>
+
+
+    <string name="start">开始</string>
+    <string name="stop">结束</string>
+    <string name="MSG_STARTED">计时已开始</string>
+    <string name="MSG_NOT_STARTED">计时尚未开始</string>
+    <string name="MSG_TIME_NOT_SET">尚未设定计时时间</string>
+    <string name="MSG_STOPPED">计时结束</string>
+    <string name="tv_tip_course">课程</string>
+    <string name="tv_content">作业内容</string>
+    <string name="menu_modify_password">修改密码</string>
+    <string name="menu_about">关于</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="app_introduce">APP简介：为了解决不让同学经常来问我每次课堂的作业是什么，我觉得开发一个APP来记录课堂作业，并共享，我自己记录下来的作业或者其他同学记录下来的作业，可共享给其他同学看。</string>
 
 </resources>

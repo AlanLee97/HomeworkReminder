@@ -65,22 +65,9 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
     //填充onCreateViewHolder返回的控件
-        //获取数据
-        /*
-        HomeData homeData = homeDataList.get(position);
-        myViewHolder.cardTouxiang.setImageResource(homeData.getImg());
-        myViewHolder.cardNickname.setText(homeData.getNickname());
-        myViewHolder.cardDate.setText(homeData.getDate());
-        myViewHolder.cardTitle.setText(homeData.getTitle());
-        myViewHolder.cardContent.setText(homeData.getContent());
-        myViewHolder.cardTag.setText(homeData.getTag());
-
-         */
-
 
         //更新数据到RecyclerView
         myViewHolder.updateData();
-
 
         //设置监听器的点击事件
         if (myRecyclerViewOnItemClickListener != null){
@@ -149,6 +136,8 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
         private TextView cardTitle;
         private TextView cardContent;
         private TextView cardTag;
+        private TextView course;
+        private TextView deadtime;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -162,6 +151,9 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
             cardTitle = (TextView) itemView.findViewById(R.id.card_title);
             cardContent = (TextView) itemView.findViewById(R.id.card_content);
             cardTag = (TextView) itemView.findViewById(R.id.card_tag);
+            course = (TextView) itemView.findViewById(R.id.card_course);
+            deadtime = (TextView) itemView.findViewById(R.id.card_deadtime);
+
         }
 
         public void updateData(){
@@ -172,17 +164,8 @@ public class DoneDataRecyclerViewAdapter extends RecyclerView.Adapter<DoneDataRe
             cardDate.setText(dataBean.getDate());
             cardContent.setText(dataBean.getContent());
             cardTag.setText(dataBean.getTag());
+            course.setText(dataBean.getCourse());
+            deadtime.setText(dataBean.getDeadtime());
         }
-
-
-
-
     }
-
-
-
-
-
-
-
 }

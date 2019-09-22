@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
 import com.homeworkreminder.activity.HomeworkDetailActivity;
+import com.homeworkreminder.activity.MyHomeworkDetailActivity;
 import com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
 import com.homeworkreminder.entity.HomeData;
@@ -32,6 +33,8 @@ import com.homeworkreminder.entity.HomeworkData;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener;
 import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.networkUtil.VolleyInterface;
+import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,8 +57,13 @@ public class DoneHomeworkFragment extends Fragment {
 
     //设置为未做的请求地址
     private String url2 = "http://www.nibuguai.cn/index.php/index/homework/api_setUndoHomework?t_user_id=";
+
     private int uid;
     private int t_hid;
+
+
+    private String deleteUrl = "http://www.nibuguai.cn/index.php/index/homework/api_deleteHomeworkDoWith?id=";
+
 
 
     private HomeworkData homeworkData;
@@ -66,6 +74,8 @@ public class DoneHomeworkFragment extends Fragment {
     private String title;
     private String content;
     private String tag;
+    private String course;
+    private String deadtime;
 
     private MyApplication app;
 
@@ -171,9 +181,11 @@ public class DoneHomeworkFragment extends Fragment {
                 title = homeworkDataBeanList.get(position).getTitle();
                 content = homeworkDataBeanList.get(position).getContent();
                 tag = homeworkDataBeanList.get(position).getTag();
+                course = homeworkDataBeanList.get(position).getCourse();
+                deadtime = homeworkDataBeanList.get(position).getDeadtime();
 
                 //callbackValueToActivity.sendValue(nickname);
-                Intent intent = new Intent(getActivity(), HomeworkDetailActivity.class);
+                Intent intent = new Intent(getActivity(), MyHomeworkDetailActivity.class);
                 Bundle bundle = new Bundle();
 
                 convertDataToActivity(bundle);
@@ -213,7 +225,30 @@ public class DoneHomeworkFragment extends Fragment {
 
                         //删除item
                         if (items[which].equals("删除")){
-                            doneDataRecyclerViewAdapter.removeData(position);
+
+                            t_hid = homeworkDataBeanList.get(position).getId();
+                            deleteUrl = deleteUrl + t_hid;
+                            VolleyUtil.volleyGET(getContext(), deleteUrl, "101",
+                                    new VolleyInterface(
+                                            getContext(),
+                                            VolleyInterface.mListener,
+                                            VolleyInterface.mErrorListener) {
+                                        @Override
+                                        public void onMySuccess(String result) {
+                                            System.out.println("删除作业请求的url：" + deleteUrl);
+                                            Toast.makeText(getContext(), "作业在数据库中删除成功", Toast.LENGTH_SHORT).show();
+
+
+                                            doneDataRecyclerViewAdapter.removeData(position);
+                                        }
+
+                                        @Override
+                                        public void onMyError(VolleyError error) {
+                                            Toast.makeText(getContext(), "作业在数据库中删除失败", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+
                         }
 
 
@@ -260,10 +295,6 @@ public class DoneHomeworkFragment extends Fragment {
                         }else {
 
                             Collections.reverse(homeworkDataBeanList);
-
-//                        for (int i = 0; i < homeworkDataBeanList.size(); i++) {
-//                            System.out.println("数据" + i + ": " + homeworkDataBeanList.get(i).getTitle());
-//                        }
 
                             addRecyclerView(myRecyclerView, homeworkDataBeanList);
 
@@ -323,6 +354,8 @@ public class DoneHomeworkFragment extends Fragment {
         bundle.putCharSequence("content", content);
         bundle.putCharSequence("tag", tag);
         bundle.putCharSequence("date", date);
+        bundle.putCharSequence("course", course);
+        bundle.putCharSequence("deadtime", deadtime);
 
     }
 

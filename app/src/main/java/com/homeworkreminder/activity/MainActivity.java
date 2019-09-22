@@ -46,13 +46,13 @@ public class MainActivity extends BaseActivity
     private Fragment mFragment = new HomeFragment();
 
     //导航栏选项名称数组
-    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录", "测试Bmob", "测试QMUI"};
+    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录", "测试Bmob", "测试QMUI", "番茄时钟"};
 
     //Fragment数组
     Fragment[] fragments = {
             new HomeFragment(),
             new HomeworkFragment(),
-            new SettingFragment()
+            //new SettingFragment()
     };
 
     private MyApplication app = (MyApplication) getApplication();
@@ -265,25 +265,39 @@ public class MainActivity extends BaseActivity
 
         String title = item.getTitle().toString();
 
-        if (title.equals("注册")) {
-            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+//        if (title.equals("注册")) {
+//            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+//            startActivity(intent);
+//        }
+//
+//        if (title.equals("登录")) {
+//            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//            startActivity(intent);
+//        }
+//
+//        if (title.equals("测试Bmob")) {
+//            Intent intent = new Intent(MainActivity.this, TestBmobActivity.class);
+//            startActivity(intent);
+//        }
+//
+//        if (title.equals("测试QMUI")) {
+//            Intent intent = new Intent(MainActivity.this, TestQMUIActivity.class);
+//            startActivity(intent);
+//        }
+
+        if (title.equals("番茄时钟")) {
+            Intent intent = new Intent(MainActivity.this, TomatoClockActivity.class);
             startActivity(intent);
         }
 
-        if (title.equals("登录")) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        if (title.equals("关于")) {
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(intent);
         }
 
-        if (title.equals("测试Bmob")) {
-            Intent intent = new Intent(MainActivity.this, TestBmobActivity.class);
-            startActivity(intent);
-        }
+        //switchActivity(title);
 
-        if (title.equals("测试QMUI")) {
-            Intent intent = new Intent(MainActivity.this, TestQMUIActivity.class);
-            startActivity(intent);
-        }
+
 
         //切换Fragment的方法
         switchFragment(title);
@@ -326,6 +340,43 @@ public class MainActivity extends BaseActivity
         //设置标题
         this.getSupportActionBar().setTitle(title);
 
+    }
+
+    /**
+     * 切换Activity
+     * @param title 导航栏标题
+     */
+    public void switchActivity(String title){
+        Intent intent = new Intent();
+        switch (title){
+            case "注册":
+                intent = new Intent(MainActivity.this, RegisterActivity.class);
+                System.out.println(title);
+                break;
+            case "登录":
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                System.out.println(title);
+
+                break;
+            case "测试Bmob":
+                intent = new Intent(MainActivity.this, TestBmobActivity.class);
+                System.out.println(title);
+
+                break;
+            case "测试QMUI":
+                //intent = new Intent(MainActivity.this, TestQMUIActivity.class);
+                System.out.println(title);
+
+                break;
+            case "番茄时钟":
+                intent = new Intent(MainActivity.this, TomatoClockActivity.class);
+                System.out.println(title);
+
+                break;
+            default: break;
+
+        }
+        startActivity(intent);
     }
 
 

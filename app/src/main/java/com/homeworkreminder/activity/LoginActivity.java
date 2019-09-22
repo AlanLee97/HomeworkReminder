@@ -47,10 +47,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private int id;
     private String mUsername;
-    private String nickname;
-    private String school;
-    private String major;
-    private String clazz;
+    private String nickname = "";
+    private String school = "";
+    private String major = "";
+    private String clazz = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,9 +191,24 @@ public class LoginActivity extends AppCompatActivity {
 
                         checkUserInfoUtil.writeUserInfo("" + id, "uid");
 
+                        String school = dataBean.getSchool();
+                        if (school == null){
+                            Intent intent = new Intent(LoginActivity.this, EditUserInfoActivity.class);
+
+                            Bundle bundle = new Bundle();
+
+                            nickname = dataBean.getNickname();
+                            convertDataToActivity(bundle);
+                            intent.putExtras(bundle);
+
+                            startActivity(intent);
+                        }
+                        else {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        }
 
 
-                        startActivity(new Intent(LoginActivity.this, EditUserInfoActivity.class));
+
 
                         finish();
 
@@ -248,6 +263,17 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
+    }
+
+
+    public void convertDataToActivity(Bundle bundle){
+        //bundle.putInt("headImg",headImg);
+        bundle.putCharSequence("nickname", nickname);
+        bundle.putCharSequence("school", school);
+        bundle.putCharSequence("major", major);
+        bundle.putCharSequence("class", clazz);
 
 
     }

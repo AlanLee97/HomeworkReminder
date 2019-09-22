@@ -12,9 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.homeworkreminder.R;
 import com.homeworkreminder.entity.UserInfo;
 import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.networkUtil.MyGson;
+import com.homeworkreminder.utils.networkUtil.VolleyInterface;
+import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import cn.bmob.v3.util.V;
@@ -27,7 +31,16 @@ public class UserActivity extends AppCompatActivity {
     private TextView tvUserinfoClass;
     private Button btnLogout;
 
-    private MyApplication app;
+
+    private String nickname;
+    private String school;
+    private String major;
+    private String clazz;
+
+    MyApplication app = new MyApplication();
+
+    String url = "http://www.nibuguai.cn/index.php/index/user/api_getUserInfoById?id=";
+    int uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +48,14 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         initView();
+        getUserData();
 
-        showData();
+        //showData();
+
+
+
+
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,14 +68,21 @@ public class UserActivity extends AppCompatActivity {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
 
-                startActivity(new Intent(UserActivity.this, EditUserInfoActivity.class));
+                getData();
+                Intent intent = new Intent(UserActivity.this, EditUserInfoActivity.class);
+                Bundle bundle = new Bundle();
+
+                convertDataToActivity(bundle);
+                intent.putExtras(bundle);
+
+                startActivity(intent);
             }
         });
 
         logout();
     }
 
-    private void showData() {
+    /*private void showData() {
         app = (MyApplication) getApplication();
         UserInfo userInfo = app.getUserInfo();
         System.out.println("==============UserActivity->app.getUserInfo():" + userInfo);
@@ -70,7 +96,7 @@ public class UserActivity extends AppCompatActivity {
         }else {
             Toast.makeText(this, "没有获取到用户信息", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
 
     private String TAG = "user_state";
@@ -100,5 +126,68 @@ public class UserActivity extends AppCompatActivity {
         tvUserinfoClass = (TextView) findViewById(R.id.tv_userinfo_class);
         btnLogout = (Button) findViewById(R.id.btn_logout);
 
+    }
+
+
+
+    /**
+     * 通过Bundle向Activity中传值
+     */
+    public void convertDataToActivity(Bundle bundle){
+        //bundle.putInt("headImg",headImg);
+        bundle.putCharSequence("nickname", nickname);
+        bundle.putCharSequence("school", school);
+        bundle.putCharSequence("major", major);
+        bundle.putCharSequence("class", clazz);
+
+
+    }
+
+    public void getData(){
+        nickname = tvUserinfoNickname.getText().toString();
+        school = tvUserinfoSchool.getText().toString();
+        major = tvUserinfoMajor.getText().toString();
+        clazz = tvUserinfoClass.getText().toString();
+
+    }
+
+    public void getUserData(){
+        app = (MyApplication) getApplication();
+        uid = app.getUserInfo().getData().get(0).getId();
+
+        url = url + uid;
+
+        VolleyUtil.volleyGET(UserActivity.this, url, "100", new VolleyInterface(
+                UserActivity.this, VolleyInterface.mListener, VolleyInterface.mErrorListener
+        ) {
+            @Override
+            public void onMySuccess(String result) {
+                System.out.println("请求的用户信息：" + result);
+
+                UserInfo userInfo = MyGson.parseJsonByGson(result, UserInfo.class);
+                String username = userInfo.getData().get(0).getUsername();
+                String nickname = userInfo.getData().get(0).getNickname();
+                String school = userInfo.getData().get(0).getSchool();
+                String major = userInfo.getData().get(0).getMajor();
+                String classX = userInfo.getData().get(0).getClassX();
+
+                System.out.println("username = " + username);
+
+                tvUserinfoUsername.setText(username);
+                tvUserinfoNickname.setText(nickname);
+                tvUserinfoSchool.setText(school);
+                tvUserinfoMajor.setText(major);
+                tvUserinfoClass.setText(classX);
+
+                Toast.makeText(UserActivity.this, "个人数据获取成功", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onMyError(VolleyError error) {
+                Toast.makeText(UserActivity.this, "个人数据获取失败", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

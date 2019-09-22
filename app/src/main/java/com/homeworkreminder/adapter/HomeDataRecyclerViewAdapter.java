@@ -29,18 +29,16 @@ public class HomeDataRecyclerViewAdapter extends RecyclerView.Adapter<HomeDataRe
     private List<HomeworkData> homeworkDataList = new ArrayList<>();
     private List<HomeworkData.DataBean> homeworkDataBeanList = new ArrayList<>();
     private LayoutInflater layoutInflater;
+    //定义监听器
+    private MyRecyclerViewOnItemClickListener myRecyclerViewOnItemClickListener;
 
+     //*/
 
     //*
     public HomeDataRecyclerViewAdapter(Context context, List<HomeworkData.DataBean> homeworkDataBeanList) {
         this.context = context;
         this.homeworkDataBeanList = homeworkDataBeanList;
     }
-
-     //*/
-
-    //定义监听器
-    private MyRecyclerViewOnItemClickListener myRecyclerViewOnItemClickListener;
 
     public void setMyRecyclerViewOnItemClickListener(MyRecyclerViewOnItemClickListener myRecyclerViewOnItemClickListener) {
         this.myRecyclerViewOnItemClickListener = myRecyclerViewOnItemClickListener;
@@ -96,7 +94,8 @@ public class HomeDataRecyclerViewAdapter extends RecyclerView.Adapter<HomeDataRe
         private TextView cardTitle;
         private TextView cardContent;
         private TextView cardTag;
-
+        private TextView cardCourse;
+        private TextView cardDeadtime;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,21 +108,20 @@ public class HomeDataRecyclerViewAdapter extends RecyclerView.Adapter<HomeDataRe
             cardTitle = (TextView) itemView.findViewById(R.id.card_title);
             cardContent = (TextView) itemView.findViewById(R.id.card_content);
             cardTag = (TextView) itemView.findViewById(R.id.card_tag);
+            cardCourse = (TextView) itemView.findViewById(R.id.card_course);
+            cardDeadtime = (TextView) itemView.findViewById(R.id.card_deadtime);
         }
 
         public void updateData(){
             int position = this.getLayoutPosition();
             HomeworkData.DataBean dataBean = homeworkDataBeanList.get(position);
             cardNickname.setText(dataBean.getUsername());
-            System.out.println(dataBean.getUsername());
-            Log.d("username", "updateData: getUsername() = " + dataBean.getUsername());
             cardTitle.setText(dataBean.getTitle());
             cardDate.setText(dataBean.getDate());
             cardContent.setText(dataBean.getContent());
             cardTag.setText(dataBean.getTag());
+            cardCourse.setText(dataBean.getCourse());
+            cardDeadtime.setText(dataBean.getDeadtime());
         }
     }
-
-
-
 }

@@ -29,9 +29,11 @@ import com.android.volley.toolbox.Volley;
 import com.homeworkreminder.R;
 import com.homeworkreminder.entity.HomeworkID;
 import com.homeworkreminder.receiver.ClockReceiver;
+import com.homeworkreminder.utils.ClockUtil;
 import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.TimeUtil;
 import com.homeworkreminder.utils.networkUtil.MyGson;
+import com.homeworkreminder.utils.networkUtil.VolleyInterface;
 import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
 import java.io.IOException;
@@ -65,6 +67,12 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
     private long triggerTimeMillis;     //触发闹钟时间
 
+    private EditText etHomeworkCourse;
+    private EditText etHomeworkDeadtime;
+
+
+
+
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -88,6 +96,8 @@ public class NewHomeworkActivity extends AppCompatActivity {
     private String remind_time;
     private String remind_date;
     private String tag;
+    private String course;
+    private String deadtime;
     private int uid;
     private int t_hid;
 
@@ -105,10 +115,13 @@ public class NewHomeworkActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         //选择日期
-        chooseDate();
+        //chooseDate();
+        ClockUtil.chooseDate(tvChooseDate, calendar, NewHomeworkActivity.this);
 
         //选择时间
-        chooseTime();
+        //chooseTime();
+        ClockUtil.chooseTime(tvChooseTime, calendar, NewHomeworkActivity.this);
+
 
         //悬浮按钮，用于创建作业提醒和闹钟
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -116,7 +129,10 @@ public class NewHomeworkActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //开启闹钟
-                startAlarm();
+                //startAlarm();
+
+                ClockUtil.startAlarm(NewHomeworkActivity.this, ClockReceiver.class,calendar);
+
                 //提示消息
 //                Snackbar.make(view, "创建闹钟成功", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
@@ -130,6 +146,8 @@ public class NewHomeworkActivity extends AppCompatActivity {
                 uid = getUid();
                 url = url + "title=" + title
                         + "&content=" + content
+                        + "&course=" + course
+                        + "&deadtime=" + deadtime
                         + "&remind_date=" + remind_date
                         + "&remind_time=" + remind_time
                         + "&tag=" + tag
@@ -140,18 +158,8 @@ public class NewHomeworkActivity extends AppCompatActivity {
                 //将数据传到服务器
                 useVolleyGET(url);
 
-//                String url2 = "http://www.nibuguai.cn/index.php/index/homework/api_setDoneHomework?";
-//                url2 = url2 + "t_user_id=" + uid;
-//                url2 = url2 + "&t_hid=" + t_hid;
-//                useVolleyGET2(url2);
-
-
-
                 Snackbar.make(view, "创建成功", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
-
-
 
                 //跳转到首页
                 startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
@@ -177,11 +185,6 @@ public class NewHomeworkActivity extends AppCompatActivity {
     private void startAlarm() {
         long tmpTime = TimeUtil.transformateFromDateToMilis(mYear, mMonth, mDay, mHour, mMin);
         triggerTimeMillis = tmpTime - calendar.getTimeInMillis();
-
-        Log.d("setTime", "tmpTime:" + tmpTime);
-        Log.d("setTime", "currentTime:" + calendar.getTimeInMillis());
-
-        Log.d("setTime", "triggerTimeMillis:" + triggerTimeMillis);
 
         Intent intent = new Intent(NewHomeworkActivity.this, ClockReceiver.class);
         //intent.putExtra("newReminder", "newReminder的值");
@@ -212,6 +215,9 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
         etHomeworkTitle = (EditText) findViewById(R.id.et_homework_title);
         etHomeworkContent = (EditText) findViewById(R.id.et_homework_content);
+
+        etHomeworkCourse = (EditText) findViewById(R.id.et_homework_course);
+        etHomeworkDeadtime = (EditText) findViewById(R.id.et_homework_deadtime);
 
     }
 
@@ -301,224 +307,34 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
 
     /**
-     * 使用OkHttp3请求数据--POST请求,提交键值对
-     * @param url 请求的url
-     */
-    private void useOkHttp3_POST_KV(String url) {
-        /**
-         * 拿view中的数据
-         **/
-        String title = etHomeworkTitle.getText().toString();
-        String content = etHomeworkContent.getText().toString();
-        String remind_time = tvChooseTime.getText().toString();
-        String remind_date = tvChooseDate.getText().toString();
-
-        //1.创建OkHttpClient对象
-        OkHttpClient okHttpClient = new OkHttpClient();
-
-        //2.1 准备请求体（这里放请求的参数）
-        RequestBody requestBody = new FormBody.Builder()
-                .add("title",title)
-                .add("content",content)
-                .add("remind_time",remind_time)
-                .add("remind_date",remind_date)
-                .build();
-
-        //2.2 创建请求对象
-        Request request = new Request.Builder().url(url).post(requestBody).build();
-
-        //3.创建Call对象,将请求对象request作为参数
-        Call call = okHttpClient.newCall(request);
-
-        //4.请求加入调度，重写回调方法
-        call.enqueue(new Callback(){
-            //请求成功时的回调方法
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Toast.makeText(NewHomeworkActivity.this, "请求数据失败", Toast.LENGTH_SHORT).show();
-            }
-            //请求失败时的回调方法
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                //*
-                //异步请求需要开启子线程，使用Handler+Message的方法将数据更新到主线程
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //获取响应的数据,注意response.body().string()的string()不能调用两次以上，不然会保存
-                            result = response.body().string();
-
-                            Log.d("result", "result = " + result);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        //获取消息
-                        Message message = handler.obtainMessage();
-                        //发送消息
-                        handler.sendMessage(message);
-                    }
-                }).start();
-
-                Toast.makeText(NewHomeworkActivity.this, "请求成功", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(NewHomeworkActivity.this, MainActivity.class);
-                startActivity(intent);
-
-                //*/
-
-
-
-                /*
-                //或者使用 runOnUiThread()方法
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                 */
-            }
-        });
-    }
-
-
-    /**
-     * post请求
-     * @param url url
-     */
-    private void useVolleyPOST(String url) {
-        //获取view中的数据
-        getViewData();
-
-
-
-        System.out.println("title:" + title);
-        System.out.println("content:" + content);
-        System.out.println("remind_time:" + remind_time);
-        System.out.println("remind_date:" + remind_date);
-
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final StringRequest stringRequest = new StringRequest(
-                //参数1：请求方法
-                com.android.volley.Request.Method.POST,
-                //参数2：请求的url
-                url,
-                //参数3：请求成功的监听事件
-                new com.android.volley.Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result = response;
-
-                        Log.d(TAG, "发送数据到服务器：" + response);
-
-
-                        //System.out.println("result:" + result);
-                        Toast.makeText(NewHomeworkActivity.this, "newHomework请求成功" + result, Toast.LENGTH_SHORT).show();
-
-                        //跳转到主界面
-                        //Intent intent = new Intent(NewHomeworkActivity.this, MainActivity.class);
-                        //startActivity(intent);
-
-
-
-                    }
-                },
-                //参数4：请求失败的监听事件
-                new com.android.volley.Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(NewHomeworkActivity.this, "newHomework请求失败", Toast.LENGTH_SHORT).show();
-                    }
-                }){//StringRequest方法体的左大括号
-
-            //StringRequest方法体中重写getParams()方法
-            //设置请求参数的方法
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //设置请求参数信息
-                Map<String, String> map = new HashMap<>();
-                map.put("title",title);
-                map.put("content",content);
-                map.put("remind_date",remind_date);
-                map.put("remind_time",remind_time);
-                return map;
-            }
-
-        };//StringRequest方法体的右大括号
-
-        //3、将请求添加到队列
-        requestQueue.add(stringRequest);
-    }
-
-
-    /**
      * get请求
      * @param url
      */
     private void useVolleyGET(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final StringRequest stringRequest = new StringRequest(
-                //参数1：请求的url
-                url,
-                //参数2：请求成功的监听事件
-                new com.android.volley.Response.Listener<String>() {
+        VolleyUtil.volleyGET(NewHomeworkActivity.this, url, "105",
+                new VolleyInterface(
+                        NewHomeworkActivity.this, VolleyInterface.mListener, VolleyInterface.mErrorListener
+                ) {
                     @Override
-                    public void onResponse(String response) {
-                        result = response;
+                    public void onMySuccess(String result) {
+
                         //将请求的原始json数据放到EditText中
                         Toast.makeText(NewHomeworkActivity.this, "请求成功 result:" + result, Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onResponse: 请求结果" + response);
+                        Log.d(TAG, "onResponse: 请求结果" + result);
 
                         //VolleyUtil volleyUtil = new VolleyUtil(NewHomeworkActivity.this);
                         HomeworkID homeworkID = MyGson.parseJsonByGson(result, HomeworkID.class);
                         t_hid = homeworkID.getData().get(0).getT_hid();
                     }
-                },
-                //参数3：请求失败的监听事件
-                new com.android.volley.Response.ErrorListener(){
+
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(NewHomeworkActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
+                    public void onMyError(VolleyError error) {
+
                     }
                 });
-
-        //3、将请求添加到队列
-        requestQueue.add(stringRequest);
     }
 
-    /**
-     * get请求
-     * @param url
-     */
-    private void useVolleyGET2(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final StringRequest stringRequest = new StringRequest(
-                //参数1：请求的url
-                url,
-                //参数2：请求成功的监听事件
-                new com.android.volley.Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result = response;
-                        //将请求的原始json数据放到EditText中
-                        Toast.makeText(NewHomeworkActivity.this, "请求成功 result:" + result, Toast.LENGTH_SHORT).show();
 
-                    }
-                },
-                //参数3：请求失败的监听事件
-                new com.android.volley.Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(NewHomeworkActivity.this, "加载失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        //3、将请求添加到队列
-        requestQueue.add(stringRequest);
-    }
 
     /**
      * 拿view中的数据
@@ -530,6 +346,8 @@ public class NewHomeworkActivity extends AppCompatActivity {
         tag = etHomeworkTag.getText().toString();
         remind_time = tvChooseTime.getText().toString();
         remind_date = tvChooseDate.getText().toString();
+        course = etHomeworkCourse.getText().toString();
+        deadtime = etHomeworkDeadtime.getText().toString();
 
     }
 }

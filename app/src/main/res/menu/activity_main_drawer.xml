@@ -12,34 +12,36 @@
             android:id="@+id/nav_homework"
             android:icon="@drawable/menu_homework"
             android:title="@string/menu_homework" />
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/menu_setting"
-            android:title="@string/menu_setting" />
+
+
+<!--        <item-->
+<!--            android:id="@+id/nav_register"-->
+<!--            android:icon="@drawable/menu_register"-->
+<!--            android:title="@string/menu_register" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_login"-->
+<!--            android:icon="@drawable/menu_register"-->
+<!--            android:title="@string/menu_login" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_test_bmob"-->
+<!--            android:icon="@drawable/menu_register"-->
+<!--            android:title="@string/menu_test" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_test_qmui"-->
+<!--            android:icon="@drawable/menu_register"-->
+<!--            android:title="@string/menu_qmui" />-->
 
         <item
-            android:id="@+id/nav_register"
-            android:icon="@drawable/menu_register"
-            android:title="@string/menu_register" />
-
-        <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/menu_register"
-            android:title="@string/menu_login" />
-
-        <item
-            android:id="@+id/nav_test_bmob"
-            android:icon="@drawable/menu_register"
-            android:title="@string/menu_test" />
-
-        <item
-            android:id="@+id/nav_test_qmui"
-            android:icon="@drawable/menu_register"
-            android:title="@string/menu_qmui" />
+            android:id="@+id/nav_test_tomato"
+            android:icon="@drawable/icon_tomato"
+            android:title="@string/menu_tomato" />
 
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="其他">
         <menu>
 <!--            <item-->
 <!--                android:id="@+id/nav_share"-->
@@ -53,6 +55,10 @@
 <!--                android:id="@+id/nav_setting"-->
 <!--                android:icon="@drawable/ic_menu_manage"-->
 <!--                android:title="@string/menu_tools" />-->
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/icon_about"
+                android:title="@string/menu_about" />
         </menu>
     </item>
 

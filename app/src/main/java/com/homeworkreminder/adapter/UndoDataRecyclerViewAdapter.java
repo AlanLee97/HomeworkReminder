@@ -142,6 +142,9 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
         private TextView cardTitle;
         private TextView cardContent;
         private TextView cardTag;
+        private TextView course;
+        private TextView deadtime;
+
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -155,6 +158,8 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
             cardTitle = (TextView) itemView.findViewById(R.id.card_title);
             cardContent = (TextView) itemView.findViewById(R.id.card_content);
             cardTag = (TextView) itemView.findViewById(R.id.card_tag);
+            course = (TextView) itemView.findViewById(R.id.card_course);
+            deadtime = (TextView) itemView.findViewById(R.id.card_deadtime);
         }
 
         public void updateData(){
@@ -165,6 +170,8 @@ public class UndoDataRecyclerViewAdapter extends RecyclerView.Adapter<UndoDataRe
             cardDate.setText(dataBean.getDate());
             cardContent.setText(dataBean.getContent());
             cardTag.setText(dataBean.getTag());
+            course.setText(dataBean.getCourse());
+            deadtime.setText(dataBean.getDeadtime());
         }
     }
 

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/qmui_config_color_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.NewHomeworkActivity"
-    tools:showIn="@layout/activity_new_homework">
+    tools:context="com.homeworkreminder.activity.EditHomeworkActivity"
+    tools:showIn="@layout/activity_edit_homework">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:background="@color/qmui_config_color_white">
 
             <EditText
-                android:id="@+id/et_homework_title"
+                android:id="@+id/et_edit_homework_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -41,7 +40,7 @@
             android:background="@color/qmui_config_color_white">
 
             <EditText
-                android:id="@+id/et_homework_course"
+                android:id="@+id/et_edit_homework_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -57,7 +56,7 @@
             android:background="@color/qmui_config_color_white">
 
             <EditText
-                android:id="@+id/et_homework_content"
+                android:id="@+id/et_edit_homework_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -76,7 +75,7 @@
             android:background="@color/qmui_config_color_white">
 
             <EditText
-                android:id="@+id/et_homework_deadtime"
+                android:id="@+id/et_edit_homework_deadtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -92,7 +91,7 @@
             android:background="@color/qmui_config_color_white">
 
             <EditText
-                android:id="@+id/et_homework_tag"
+                android:id="@+id/et_edit_homework_tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -127,7 +126,7 @@
 
 
             <TextView
-                android:id="@+id/tv_chooseDate"
+                android:id="@+id/tv_edit_chooseDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -141,7 +140,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tv_chooseTime"
+                android:id="@+id/tv_edit_chooseTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

@@ -27,6 +27,9 @@ import com.homeworkreminder.entity.HomeworkData;
 import com.homeworkreminder.interfaces.CallbackValueToActivity;
 import com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener;
 import com.homeworkreminder.entity.HomeData;
+import com.homeworkreminder.utils.networkUtil.MyGson;
+import com.homeworkreminder.utils.networkUtil.VolleyInterface;
+import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,12 +53,16 @@ public class HomeFragment extends Fragment  {
     private String title;
     private String content;
     private String tag;
+    private String course;
+    private String deadtime;
+    private String hid;
 
     private String user;
     private List<HomeworkData.DataBean> homeworkDataBeanList;
     private HomeworkData homeworkData;
     //请求的url
     private String url;
+    private CallbackValueToActivity callbackValueToActivity;
 
     /**
      * 这里要填充布局文件
@@ -67,7 +74,6 @@ public class HomeFragment extends Fragment  {
         //填充布局文件
         return inflater.inflate(R.layout.home_fragment_layout, null);
     }
-
 
     /**
      * 这个相当于Activity的onCreate方法
@@ -96,9 +102,6 @@ public class HomeFragment extends Fragment  {
 
     }
 
-
-
-
     /**
      * 初始化视图
      */
@@ -106,8 +109,6 @@ public class HomeFragment extends Fragment  {
         myRecyclerView = view.findViewById(R.id.recyclerView);
         homeSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.home_SwipeRefreshLayout);
     }
-
-
 
     /**
      * 添加RecyclerView
@@ -127,7 +128,7 @@ public class HomeFragment extends Fragment  {
         //设置适配器
         recyclerView.setAdapter(homeDataRecyclerViewAdapter);
 
-        //设置监听器
+        //设置单击事件监听器
         homeDataRecyclerViewAdapter.setMyRecyclerViewOnItemClickListener(new MyRecyclerViewOnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
@@ -141,6 +142,11 @@ public class HomeFragment extends Fragment  {
                 title = homeworkDataBeanList.get(position).getTitle();
                 content = homeworkDataBeanList.get(position).getContent();
                 tag = homeworkDataBeanList.get(position).getTag();
+                course = homeworkDataBeanList.get(position).getCourse();
+                deadtime = homeworkDataBeanList.get(position).getDeadtime();
+
+                hid = homeworkDataBeanList.get(position).getId() + "";
+
 
                 //callbackValueToActivity.sendValue(nickname);
                 Intent intent = new Intent(getActivity(), HomeworkDetailActivity.class);
@@ -155,9 +161,6 @@ public class HomeFragment extends Fragment  {
             }
         });
     }
-
-
-    private CallbackValueToActivity callbackValueToActivity;
 
     /**
      * Fragment与Activity关联的回调方法
@@ -182,78 +185,43 @@ public class HomeFragment extends Fragment  {
         bundle.putCharSequence("content", content);
         bundle.putCharSequence("tag", tag);
         bundle.putCharSequence("date", date);
+        bundle.putCharSequence("course", course);
+        bundle.putCharSequence("deadtime", deadtime);
+        bundle.putCharSequence("hid", hid);
 
     }
 
 
-    private String TAG = "volley";
-
-    private String result;
     /**
      * get请求
      * @param url url
      */
     public void useVolleyGET(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        final StringRequest stringRequest = new StringRequest(
-                //参数1：请求的url
-                url,
-                //参数2：请求成功的监听事件
-                new com.android.volley.Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result = response;
-                        //将请求的原始json数据放到EditText中
-                        //loginReturnResult.setText(result);
+        VolleyUtil.volleyGET(getContext(), url, "104", new VolleyInterface(
+                getActivity(), VolleyInterface.mListener, VolleyInterface.mErrorListener
+        ) {
+            @Override
+            public void onMySuccess(String result) {
 
-                        Log.d(TAG, "onResponse: response \n" + response);
-
-                        //使用Gson解析json数据
-                        parseJsonByGson(result);
+                //使用Gson解析json数据
+                homeworkData = MyGson.parseJsonByGson(result, HomeworkData.class);
 
 
-                        //请求成功后addRecyclerView显示数据
-                        homeworkDataBeanList = homeworkData.getData();
+                //请求成功后addRecyclerView显示数据
+                homeworkDataBeanList = HomeFragment.this.homeworkData.getData();
 
-                        Collections.reverse(homeworkDataBeanList);
+                addRecyclerView(myRecyclerView, homeworkDataBeanList);
 
-                        for (int i = 0; i < homeworkDataBeanList.size(); i++) {
-                            System.out.println("数据" + i + ": " + homeworkDataBeanList.get(i).getTitle());
-                        }
+                //停止刷新
+                homeSwipeRefreshLayout.setRefreshing(false);
+            }
 
-                        addRecyclerView(myRecyclerView, homeworkDataBeanList);
+            @Override
+            public void onMyError(VolleyError error) {
+                Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
 
-                        //停止刷新
-                        homeSwipeRefreshLayout.setRefreshing(false);
-
-
-                        //Toast.makeText(getActivity(), "请求成功", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                //参数3：请求失败的监听事件
-                new com.android.volley.Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //loginReturnResult.setText("请求失败");
-                        Log.d(TAG, "onErrorResponse: " + error);
-                        Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        //3、将请求添加到队列
-        requestQueue.add(stringRequest);
+            }
+        });
     }
 
-    /**
-     * 使用Gson解析json数据，这个比较简单，以下是使用步骤(3步，其实前2步就算拿到数据了)
-     * @param json 要解析的json
-     */
-    public void parseJsonByGson(String json){
-        //1、创建Gson对象
-        Gson gson = new Gson();
-        //2、调用Gson的fromJson()方法，将json转成javaBean，将要显示的数据封装到这个javaBean
-        //fromJson(参数1，参数2)方法 参数1：需要解析的json 参数2：一个javaBean，接收需要封装的数据（总数据的javaBean）
-        homeworkData = gson.fromJson(result, HomeworkData.class);
-
-    }
 }
