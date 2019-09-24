@@ -9,7 +9,7 @@
     		0 ：从左往右开始渐变
      -->
     <gradient
-        android:startColor="#673AB7"
+        android:startColor="#43B6F8"
         android:endColor="#2196F3"
         android:angle="225"
         />

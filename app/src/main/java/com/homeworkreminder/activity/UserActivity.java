@@ -30,6 +30,10 @@ public class UserActivity extends AppCompatActivity {
     private TextView tvUserinfoMajor;
     private TextView tvUserinfoClass;
     private Button btnLogout;
+    private Button btnModifyPassword;
+
+    
+
 
 
     private String nickname;
@@ -52,12 +56,6 @@ public class UserActivity extends AppCompatActivity {
 
         //showData();
 
-
-
-
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -79,24 +77,20 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
+        modifyPassword();
+        
         logout();
     }
 
-    /*private void showData() {
-        app = (MyApplication) getApplication();
-        UserInfo userInfo = app.getUserInfo();
-        System.out.println("==============UserActivity->app.getUserInfo():" + userInfo);
-        if (userInfo != null){
-            UserInfo.DataBean dataBean = userInfo.getData().get(0);
-            tvUserinfoUsername.setText(dataBean.getUsername());
-            tvUserinfoNickname.setText(dataBean.getNickname());
-            tvUserinfoSchool.setText(dataBean.getSchool());
-            tvUserinfoMajor.setText(dataBean.getMajor());
-            tvUserinfoClass.setText(dataBean.getClassX());
-        }else {
-            Toast.makeText(this, "没有获取到用户信息", Toast.LENGTH_SHORT).show();
-        }
-    }*/
+    private void modifyPassword() {
+        btnModifyPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserActivity.this, ModifyPasswordActivity.class));
+
+            }
+        });
+    }
 
 
     private String TAG = "user_state";
@@ -109,6 +103,8 @@ public class UserActivity extends AppCompatActivity {
                 CheckUserInfoUtil userInfoUtil = new CheckUserInfoUtil(getApplicationContext());
                 userInfoUtil.writeUserInfo("false", "register");
                 userInfoUtil.writeUserInfo("false", "login");
+                userInfoUtil.writeUserInfo("", "uid");
+                //app.setSTATE_LOGIN(false);
                 startActivity(new Intent(UserActivity.this, MainActivity.class));
 
                 finish();
@@ -125,6 +121,7 @@ public class UserActivity extends AppCompatActivity {
         tvUserinfoMajor = (TextView) findViewById(R.id.tv_userinfo_major);
         tvUserinfoClass = (TextView) findViewById(R.id.tv_userinfo_class);
         btnLogout = (Button) findViewById(R.id.btn_logout);
+        btnModifyPassword = (Button) findViewById(R.id.btn_modifyPassword);
 
     }
 

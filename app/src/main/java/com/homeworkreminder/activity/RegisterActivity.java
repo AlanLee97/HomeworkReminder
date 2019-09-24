@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String result;  //保存请求的结果
     //请求的url地址
     private String url = "http://www.nibuguai.cn/index.php/index/user/api_registerdowith?";
+    MyApplication app = new MyApplication();
 
 
 
@@ -45,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        app = (MyApplication) getApplication();
 
         if(Build.VERSION.SDK_INT >= 24) {
             Window window = getWindow();
@@ -132,31 +134,14 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         result = response;
-                        //将请求的原始json数据放到EditText中
-                        //regReturnResult.setText(result);
 
-                        //System.out.println("result:" + result);
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
 
                         CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(RegisterActivity.this);
                         checkUserInfoUtil.writeUserInfo("true", "register");
-
-
-                        //跳转到登录界面
-                        /*
-                        Intent intent = getIntent();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("registerState", "true");
-                        intent.putExtras(bundle);
-                        setResult(200, intent);
-
-                         */
+                        //app.setSTATE_REGISTER(true);
 
                         finish();
-
-                        //使用Gson解析json数据
-                        //parseJsonByGson(result);
-
                     }
                 },
                 //参数4：请求失败的监听事件
@@ -184,26 +169,4 @@ public class RegisterActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-
-    String registerState;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        /*
-        if (requestCode == 200 && resultCode == 200){
-            Bundle bundle = data.getExtras();
-            registerState = bundle.getString("loginState");
-
-            CheckUserInfoUtil userInfoUtil = new CheckUserInfoUtil(RegisterActivity.this);
-            registerState = userInfoUtil.readUserInfo("login");
-            if (registerState.equals("true")){
-                Toast.makeText(this, "已登录", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this, "未登录", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-         */
-    }
 }

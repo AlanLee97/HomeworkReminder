@@ -42,6 +42,9 @@ public class MainActivity extends BaseActivity
     private FragmentTransaction fragmentTransaction;    //Fragment事务
     private ImageView iv_user_head;
 
+    boolean isLogin;
+    boolean isRegister;
+
     //获取当前的Fragment
     private Fragment mFragment = new HomeFragment();
 
@@ -69,6 +72,9 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+        //获取权限
         initPermission();
 
 
@@ -80,8 +86,8 @@ public class MainActivity extends BaseActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+
+                //跳转到添加作业界面
                 Intent intent = new Intent(MainActivity.this, NewHomeworkActivity.class);
                 startActivity(intent);
             }
@@ -109,14 +115,10 @@ public class MainActivity extends BaseActivity
 
         //检查用户状态
         checkUserState();
+        //app.app_checkUserState();
 
         //获取导航栏左侧的头像和用户名控件的点击事件，并显示当前用户名
         getLeftImgAndUsername(navigationView);
-
-
-//        String TAG = "user_state";
-//        Log.d(TAG, "MainActivity>registerState: " + MyApplication.registerState);
-//        Log.d(TAG, "MainActivity>loginState: " + MyApplication.loginState);
 
     }
 
@@ -173,15 +175,19 @@ public class MainActivity extends BaseActivity
         });
     }
 
+
     /**
      * 根据用户状态跳转相应界面
      */
     public void toWhatActivity(){
+
         if (registerState.equals("false") && loginState.equals("false")){ //未注册，跳转到注册界面
+        //if (!isRegister && !isLogin){ //未注册，跳转到注册界面
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
 
         }else if (loginState.equals("false") && registerState.equals("true")){//未登录，跳转到登录界面
+        //}else if (isRegister && !isLogin){//未登录，跳转到登录界面
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
 

@@ -175,6 +175,17 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_modifyPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="修改密码"
+            android:textSize="22sp"
+            android:textColor="#fff"
+            android:background="#03A9F4"
+            android:padding="10dp"
+            android:layout_margin="20dp"/>
+
+        <Button
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

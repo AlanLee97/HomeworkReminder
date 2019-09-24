@@ -21,7 +21,10 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            app:toolbarId="@+id/toolbar"
+            android:background="@drawable/about_bg"
+            app:title="关于我"
+            >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -40,7 +43,17 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+
+        android:src="@drawable/head"
+        app:maxImageSize="80dp"
+        android:backgroundTint="@color/qmui_config_color_transparent"
+        >
+
+
+
+
+    </android.support.design.widget.FloatingActionButton>
 
     <include layout="@layout/content_about" />
 

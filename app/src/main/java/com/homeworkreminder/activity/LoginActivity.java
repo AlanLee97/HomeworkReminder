@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.homeworkreminder.R;
 import com.homeworkreminder.entity.UserInfo;
 import com.homeworkreminder.utils.MyApplication;
+import com.homeworkreminder.utils.networkUtil.MyGson;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.HashMap;
@@ -51,11 +52,15 @@ public class LoginActivity extends AppCompatActivity {
     private String school = "";
     private String major = "";
     private String clazz = "";
+    MyApplication app = new MyApplication();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        app = (MyApplication) getApplication();
 
         if(Build.VERSION.SDK_INT >= 24) {
             Window window = getWindow();
@@ -97,44 +102,6 @@ public class LoginActivity extends AppCompatActivity {
         etLoginUsername = (EditText) findViewById(R.id.et_login_username);
         etLoginPassword = (EditText) findViewById(R.id.et_login_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
-        //loginReturnResult = (TextView) findViewById(R.id.login_return_result);
-    }
-
-
-    /**
-     * get请求
-     * @param url url
-     */
-    private void useVolleyGET(String url) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        final StringRequest stringRequest = new StringRequest(
-                //参数1：请求的url
-                url,
-                //参数2：请求成功的监听事件
-                new com.android.volley.Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result = response;
-                        //将请求的原始json数据放到EditText中
-                        //loginReturnResult.setText(result);
-
-                        //使用Gson解析json数据
-                        //parseJsonByGson(result);
-
-                        Toast.makeText(LoginActivity.this, "请求成功", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                //参数3：请求失败的监听事件
-                new com.android.volley.Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //loginReturnResult.setText("请求失败");
-                        Toast.makeText(LoginActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        //3、将请求添加到队列
-        requestQueue.add(stringRequest);
     }
 
 
@@ -159,16 +126,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 
-                        System.out.println(response);
 
                         checkUserInfoUtil.writeUserInfo(response, "userinfo");
+                        //app.setSTATE_LOGIN(true);
 
 
+                        UserInfo userInfo = MyGson.parseJsonByGson(response, UserInfo.class);
 
-                        UserInfo userInfo = parseJsonByGson(response);
-
-                        MyApplication app = new MyApplication();
-                        app = (MyApplication) getApplication();
                         app.setUserInfo(userInfo);
                         UserInfo userInfo1 = app.getUserInfo();
                         System.out.println("MyApplication->userinfo1:" + userInfo1);
@@ -207,15 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
 
-
-
-
                         finish();
-
-
-                        //使用Gson解析json数据
-                        //parseJsonByGson(result);
-
                     }
                 },
                 //参数4：请求失败的监听事件
@@ -243,30 +199,6 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    /**
-     * 使用Gson解析json数据，这个比较简单，以下是使用步骤(3步，其实前2步就算拿到数据了)
-     * @param json 要解析的json
-     */
-    public UserInfo parseJsonByGson(String json){
-        //1、创建Gson对象
-        Gson gson = new Gson();
-        //2、调用Gson的fromJson()方法，将json转成javaBean，将要显示的数据封装到这个javaBean
-        //fromJson(参数1，参数2)方法 参数1：需要解析的json 参数2：一个javaBean，接收需要封装的数据（总数据的javaBean）
-
-        UserInfo userInfo = gson.fromJson(json, UserInfo.class);
-
-        Log.d("userInfo", "parseJsonByGson: userinfo : " + userInfo);
-
-        return userInfo;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-    }
-
 
     public void convertDataToActivity(Bundle bundle){
         //bundle.putInt("headImg",headImg);
@@ -274,7 +206,5 @@ public class LoginActivity extends AppCompatActivity {
         bundle.putCharSequence("school", school);
         bundle.putCharSequence("major", major);
         bundle.putCharSequence("class", clazz);
-
-
     }
 }

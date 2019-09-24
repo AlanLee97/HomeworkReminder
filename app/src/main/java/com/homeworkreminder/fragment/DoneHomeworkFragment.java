@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
 import com.homeworkreminder.activity.HomeworkDetailActivity;
+import com.homeworkreminder.activity.LoginActivity;
 import com.homeworkreminder.activity.MyHomeworkDetailActivity;
 import com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
@@ -35,6 +36,7 @@ import com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener;
 import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.networkUtil.VolleyInterface;
 import com.homeworkreminder.utils.networkUtil.VolleyUtil;
+import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,7 +92,7 @@ public class DoneHomeworkFragment extends Fragment {
 
         homeworkDoneSwipeRefreshLayout.setRefreshing(true);
 
-        uid = getUid();
+        //uid = getUid();
 
         //initData();
 
@@ -109,11 +111,19 @@ public class DoneHomeworkFragment extends Fragment {
         homeworkDoneSwipeRefreshLayout.setRefreshing(true);
 
 
-        int uid = getUid();
 
-        //拼接url
-        url = url + uid;
-        useVolleyGET(url);
+        //useVolleyGET(url);
+        checkState();
+        if (isLogin){
+            uid = getUid();
+
+            //拼接url
+            url = url + uid;
+            useVolleyGET(url);
+        }else {
+            Toast.makeText(getContext(), "请先登录", Toast.LENGTH_SHORT).show();
+            getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
+        }
 
 
         //下拉刷新的监听事件
@@ -226,28 +236,45 @@ public class DoneHomeworkFragment extends Fragment {
                         //删除item
                         if (items[which].equals("删除")){
 
-                            t_hid = homeworkDataBeanList.get(position).getId();
-                            deleteUrl = deleteUrl + t_hid;
-                            VolleyUtil.volleyGET(getContext(), deleteUrl, "101",
-                                    new VolleyInterface(
-                                            getContext(),
-                                            VolleyInterface.mListener,
-                                            VolleyInterface.mErrorListener) {
-                                        @Override
-                                        public void onMySuccess(String result) {
-                                            System.out.println("删除作业请求的url：" + deleteUrl);
-                                            Toast.makeText(getContext(), "作业在数据库中删除成功", Toast.LENGTH_SHORT).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("作业共享提醒");
+                            builder.setMessage("确认删除？\n该操作将从数据库中删除数据");
+                            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    t_hid = homeworkDataBeanList.get(position).getId();
+                                    deleteUrl = deleteUrl + t_hid;
+                                    VolleyUtil.volleyGET(getContext(), deleteUrl, "99",
+                                            new VolleyInterface(
+                                                    getContext(),
+                                                    VolleyInterface.mListener,
+                                                    VolleyInterface.mErrorListener) {
+                                                @Override
+                                                public void onMySuccess(String result) {
+                                                    System.out.println("删除作业请求的url：" + deleteUrl);
+                                                    Toast.makeText(getContext(), "作业在数据库中删除成功", Toast.LENGTH_SHORT).show();
 
 
-                                            doneDataRecyclerViewAdapter.removeData(position);
-                                        }
+                                                    doneDataRecyclerViewAdapter.removeData(position);
+                                                }
 
-                                        @Override
-                                        public void onMyError(VolleyError error) {
-                                            Toast.makeText(getContext(), "作业在数据库中删除失败", Toast.LENGTH_SHORT).show();
+                                                @Override
+                                                public void onMyError(VolleyError error) {
+                                                    Toast.makeText(getContext(), "作业在数据库中删除失败", Toast.LENGTH_SHORT).show();
 
-                                        }
-                                    });
+                                                }
+                                            });
+                                }
+                            });
+                            builder.create().show();
+
 
                         }
 
@@ -340,7 +367,22 @@ public class DoneHomeworkFragment extends Fragment {
         app = new MyApplication();
         app = (MyApplication) getActivity().getApplication();
 
-        return app.getUserInfo().getData().get(0).getId();
+        if (app.getUserInfo().getData() != null){
+            return app.getUserInfo().getData().get(0).getId();
+        }else {
+            return 0;
+        }
+    }
+
+    boolean isLogin;
+    public void checkState(){
+        CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(getContext());
+        String loginState = checkUserInfoUtil.readUserInfo("login");
+        if (loginState.equals("true")){
+            isLogin = true;
+        }else {
+            isLogin = false;
+        }
     }
 
 

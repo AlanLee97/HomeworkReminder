@@ -3,6 +3,7 @@ package com.homeworkreminder.utils;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -31,9 +32,30 @@ public class MyApplication extends Application {
 
     private UserInfo userInfo;
 
+    private boolean STATE_LOGIN = false;
+    private boolean STATE_REGISTER = false;
+
+    public boolean isSTATE_LOGIN() {
+        return STATE_LOGIN;
+    }
+
+    public void setSTATE_LOGIN(boolean STATE_LOGIN) {
+        this.STATE_LOGIN = STATE_LOGIN;
+    }
+
+    public boolean isSTATE_REGISTER() {
+        return STATE_REGISTER;
+    }
+
+    public void setSTATE_REGISTER(boolean STATE_REGISTER) {
+        this.STATE_REGISTER = STATE_REGISTER;
+    }
+
     public UserInfo getUserInfo() {
         return userInfo;
     }
+
+
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
@@ -48,6 +70,8 @@ public class MyApplication extends Application {
         mQueue = Volley.newRequestQueue(getApplicationContext());
 
         getUserInfoFromSharedPreference();
+
+        //app_checkUserState();
 
 
     }
@@ -113,5 +137,39 @@ public class MyApplication extends Application {
     }
 
 
+    /*
+    public void app_checkUserState(){
+        String registerState = "";
+        String loginState = "";
+        //检查注册状态
+        userInfoUtil = new CheckUserInfoUtil(getApplicationContext());
+        registerState = userInfoUtil.readUserInfo("register");
+        if (registerState.equals("true")){
+            STATE_REGISTER = true;
+        }
+        Log.d("userinfo", "注册状态：" + STATE_REGISTER);
+
+        //检查登录状态
+        loginState = userInfoUtil.readUserInfo("login");
+        if (loginState.equals("true")){
+            STATE_LOGIN = true;
+        }
+        Log.d("login", "登录状态：" + STATE_LOGIN);
+    }
+
+*/
+
+
+    public boolean checkState(boolean isLogin){
+        CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(getApplicationContext());
+        String loginState = checkUserInfoUtil.readUserInfo("login");
+        if (loginState.equals("true")){
+            isLogin = true;
+        }else {
+            isLogin = false;
+        }
+
+        return isLogin;
+    }
 
 }

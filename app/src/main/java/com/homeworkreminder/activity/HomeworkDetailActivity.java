@@ -1,9 +1,11 @@
 package com.homeworkreminder.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -48,6 +50,8 @@ public class HomeworkDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_homework_detail);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+        app = (MyApplication) getApplication();
+
 
 
 
@@ -68,44 +72,37 @@ public class HomeworkDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
 
+                boolean isLogin = false;
 
-                getData();
+                if (app.checkState(isLogin)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(HomeworkDetailActivity.this);
+                    builder.setTitle("作业共享提醒");
+                    builder.setMessage("确认添加到我的作业列表吗？");
+                    builder.setNegativeButton("不添加", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                url = url + "title=" + title
-                        + "&content=" + content
-                        + "&course=" + course
-                        + "&deadtime=" + deadtime
-                        + "&remind_date=" + ""
-                        + "&remind_time=" + ""
-                        + "&tag=" + tag
-                        + "&uid=" + uid;
-
-                VolleyUtil.volleyGET(HomeworkDetailActivity.this, url, "102",
-                        new VolleyInterface(
-                                HomeworkDetailActivity.this,
-                                VolleyInterface.mListener,
-                                VolleyInterface.mErrorListener
-                        ) {
-                            @Override
-                            public void onMySuccess(String result) {
-                                Toast.makeText(HomeworkDetailActivity.this, "成功添加到我的作业列表", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onMyError(VolleyError error) {
-                                Toast.makeText(HomeworkDetailActivity.this, "添加到我的作业列表 失败", Toast.LENGTH_SHORT).show();
-                            }
                         }
-                );
+                    });
 
+                    builder.setPositiveButton("添加", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            useVolleyGET();
+                            Toast.makeText(HomeworkDetailActivity.this, "成功添加到作业列表", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.create().show();
 
+                }else {
+                    Toast.makeText(HomeworkDetailActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(HomeworkDetailActivity.this, LoginActivity.class));
+                }
             }
         });
-
-
     }
 
     private void initView() {
@@ -125,9 +122,40 @@ public class HomeworkDetailActivity extends AppCompatActivity {
         course = tvDetailCourse.getText().toString();
         deadtime = tvDetailDeadtime.getText().toString();
         tag = tvDetailTag.getText().toString();
+    }
 
-        app = (MyApplication) getApplication();
+    public void useVolleyGET(){
+        getData();
+
         uid = app.getUserInfo().getData().get(0).getId();
+
+
+        url = url + "title=" + title
+                + "&content=" + content
+                + "&course=" + course
+                + "&deadtime=" + deadtime
+                + "&remind_date=" + ""
+                + "&remind_time=" + ""
+                + "&tag=" + tag
+                + "&uid=" + uid;
+
+        VolleyUtil.volleyGET(HomeworkDetailActivity.this, url, "102",
+                new VolleyInterface(
+                        HomeworkDetailActivity.this,
+                        VolleyInterface.mListener,
+                        VolleyInterface.mErrorListener
+                ) {
+                    @Override
+                    public void onMySuccess(String result) {
+                        Toast.makeText(HomeworkDetailActivity.this, "成功添加到我的作业列表", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onMyError(VolleyError error) {
+                        Toast.makeText(HomeworkDetailActivity.this, "添加到我的作业列表 失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
 
 

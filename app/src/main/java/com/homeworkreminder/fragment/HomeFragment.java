@@ -144,11 +144,8 @@ public class HomeFragment extends Fragment  {
                 tag = homeworkDataBeanList.get(position).getTag();
                 course = homeworkDataBeanList.get(position).getCourse();
                 deadtime = homeworkDataBeanList.get(position).getDeadtime();
-
                 hid = homeworkDataBeanList.get(position).getId() + "";
 
-
-                //callbackValueToActivity.sendValue(nickname);
                 Intent intent = new Intent(getActivity(), HomeworkDetailActivity.class);
                 Bundle bundle = new Bundle();
 

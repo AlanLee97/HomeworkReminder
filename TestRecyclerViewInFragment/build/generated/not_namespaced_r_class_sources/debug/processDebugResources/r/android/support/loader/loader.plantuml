@@ -1,0 +1,232 @@
+@startuml
+
+title __LOADER's Class Diagram__\n
+
+  namespace android.support.loader {
+    class android.support.loader.R {
+        - R()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.attr {
+        {static} + alpha : int
+        {static} + font : int
+        {static} + fontProviderAuthority : int
+        {static} + fontProviderCerts : int
+        {static} + fontProviderFetchStrategy : int
+        {static} + fontProviderFetchTimeout : int
+        {static} + fontProviderPackage : int
+        {static} + fontProviderQuery : int
+        {static} + fontStyle : int
+        {static} + fontVariationSettings : int
+        {static} + fontWeight : int
+        {static} + ttcIndex : int
+        - attr()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.color {
+        {static} + notification_action_color_filter : int
+        {static} + notification_icon_bg_color : int
+        {static} + ripple_material_light : int
+        {static} + secondary_text_default_material_light : int
+        - color()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.dimen {
+        {static} + compat_button_inset_horizontal_material : int
+        {static} + compat_button_inset_vertical_material : int
+        {static} + compat_button_padding_horizontal_material : int
+        {static} + compat_button_padding_vertical_material : int
+        {static} + compat_control_corner_material : int
+        {static} + compat_notification_large_icon_max_height : int
+        {static} + compat_notification_large_icon_max_width : int
+        {static} + notification_action_icon_size : int
+        {static} + notification_action_text_size : int
+        {static} + notification_big_circle_margin : int
+        {static} + notification_content_margin_start : int
+        {static} + notification_large_icon_height : int
+        {static} + notification_large_icon_width : int
+        {static} + notification_main_column_padding_top : int
+        {static} + notification_media_narrow_margin : int
+        {static} + notification_right_icon_size : int
+        {static} + notification_right_side_padding_top : int
+        {static} + notification_small_icon_background_padding : int
+        {static} + notification_small_icon_size_as_large : int
+        {static} + notification_subtext_size : int
+        {static} + notification_top_pad : int
+        {static} + notification_top_pad_large_text : int
+        - dimen()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.drawable {
+        {static} + notification_action_background : int
+        {static} + notification_bg : int
+        {static} + notification_bg_low : int
+        {static} + notification_bg_low_normal : int
+        {static} + notification_bg_low_pressed : int
+        {static} + notification_bg_normal : int
+        {static} + notification_bg_normal_pressed : int
+        {static} + notification_icon_background : int
+        {static} + notification_template_icon_bg : int
+        {static} + notification_template_icon_low_bg : int
+        {static} + notification_tile_bg : int
+        {static} + notify_panel_notification_icon_bg : int
+        - drawable()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.id {
+        {static} + action_container : int
+        {static} + action_divider : int
+        {static} + action_image : int
+        {static} + action_text : int
+        {static} + actions : int
+        {static} + async : int
+        {static} + blocking : int
+        {static} + chronometer : int
+        {static} + forever : int
+        {static} + icon : int
+        {static} + icon_group : int
+        {static} + info : int
+        {static} + italic : int
+        {static} + line1 : int
+        {static} + line3 : int
+        {static} + normal : int
+        {static} + notification_background : int
+        {static} + notification_main_column : int
+        {static} + notification_main_column_container : int
+        {static} + right_icon : int
+        {static} + right_side : int
+        {static} + tag_transition_group : int
+        {static} + tag_unhandled_key_event_manager : int
+        {static} + tag_unhandled_key_listeners : int
+        {static} + text : int
+        {static} + text2 : int
+        {static} + time : int
+        {static} + title : int
+        - id()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.integer {
+        {static} + status_bar_notification_info_maxnum : int
+        - integer()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.layout {
+        {static} + notification_action : int
+        {static} + notification_action_tombstone : int
+        {static} + notification_template_custom_big : int
+        {static} + notification_template_icon_group : int
+        {static} + notification_template_part_chronometer : int
+        {static} + notification_template_part_time : int
+        - layout()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.string {
+        {static} + status_bar_notification_info_overflow : int
+        - string()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.style {
+        {static} + TextAppearance_Compat_Notification : int
+        {static} + TextAppearance_Compat_Notification_Info : int
+        {static} + TextAppearance_Compat_Notification_Line2 : int
+        {static} + TextAppearance_Compat_Notification_Time : int
+        {static} + TextAppearance_Compat_Notification_Title : int
+        {static} + Widget_Compat_NotificationActionContainer : int
+        {static} + Widget_Compat_NotificationActionText : int
+        - style()
+    }
+  }
+  
+
+  namespace android.support.loader {
+    class android.support.loader.R.styleable {
+        {static} + ColorStateListItem : int[]
+        {static} + ColorStateListItem_alpha : int
+        {static} + ColorStateListItem_android_alpha : int
+        {static} + ColorStateListItem_android_color : int
+        {static} + FontFamily : int[]
+        {static} + FontFamilyFont : int[]
+        {static} + FontFamilyFont_android_font : int
+        {static} + FontFamilyFont_android_fontStyle : int
+        {static} + FontFamilyFont_android_fontVariationSettings : int
+        {static} + FontFamilyFont_android_fontWeight : int
+        {static} + FontFamilyFont_android_ttcIndex : int
+        {static} + FontFamilyFont_font : int
+        {static} + FontFamilyFont_fontStyle : int
+        {static} + FontFamilyFont_fontVariationSettings : int
+        {static} + FontFamilyFont_fontWeight : int
+        {static} + FontFamilyFont_ttcIndex : int
+        {static} + FontFamily_fontProviderAuthority : int
+        {static} + FontFamily_fontProviderCerts : int
+        {static} + FontFamily_fontProviderFetchStrategy : int
+        {static} + FontFamily_fontProviderFetchTimeout : int
+        {static} + FontFamily_fontProviderPackage : int
+        {static} + FontFamily_fontProviderQuery : int
+        {static} + GradientColor : int[]
+        {static} + GradientColorItem : int[]
+        {static} + GradientColorItem_android_color : int
+        {static} + GradientColorItem_android_offset : int
+        {static} + GradientColor_android_centerColor : int
+        {static} + GradientColor_android_centerX : int
+        {static} + GradientColor_android_centerY : int
+        {static} + GradientColor_android_endColor : int
+        {static} + GradientColor_android_endX : int
+        {static} + GradientColor_android_endY : int
+        {static} + GradientColor_android_gradientRadius : int
+        {static} + GradientColor_android_startColor : int
+        {static} + GradientColor_android_startX : int
+        {static} + GradientColor_android_startY : int
+        {static} + GradientColor_android_tileMode : int
+        {static} + GradientColor_android_type : int
+        - styleable()
+    }
+  }
+  
+
+  android.support.loader.R +-down- android.support.loader.R.attr
+  android.support.loader.R +-down- android.support.loader.R.color
+  android.support.loader.R +-down- android.support.loader.R.dimen
+  android.support.loader.R +-down- android.support.loader.R.drawable
+  android.support.loader.R +-down- android.support.loader.R.id
+  android.support.loader.R +-down- android.support.loader.R.integer
+  android.support.loader.R +-down- android.support.loader.R.layout
+  android.support.loader.R +-down- android.support.loader.R.string
+  android.support.loader.R +-down- android.support.loader.R.style
+  android.support.loader.R +-down- android.support.loader.R.styleable
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

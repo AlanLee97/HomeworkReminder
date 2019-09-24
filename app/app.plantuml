@@ -1,0 +1,547 @@
+@startuml
+
+title __APP's Class Diagram__\n
+
+  namespace  {
+    namespace om.homeworkreminder {
+      class com.homeworkreminder.BuildConfig {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.AboutActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.BaseActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.EditHomeworkActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.EditUserInfoActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.HomeworkDetailActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.LoginActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.MainActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.MyHomeworkDetailActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.NewHomeworkActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.RegisterActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.ReminderActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.TestBmobActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.TestQMUIActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.TomatoClockActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace activity {
+        class com.homeworkreminder.activity.UserActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace adapter {
+        class com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace adapter {
+        class com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace adapter {
+        class com.homeworkreminder.adapter.MyFragmentPagerAdapter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace adapter {
+        class com.homeworkreminder.adapter.TabViewPagerAdapter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace adapter {
+        class com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace entity {
+        class com.homeworkreminder.entity.HomeData {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace entity {
+        class com.homeworkreminder.entity.HomeworkData {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace entity {
+        class com.homeworkreminder.entity.HomeworkID {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace entity {
+        class com.homeworkreminder.entity.UserInfo {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace entity {
+        namespace bean {
+          class com.homeworkreminder.entity.bean.Person {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace fragment {
+        class com.homeworkreminder.fragment.DoneHomeworkFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace fragment {
+        class com.homeworkreminder.fragment.HomeFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace fragment {
+        class com.homeworkreminder.fragment.HomeworkFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace fragment {
+        class com.homeworkreminder.fragment.PageViewModel {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace fragment {
+        class com.homeworkreminder.fragment.SettingFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace fragment {
+        class com.homeworkreminder.fragment.UndoHomeworkFragment {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace interfaces {
+        interface com.homeworkreminder.interfaces.CallbackValueToActivity {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace interfaces {
+        interface com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace interfaces {
+        interface com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace receiver {
+        class com.homeworkreminder.receiver.ClockReceiver {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace service {
+        class com.homeworkreminder.service.MusicService {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        class com.homeworkreminder.utils.ClockUtil {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        class com.homeworkreminder.utils.MyApplication {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        class com.homeworkreminder.utils.TimeUtil {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        namespace networkUtil {
+          class com.homeworkreminder.utils.networkUtil.MyGson {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        namespace networkUtil {
+          abstract class com.homeworkreminder.utils.networkUtil.VolleyInterface {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        namespace networkUtil {
+          interface com.homeworkreminder.utils.networkUtil.VolleyListener {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        namespace networkUtil {
+          class com.homeworkreminder.utils.networkUtil.VolleyUtil {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace utils {
+        namespace userUtil {
+          class com.homeworkreminder.utils.userUtil.CheckUserInfoUtil {
+          }
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.homeworkreminder {
+      namespace view {
+        class com.homeworkreminder.view.TomatoView {
+        }
+      }
+    }
+  }
+  
+
+  com.homeworkreminder.activity.AboutActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.BaseActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.EditHomeworkActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.EditHomeworkActivity o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.activity.EditUserInfoActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.EditUserInfoActivity o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.activity.HomeworkDetailActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.HomeworkDetailActivity o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.activity.LoginActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.LoginActivity o-- com.homeworkreminder.utils.userUtil.CheckUserInfoUtil : checkUserInfoUtil
+  com.homeworkreminder.activity.MainActivity .up.|> android.support.design.widget.NavigationView.OnNavigationItemSelectedListener
+  com.homeworkreminder.activity.MainActivity -up-|> com.homeworkreminder.activity.BaseActivity
+  com.homeworkreminder.activity.MainActivity o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.activity.MainActivity o-- com.homeworkreminder.utils.userUtil.CheckUserInfoUtil : userInfoUtil
+  com.homeworkreminder.activity.MyHomeworkDetailActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.MyHomeworkDetailActivity o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.activity.NewHomeworkActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.NewHomeworkActivity o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.activity.RegisterActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.ReminderActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.TestBmobActivity -up-|> com.homeworkreminder.activity.BaseActivity
+  com.homeworkreminder.activity.TestQMUIActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.TomatoClockActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.TomatoClockActivity o-- com.homeworkreminder.view.TomatoView : clockView
+  com.homeworkreminder.activity.UserActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.homeworkreminder.activity.UserActivity o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter -up-|> android.support.v7.widget.RecyclerView.Adapter
+  com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter o-- com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener : myRecyclerViewOnItemClickListener
+  com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter o-- com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener : myRecyclerViewOnItemLongPressListener
+  com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter -up-|> android.support.v7.widget.RecyclerView.Adapter
+  com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter o-- com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener : myRecyclerViewOnItemClickListener
+  com.homeworkreminder.adapter.MyFragmentPagerAdapter -up-|> android.support.v4.app.FragmentPagerAdapter
+  com.homeworkreminder.adapter.TabViewPagerAdapter -up-|> android.support.v4.view.PagerAdapter
+  com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter -up-|> android.support.v7.widget.RecyclerView.Adapter
+  com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter o-- com.homeworkreminder.interfaces.MyRecyclerViewOnItemClickListener : myRecyclerViewOnItemClickListener
+  com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter o-- com.homeworkreminder.interfaces.MyRecyclerViewOnItemLongPressListener : myRecyclerViewOnItemLongPressListener
+  com.homeworkreminder.entity.bean.Person -up-|> cn.bmob.v3.BmobObject
+  com.homeworkreminder.fragment.DoneHomeworkFragment -up-|> android.support.v4.app.Fragment
+  com.homeworkreminder.fragment.DoneHomeworkFragment o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.fragment.DoneHomeworkFragment o-- com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter : doneDataRecyclerViewAdapter
+  com.homeworkreminder.fragment.DoneHomeworkFragment o-- com.homeworkreminder.entity.HomeworkData : homeworkData
+  com.homeworkreminder.fragment.HomeFragment -up-|> android.support.v4.app.Fragment
+  com.homeworkreminder.fragment.HomeFragment o-- com.homeworkreminder.interfaces.CallbackValueToActivity : callbackValueToActivity
+  com.homeworkreminder.fragment.HomeFragment o-- com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter : homeDataRecyclerViewAdapter
+  com.homeworkreminder.fragment.HomeFragment o-- com.homeworkreminder.entity.HomeworkData : homeworkData
+  com.homeworkreminder.fragment.HomeworkFragment -up-|> android.support.v4.app.Fragment
+  com.homeworkreminder.fragment.HomeworkFragment o-- com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter : homeDataRecyclerViewAdapter
+  com.homeworkreminder.fragment.HomeworkFragment o-- com.homeworkreminder.adapter.MyFragmentPagerAdapter : myFragmentPagerAdapter
+  com.homeworkreminder.fragment.HomeworkFragment o-- com.homeworkreminder.fragment.PageViewModel : pageViewModel
+  com.homeworkreminder.fragment.HomeworkFragment o-- com.homeworkreminder.adapter.TabViewPagerAdapter : tabViewPagerAdapter
+  com.homeworkreminder.fragment.PageViewModel -up-|> android.arch.lifecycle.ViewModel
+  com.homeworkreminder.fragment.SettingFragment -up-|> android.support.v4.app.Fragment
+  com.homeworkreminder.fragment.UndoHomeworkFragment -up-|> android.support.v4.app.Fragment
+  com.homeworkreminder.fragment.UndoHomeworkFragment o-- com.homeworkreminder.utils.MyApplication : app
+  com.homeworkreminder.fragment.UndoHomeworkFragment o-- com.homeworkreminder.adapter.DoneDataRecyclerViewAdapter : doneDataRecyclerViewAdapter
+  com.homeworkreminder.fragment.UndoHomeworkFragment o-- com.homeworkreminder.entity.HomeworkData : homeworkData
+  com.homeworkreminder.fragment.UndoHomeworkFragment o-- com.homeworkreminder.adapter.UndoDataRecyclerViewAdapter : undoDataRecyclerViewAdapter
+  com.homeworkreminder.receiver.ClockReceiver -up-|> android.content.BroadcastReceiver
+  com.homeworkreminder.service.MusicService -up-|> android.app.Service
+  com.homeworkreminder.utils.MyApplication -up-|> android.app.Application
+  com.homeworkreminder.utils.MyApplication o-- com.homeworkreminder.entity.UserInfo : userInfo
+  com.homeworkreminder.utils.MyApplication o-- com.homeworkreminder.utils.userUtil.CheckUserInfoUtil : userInfoUtil
+  com.homeworkreminder.view.TomatoView -up-|> android.view.View
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
