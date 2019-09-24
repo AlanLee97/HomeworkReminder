@@ -42,9 +42,6 @@ public class MainActivity extends BaseActivity
     private FragmentTransaction fragmentTransaction;    //Fragment事务
     private ImageView iv_user_head;
 
-    boolean isLogin;
-    boolean isRegister;
-
     //获取当前的Fragment
     private Fragment mFragment = new HomeFragment();
 
@@ -450,11 +447,7 @@ public class MainActivity extends BaseActivity
                 }
             }
         }
-        if (hasPermissionDismiss){
-            Toast.makeText(this, "请手动开启权限", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(this, "权限申请成功", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
 
