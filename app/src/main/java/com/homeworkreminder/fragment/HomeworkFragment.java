@@ -1,6 +1,7 @@
 package com.homeworkreminder.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,11 +18,13 @@ import android.widget.Toast;
 
 
 import com.homeworkreminder.R;
+import com.homeworkreminder.activity.RegisterActivity;
 import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
 import com.homeworkreminder.adapter.TabViewPagerAdapter;
 import com.homeworkreminder.adapter.MyFragmentPagerAdapter;
 import com.homeworkreminder.entity.HomeData;
 import com.homeworkreminder.entity.HomeworkData;
+import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,9 @@ public class HomeworkFragment extends Fragment {
     private RecyclerView myRecyclerView;
     private RecyclerView undoRecyclerView;
     private MyFragmentPagerAdapter myFragmentPagerAdapter;
+
+    String registerState;
+    String loginState;
 
     public static HomeworkFragment newInstance(int index) {
         HomeworkFragment fragment = new HomeworkFragment();
@@ -166,6 +172,24 @@ public class HomeworkFragment extends Fragment {
     }
 
 
+    private void checkUserState() {
+        CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(getActivity());
+        List<String> userStates = checkUserInfoUtil.checkUserState();
+
+        registerState = userStates.get(0);
+        loginState = userStates.get(1);
+
+        System.out.println("============= registerState：" + registerState);
+        System.out.println("============= loginState：" + loginState);
+
+        if (loginState.equals("false")){
+            startActivity(new Intent(getActivity(), RegisterActivity.class));
+            //getActivity().finish();
+        }
+
+
+
+    }
 
 
 }

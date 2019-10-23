@@ -2,10 +2,13 @@ package com.homeworkreminder.utils.userUtil;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -84,5 +87,39 @@ public class CheckUserInfoUtil {
     /**
      * 检测用户信息 end ----------------------------------
      */
+
+
+    /**
+     * 检查用户状态
+     * 通过SharedPreference将用户状态保存
+     * 通过读取保存的用户状态信息，设置当前用户状态
+     */
+    //*
+    public List<String> checkUserState(){
+        String registerState;
+        String loginState;
+        List<String>  userStates = new ArrayList<>();
+        //检查注册状态
+        registerState = readUserInfo("register");
+        Log.d("userinfo", "注册状态：" + registerState);
+
+        //检查登录状态
+        loginState = readUserInfo("login");
+        Log.d("login", "登录状态：" + loginState);
+
+        userStates.add(registerState);
+        userStates.add(loginState);
+
+        return userStates;
+    }
+
+     //*/
+
+    //*
+    public String getLocalUserInfo(){
+        return readUserInfo("userinfo");
+    }
+
+     //*/
 
 }

@@ -21,6 +21,8 @@ import com.homeworkreminder.utils.networkUtil.VolleyInterface;
 import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 
+import java.util.List;
+
 import cn.bmob.v3.util.V;
 
 public class UserActivity extends AppCompatActivity {
@@ -32,10 +34,6 @@ public class UserActivity extends AppCompatActivity {
     private Button btnLogout;
     private Button btnModifyPassword;
 
-    
-
-
-
     private String nickname;
     private String school;
     private String major;
@@ -46,13 +44,17 @@ public class UserActivity extends AppCompatActivity {
     String url = "http://www.nibuguai.cn/index.php/index/user/api_getUserInfoById?id=";
     int uid;
 
+    String registerState = "";
+    String loginState = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
         initView();
-        getUserData();
+
+        //checkUserState();
 
         //showData();
 
@@ -148,43 +150,5 @@ public class UserActivity extends AppCompatActivity {
 
     }
 
-    public void getUserData(){
-        app = (MyApplication) getApplication();
-        uid = app.getUserInfo().getData().get(0).getId();
 
-        url = url + uid;
-
-        VolleyUtil.volleyGET(UserActivity.this, url, "100", new VolleyInterface(
-                UserActivity.this, VolleyInterface.mListener, VolleyInterface.mErrorListener
-        ) {
-            @Override
-            public void onMySuccess(String result) {
-                System.out.println("请求的用户信息：" + result);
-
-                UserInfo userInfo = MyGson.parseJsonByGson(result, UserInfo.class);
-                String username = userInfo.getData().get(0).getUsername();
-                String nickname = userInfo.getData().get(0).getNickname();
-                String school = userInfo.getData().get(0).getSchool();
-                String major = userInfo.getData().get(0).getMajor();
-                String classX = userInfo.getData().get(0).getClassX();
-
-                System.out.println("username = " + username);
-
-                tvUserinfoUsername.setText(username);
-                tvUserinfoNickname.setText(nickname);
-                tvUserinfoSchool.setText(school);
-                tvUserinfoMajor.setText(major);
-                tvUserinfoClass.setText(classX);
-
-                Toast.makeText(UserActivity.this, "个人数据获取成功", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onMyError(VolleyError error) {
-                Toast.makeText(UserActivity.this, "个人数据获取失败", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
 }

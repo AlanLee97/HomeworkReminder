@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F1ED"
+    android:orientation="vertical"
+    tools:context="com.homeworkreminder.activity.IndexActivity">
+
+
+
+    <!-- 底部tab -->
+    <LinearLayout
+        android:id="@+id/ll_bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#fff"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/tv_tab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_unselected_home"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/tv_tab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_unselected_all_hw"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/tv_tab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_unselected_my_hw"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/tv_tab4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_unselected_my"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!-- 内容部分， fragment切换 -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_bottom_tab"
+        android:layout_gravity="center" />
+
+
+
+
+
+
+
+
+</RelativeLayout>

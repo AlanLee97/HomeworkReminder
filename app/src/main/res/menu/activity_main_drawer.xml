@@ -59,7 +59,14 @@
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/icon_about"
                 android:title="@string/menu_about" />
+
+            <item
+                android:id="@+id/nav_test_index"
+                android:icon="@drawable/icon_tomato"
+                android:title="新版首页" />
         </menu>
+
+
     </item>
 
 </menu>

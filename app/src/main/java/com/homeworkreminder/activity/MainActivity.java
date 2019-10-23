@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity
     private Fragment mFragment = new HomeFragment();
 
     //导航栏选项名称数组
-    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录", "测试Bmob", "测试QMUI", "番茄时钟"};
+    String[] titles = {"首页", "我的作业列表", "设置", "注册", "登录", "测试Bmob", "测试QMUI", "番茄时钟", "新版首页"};
 
     //Fragment数组
     Fragment[] fragments = {
@@ -295,6 +295,11 @@ public class MainActivity extends BaseActivity
 
         if (title.equals("关于")) {
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(intent);
+        }
+
+        if (title.equals("新版首页")) {
+            Intent intent = new Intent(MainActivity.this, IndexActivity.class);
             startActivity(intent);
         }
 

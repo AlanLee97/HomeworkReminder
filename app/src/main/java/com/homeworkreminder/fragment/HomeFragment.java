@@ -3,6 +3,7 @@ package com.homeworkreminder.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -22,6 +23,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.homeworkreminder.R;
 import com.homeworkreminder.activity.HomeworkDetailActivity;
+import com.homeworkreminder.activity.MainActivity;
+import com.homeworkreminder.activity.NewHomeworkActivity;
 import com.homeworkreminder.adapter.HomeDataRecyclerViewAdapter;
 import com.homeworkreminder.entity.HomeworkData;
 import com.homeworkreminder.interfaces.CallbackValueToActivity;
@@ -64,6 +67,8 @@ public class HomeFragment extends Fragment  {
     private String url;
     private CallbackValueToActivity callbackValueToActivity;
 
+
+
     /**
      * 这里要填充布局文件
      */
@@ -84,6 +89,18 @@ public class HomeFragment extends Fragment  {
 
 
         initView(view);
+
+        //悬浮按钮
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //跳转到添加作业界面
+                Intent intent = new Intent(getActivity(), NewHomeworkActivity.class);
+                startActivity(intent);
+            }
+        });
 
         url = "http://nibuguai.cn/index.php/index/homework/api_queryHomeworkDoWith";
 
