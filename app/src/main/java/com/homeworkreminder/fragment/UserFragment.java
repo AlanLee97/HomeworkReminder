@@ -286,7 +286,7 @@ public class UserFragment extends Fragment {
         tvUserinfoMajor.setText(major);
         tvUserinfoClass.setText(classX);
 
-        Toast.makeText(getActivity(), "个人数据获取成功", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "个人数据获取成功", Toast.LENGTH_SHORT).show();
 
     }
 

@@ -148,5 +148,6 @@
     <string name="menu_about">关于</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="app_introduce">APP简介：为了解决不让同学经常来问我每次课堂的作业是什么，我觉得开发一个APP来记录课堂作业，并共享，我自己记录下来的作业或者其他同学记录下来的作业，可共享给其他同学看。</string>
+    <string name="title_activity_homework">HomeworkActivity</string>
 
 </resources>

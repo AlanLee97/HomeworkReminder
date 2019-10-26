@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F2F1ED"
+    android:background="#E6E6E6"
     android:id="@+id/fragment_index"
 
     tools:context="com.homeworkreminder.fragment.IndexFragment">
@@ -16,7 +16,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@drawable/index_bg2">
+            android:background="@drawable/img_count_bg">
         </FrameLayout>
 
         <LinearLayout
@@ -66,24 +66,30 @@
                 android:layout_width="match_parent"
                 android:padding="10dp"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=""
-                    android:textColor="#000"
-                    android:textSize="30dp"/>
+
 
                 <LinearLayout
+                    android:gravity="right"
+                    android:layout_marginBottom="6dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/index_tv_3"
-                        android:layout_width="0dp"
+                        android:id="@+id/index_tv_city"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="多云"
+                        android:layout_marginRight="10dp"
+                        android:text="城市"
+                        android:textColor="#fff"
+                        android:gravity="right"
+                        android:textSize="20dp"/>
+
+                    <TextView
+                        android:id="@+id/index_tv_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="晴"
                         android:textColor="#fff"
                         android:gravity="right"
                         android:textSize="20dp"/>
@@ -150,9 +156,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#00000000"
-                                android:text="作业大厅"
+                                android:text="添加作业"
                                 android:textColor="#fff"
-                                android:textSize="35dp"/>
+                                android:textSize="30dp"/>
 
 
                         </FrameLayout>
@@ -182,9 +188,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#00000000"
-                                android:text="我的作业"
+                                android:text="作业统计"
                                 android:textColor="#fff"
-                                android:textSize="35dp"/>
+                                android:textSize="30dp"/>
 
 
                         </FrameLayout>
@@ -217,7 +223,7 @@
                                 android:background="#00000000"
                                 android:text="番茄时钟"
                                 android:textColor="#fff"
-                                android:textSize="35dp"/>
+                                android:textSize="30dp"/>
 
 
                         </FrameLayout>
@@ -247,14 +253,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="#00000000"
-                                android:text="关于我"
+                                android:text="关于作者"
                                 android:textColor="#fff"
-                                android:textSize="35dp"/>
+                                android:textSize="30dp"/>
 
 
                         </FrameLayout>
                     </LinearLayout>
 
+<!--
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -319,6 +326,8 @@
 
                         </FrameLayout>
                     </LinearLayout>
+                    -->
+
                 </LinearLayout>
             </ScrollView>
 

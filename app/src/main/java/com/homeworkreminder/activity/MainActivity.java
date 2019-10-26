@@ -128,13 +128,13 @@ public class MainActivity extends BaseActivity
         //检查注册状态
         userInfoUtil = new CheckUserInfoUtil(getApplicationContext());
         registerState = userInfoUtil.readUserInfo("register");
-        Toast.makeText(this, "注册状态：" + registerState, Toast.LENGTH_LONG).show();
-        Log.d("userinfo", "注册状态：" + registerState);
+//        Toast.makeText(this, "注册状态：" + registerState, Toast.LENGTH_LONG).show();
+//        Log.d("userinfo", "注册状态：" + registerState);
 
         //检查登录状态
         loginState = userInfoUtil.readUserInfo("login");
-        Toast.makeText(this, "登录状态：" + loginState, Toast.LENGTH_LONG).show();
-        Log.d("login", "登录状态：" + loginState);
+//        Toast.makeText(this, "登录状态：" + loginState, Toast.LENGTH_LONG).show();
+//        Log.d("login", "登录状态：" + loginState);
     }
 
 

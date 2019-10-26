@@ -9,8 +9,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +20,17 @@ import android.widget.Toast;
 
 import com.homeworkreminder.R;
 import com.homeworkreminder.activity.AboutActivity;
-import com.homeworkreminder.activity.IndexActivity;
+import com.homeworkreminder.activity.CountActivity;
 import com.homeworkreminder.activity.MainActivity;
+import com.homeworkreminder.activity.NewHomeworkActivity;
+import com.homeworkreminder.activity.RegisterActivity;
 import com.homeworkreminder.activity.TomatoClockActivity;
 import com.homeworkreminder.entity.Weather;
 import com.homeworkreminder.utils.GlideImageLoader;
-import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.networkUtil.MyGson;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.youth.banner.Banner;
 
 import java.io.IOException;
@@ -36,7 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -57,6 +58,8 @@ public class IndexFragment extends Fragment {
     private TextView indexTv2;
     private TextView indexTv3;
     private TextView indexTv4;
+    private TextView indexTvCity;
+
     private Button indexBtn1;
     private Button indexBtn2;
     private Button indexBtn3;
@@ -75,7 +78,7 @@ public class IndexFragment extends Fragment {
     Handler handler;
 
     //get请求的url
-    String url = "https://www.apiopen.top/weatherApi?city=东莞";
+    String url = "https://www.apiopen.top/weatherApi?city=";
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -86,6 +89,11 @@ public class IndexFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private String wendu;
+    private String type;
+    private static String city = "东莞";
+
+    private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
     public IndexFragment() {
         // Required empty public constructor
@@ -108,9 +116,6 @@ public class IndexFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
 
     }
 
@@ -135,13 +140,22 @@ public class IndexFragment extends Fragment {
 
         showWeather();
 
-
         showBanner(view);
 
         showUsername();
 
         btns();
     }
+
+    private void setCity() {
+
+        //useOkHttp3_AsyncGET(url);
+
+        showEditTextDialog();
+
+    }
+
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -184,16 +198,31 @@ public class IndexFragment extends Fragment {
         indexBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                if (loginState.equals("true")){
+                    Intent intent = new Intent(getContext(), NewHomeworkActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getContext(), RegisterActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
         indexBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                if (loginState.equals("true")){
+                    Intent intent = new Intent(getContext(), CountActivity.class);
+                    Bundle bundle = new Bundle();
+
+                    convertDataToActivity(bundle);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getContext(), RegisterActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -210,7 +239,13 @@ public class IndexFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AboutActivity.class);
                 startActivity(intent);
+            }
+        });
 
+        indexTvCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCity();
             }
         });
     }
@@ -229,15 +264,22 @@ public class IndexFragment extends Fragment {
                 super.handleMessage(msg);
                 //将解析的数据显示到TextView中
                 Weather weather = MyGson.parseJsonByGson(result, Weather.class);
-                String wendu = weather.getData().getWendu();
-                String type = weather.getData().getForecast().get(0).getType();
-                System.out.println("======== 天气类型：" + type);
-                System.out.println("======== 温度：" + wendu);
-                indexTv3.setText(type);
-                indexTv4.setText(wendu);
+                if (weather.getCode() == 200){
+                    wendu = weather.getData().getWendu();
+                    type = weather.getData().getForecast().get(0).getType();
+                    city = weather.getData().getCity();
+                    System.out.println("======== 天气类型：" + type);
+                    System.out.println("======== 温度：" + wendu);
+                    System.out.println("======== 城市：" + city);
+                    indexTv3.setText(type);
+                    indexTv4.setText(wendu);
+                    indexTvCity.setText(city);
+                }
             }
         };
 
+        url = "https://www.apiopen.top/weatherApi?city=" + city;
+        System.out.println("=========== url：" + url);
         useOkHttp3_AsyncGET(url);
     }
 
@@ -253,9 +295,9 @@ public class IndexFragment extends Fragment {
 
     private void showBanner(View view) {
         List<String> images = new ArrayList<>();
-        images.add("http://www.forestry.gov.cn/uploadfile/main/2013-6/image/2013-6-19-dbdb3e3f20b644ec959960e9d8308eda.jpg");
-        images.add("http://b-ssl.duitang.com/uploads/blog/201312/12/20131212143029_hNEeN.jpeg");
-        images.add("http://img.zcool.cn/community/01a3d35c1d08f5a8012029ac4a3d83.jpg@1280w_1l_2o_100sh.jpg");
+        images.add("https://hbimg.huabanimg.com/39791859aa43bd518574fe29da2e2b0492fc09eca0637-VgN0zU_fw658");
+        images.add("https://hbimg.huabanimg.com/c34500fc7debf335cb4e9d3548d8d5545e46070a71207-5MDA5a_fw658");
+        images.add("https://hbimg.huabanimg.com/47ee3f789cec791bcedd9d1a5117b3a209dfddebd1d17-7rBzpf_fw658");
 
         Banner banner = (Banner) view.findViewById(R.id.banner);
         //设置图片加载器
@@ -271,6 +313,7 @@ public class IndexFragment extends Fragment {
         indexTv2 = (TextView) view.findViewById(R.id.index_tv_2);
         indexTv3 = (TextView) view.findViewById(R.id.index_tv_3);
         indexTv4 = (TextView) view.findViewById(R.id.index_tv_4);
+        indexTvCity = (TextView) view.findViewById(R.id.index_tv_city);
 
         indexBtn1 = (Button) view.findViewById(R.id.index_btn_1);
         indexBtn2 = (Button) view.findViewById(R.id.index_btn_2);
@@ -352,5 +395,50 @@ public class IndexFragment extends Fragment {
                  */
             }
         });
+    }
+
+
+    /**
+     * 通过Bundle向Activity中传值
+     */
+    public void convertDataToActivity(Bundle bundle){
+        //bundle.putInt("headImg",headImg);
+        bundle.putCharSequence("wendu", wendu);
+        bundle.putCharSequence("type", type);
+
+
+    }
+
+    private void showEditTextDialog() {
+        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(getActivity());
+        builder.setTitle("选择城市")
+                .setPlaceholder("在此输入您所在的城市")
+                .setInputType(InputType.TYPE_CLASS_TEXT)
+                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                })
+                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        String text = builder.getEditText().getText().toString();
+                        if (!text.equals("") && text.length() > 0) {
+                            city = text;
+                            System.out.println("======== ctiy：" + city);
+                            Toast.makeText(getActivity(), "当前城市: " + text, Toast.LENGTH_SHORT).show();
+
+                            url = "https://www.apiopen.top/weatherApi?city=" + city;
+                            System.out.println("url ======== city：" + city);
+                            useOkHttp3_AsyncGET(url);
+
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(getActivity(), "请填入城市", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .create(mCurrentDialogStyle).show();
     }
 }

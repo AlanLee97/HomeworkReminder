@@ -137,27 +137,6 @@ public class MyApplication extends Application {
     }
 
 
-    /*
-    public void app_checkUserState(){
-        String registerState = "";
-        String loginState = "";
-        //检查注册状态
-        userInfoUtil = new CheckUserInfoUtil(getApplicationContext());
-        registerState = userInfoUtil.readUserInfo("register");
-        if (registerState.equals("true")){
-            STATE_REGISTER = true;
-        }
-        Log.d("userinfo", "注册状态：" + STATE_REGISTER);
-
-        //检查登录状态
-        loginState = userInfoUtil.readUserInfo("login");
-        if (loginState.equals("true")){
-            STATE_LOGIN = true;
-        }
-        Log.d("login", "登录状态：" + STATE_LOGIN);
-    }
-
-*/
 
 
     public boolean checkState(boolean isLogin){

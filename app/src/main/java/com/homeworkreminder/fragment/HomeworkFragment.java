@@ -38,7 +38,7 @@ public class HomeworkFragment extends Fragment {
 
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    List<Fragment> fragmentList;
+    static List<Fragment> fragmentList;
     List<HomeData> homeDataList = new ArrayList<>();
     private PageViewModel pageViewModel;
     private TabViewPagerAdapter tabViewPagerAdapter;
@@ -50,6 +50,9 @@ public class HomeworkFragment extends Fragment {
     private RecyclerView myRecyclerView;
     private RecyclerView undoRecyclerView;
     private MyFragmentPagerAdapter myFragmentPagerAdapter;
+
+    static Fragment undoHomeworkFragment = new UndoHomeworkFragment();
+    static Fragment doneHomeworkFragment = new DoneHomeworkFragment();
 
     String registerState;
     String loginState;
@@ -111,6 +114,7 @@ public class HomeworkFragment extends Fragment {
      * @param tabLayout
      */
     private void addViewPager(TabLayout tabLayout) {
+        Log.i("addViewPager", "========== 调用addViewPager");
         //获取布局填充器
         LayoutInflater layoutInflater = getLayoutInflater();
         viewList = new ArrayList<>();
@@ -138,12 +142,13 @@ public class HomeworkFragment extends Fragment {
      * @param tabLayout
      */
     public void addViewPagerFragment(TabLayout tabLayout) {
+        Log.i("addViewPager", "========== 调用addViewPagerFragment");
 
         //addViewPager(tabLayout);
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new UndoHomeworkFragment());
-        fragmentList.add(new DoneHomeworkFragment());
+        fragmentList.add(undoHomeworkFragment);
+        fragmentList.add(doneHomeworkFragment);
 
         //适配器
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), fragmentList);

@@ -58,12 +58,25 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
     private ImageView tvTab3;
     private ImageView tvTab4;
 
+    private TextView tabTvIndex;
+    private TextView tabTvAllHw;
+    private TextView tabTvMyHw;
+    private TextView tabTvMy;
+
+    Fragment fragment1 = new IndexFragment();
+    Fragment fragment2 = new HomeFragment();
+    Fragment fragment3 = new HomeworkFragment();
+    Fragment fragment4 = new UserFragment();
+
+
+
+
     //保存登录状态
     private String loginState;
     //保存注册状态
     private String registerState;
     //检查用户信息工具类
-    private CheckUserInfoUtil userInfoUtil;
+    private CheckUserInfoUtil userInfoUtil = new CheckUserInfoUtil(IndexActivity.this);
 
     Integer[] selectedIcon = {
             R.drawable.icon_selected_home,
@@ -79,17 +92,24 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
             R.drawable.icon_unselected_my,
     };
 
+    Integer[] fontColor = {
+            Color.parseColor("#B6B6B6"),
+            Color.parseColor("#03A9F4")
+    };
+
 
     //添加ViewPager
     private ViewPager viewPager;
     private MyFragmentPagerAdapter myFragmentPagerAdapter;
-    private List<Fragment> fragmentList;
+    private List<Fragment> fragmentList = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+
+        Log.i("IndexActivity", "======== onCreate: ");
 
         if(Build.VERSION.SDK_INT >= 24) {
             Window window = getWindow();
@@ -118,11 +138,12 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
      */
     private void initTab() {
         //添加Fragment到ViewPager
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new IndexFragment());
-        fragmentList.add(new HomeFragment());
-        fragmentList.add(new HomeworkFragment());
-        fragmentList.add(new UserFragment());
+
+        fragmentList.add(fragment1);
+        fragmentList.add(fragment2);
+        fragmentList.add(fragment3);
+        fragmentList.add(fragment4);
+
 
         //添加适配器
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
@@ -133,8 +154,14 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
 
         //设置底部tab栏的背景色
         tvTab1.setImageResource(selectedIcon[0]);
-//        tvTab2.setBackgroundColor(Color.WHITE);
-//        tvTab3.setBackgroundColor(Color.WHITE);
+        tvTab2.setBackgroundColor(Color.WHITE);
+        tvTab3.setBackgroundColor(Color.WHITE);
+
+        //设置字体颜色
+        tabTvIndex.setTextColor(fontColor[1]);
+        tabTvAllHw.setTextColor(fontColor[0]);
+        tabTvMyHw.setTextColor(fontColor[0]);
+        tabTvMy.setTextColor(fontColor[0]);
 
     }
 
@@ -154,6 +181,11 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
         tvTab3.setOnClickListener(this);
         tvTab4.setOnClickListener(this);
 
+        tabTvIndex = (TextView) findViewById(R.id.tab_tv_index);
+        tabTvAllHw = (TextView) findViewById(R.id.tab_tv_all_hw);
+        tabTvMyHw = (TextView) findViewById(R.id.tab_tv_my_hw);
+        tabTvMy = (TextView) findViewById(R.id.tab_tv_my);
+
         //加入ViewPager监听
         viewPager.addOnPageChangeListener(new MyViewPagerChangeListener());
     }
@@ -170,11 +202,16 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tv_tab1:
                 //显示第一个页面
                 viewPager.setCurrentItem(0);
-                //设置底部tab栏的背景色
+                //设置选中的图片
                 tvTab1.setImageResource(selectedIcon[0]);
                 tvTab2.setImageResource(unSelectedIcon[1]);
                 tvTab3.setImageResource(unSelectedIcon[2]);
                 tvTab4.setImageResource(unSelectedIcon[3]);
+                //设置字体颜色
+                tabTvIndex.setTextColor(fontColor[1]);
+                tabTvAllHw.setTextColor(fontColor[0]);
+                tabTvMyHw.setTextColor(fontColor[0]);
+                tabTvMy.setTextColor(fontColor[0]);
 
                 break;
             case R.id.tv_tab2:
@@ -185,6 +222,12 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
                 tvTab2.setImageResource(selectedIcon[1]);
                 tvTab3.setImageResource(unSelectedIcon[2]);
                 tvTab4.setImageResource(unSelectedIcon[3]);
+
+                //设置字体颜色
+                tabTvIndex.setTextColor(fontColor[0]);
+                tabTvAllHw.setTextColor(fontColor[1]);
+                tabTvMyHw.setTextColor(fontColor[0]);
+                tabTvMy.setTextColor(fontColor[0]);
 
                 break;
 
@@ -200,8 +243,15 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
                     tvTab2.setImageResource(unSelectedIcon[1]);
                     tvTab3.setImageResource(selectedIcon[2]);
                     tvTab4.setImageResource(unSelectedIcon[3]);
+
+                    //设置字体颜色
+                    tabTvIndex.setTextColor(fontColor[0]);
+                    tabTvAllHw.setTextColor(fontColor[0]);
+                    tabTvMyHw.setTextColor(fontColor[1]);
+                    tabTvMy.setTextColor(fontColor[0]);
                 }
                 break;
+
 
             case R.id.tv_tab4:
                 if (loginState.equals("false")){
@@ -214,6 +264,12 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
                     tvTab2.setImageResource(unSelectedIcon[1]);
                     tvTab3.setImageResource(unSelectedIcon[2]);
                     tvTab4.setImageResource(selectedIcon[3]);
+
+                    //设置字体颜色
+                    tabTvIndex.setTextColor(fontColor[0]);
+                    tabTvAllHw.setTextColor(fontColor[0]);
+                    tabTvMyHw.setTextColor(fontColor[0]);
+                    tabTvMy.setTextColor(fontColor[1]);
                 }
                 break;
             default:break;
@@ -256,24 +312,34 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
                     break;
 
                 case 2:
-                    //显示第二个页面
-                    viewPager.setCurrentItem(2);
-                    //设置底部tab栏的背景色
+                    if (loginState.equals("false")){
+                        startActivity(new Intent(IndexActivity.this, RegisterActivity.class));
 
-                    tvTab1.setImageResource(unSelectedIcon[0]);
-                    tvTab2.setImageResource(unSelectedIcon[1]);
-                    tvTab3.setImageResource(selectedIcon[2]);
-                    tvTab4.setImageResource(unSelectedIcon[3]);
+                    }else {
+                        //显示第三个页面
+                        viewPager.setCurrentItem(2);
+                        //设置底部tab栏的背景色
+
+                        tvTab1.setImageResource(unSelectedIcon[0]);
+                        tvTab2.setImageResource(unSelectedIcon[1]);
+                        tvTab3.setImageResource(selectedIcon[2]);
+                        tvTab4.setImageResource(unSelectedIcon[3]);
+                    }
                     break;
 
+
                 case 3:
-                    //显示第三个页面
-                    viewPager.setCurrentItem(3);
-                    //设置底部tab栏的背景色
-                    tvTab1.setImageResource(unSelectedIcon[0]);
-                    tvTab2.setImageResource(unSelectedIcon[1]);
-                    tvTab3.setImageResource(unSelectedIcon[2]);
-                    tvTab4.setImageResource(selectedIcon[3]);
+                    if (loginState.equals("false")){
+                        startActivity(new Intent(IndexActivity.this, RegisterActivity.class));
+                    }else {
+                        //显示第四个页面
+                        viewPager.setCurrentItem(3);
+                        //设置底部tab栏的背景色
+                        tvTab1.setImageResource(unSelectedIcon[0]);
+                        tvTab2.setImageResource(unSelectedIcon[1]);
+                        tvTab3.setImageResource(unSelectedIcon[2]);
+                        tvTab4.setImageResource(selectedIcon[3]);
+                    }
                     break;
                 default:break;
             }
@@ -287,14 +353,18 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    static int count = 0;
+
     /**
      * 检查用户状态
      * 通过SharedPreference将用户状态保存
      * 通过读取保存的用户状态信息，设置当前用户状态
      */
     public void checkUserState(){
+        count++;
+        Log.i("IndexActivity", "============= checkUserState: " + count);
         //检查注册状态
-        userInfoUtil = new CheckUserInfoUtil(getApplicationContext());
+
         registerState = userInfoUtil.readUserInfo("register");
         Toast.makeText(this, "注册状态：" + registerState, Toast.LENGTH_LONG).show();
         Log.d("userinfo", "注册状态：" + registerState);

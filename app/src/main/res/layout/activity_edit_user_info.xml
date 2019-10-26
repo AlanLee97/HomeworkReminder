@@ -5,13 +5,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/qmui_config_color_white"
+    android:background="#F2F3F7"
     tools:context="com.homeworkreminder.activity.EditUserInfoActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/img_edit_user_top"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -19,143 +25,163 @@
             android:text="修改信息"
             android:textSize="25sp"
             android:padding="20dp"
-            android:textColor="@color/primary_dark"
+            android:layout_marginTop="30dp"
+            android:textColor="#fff"
             android:textAlignment="center"/>
-    </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_margin="20dp"
+        <ScrollView
+            android:layout_marginTop="80dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_nickname"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/tv_tip_small"
-                />
-            <EditText
-                android:id="@+id/et_edit_nickname"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:padding="10dp"
-                android:background="@color/app_bg_graywhite"
-                />
+                android:layout_height="match_parent">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
 
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_school"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/tv_tip_small"
-                />
-            <EditText
-                android:id="@+id/et_edit_school"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:padding="10dp"
-                android:background="@color/app_bg_graywhite"
-                />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_margin="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_nickname"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/tv_tip_small"
+                            />
+                        <EditText
+                            android:id="@+id/et_edit_nickname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="25sp"
+                            android:padding="10dp"
+                            android:background="#61FCFCFC"
+                            />
 
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_major"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/tv_tip_small"
-                />
-            <EditText
-                android:id="@+id/et_edit_major"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:padding="10dp"
-                android:background="@color/app_bg_graywhite"
-                />
+                    </LinearLayout>
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_school"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/tv_tip_small"
+                            />
+                        <EditText
+                            android:id="@+id/et_edit_school"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="25sp"
+                            android:padding="10dp"
+                            android:background="#61FCFCFC"
+                            />
 
-        <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_class"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/tv_tip_small"
-                />
-            <EditText
-                android:id="@+id/et_edit_class"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:padding="10dp"
-                android:background="@color/app_bg_graywhite"
-                />
+                    </LinearLayout>
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_major"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/tv_tip_small"
+                            />
+                        <EditText
+                            android:id="@+id/et_edit_major"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="25sp"
+                            android:padding="10dp"
+                            android:background="#61FCFCFC"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_class"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/tv_tip_small"
+                            />
+                        <EditText
+                            android:id="@+id/et_edit_class"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="25sp"
+                            android:padding="10dp"
+                            android:background="#61FCFCFC"
+                            />
+
+                    </LinearLayout>
 
 
-    </LinearLayout>
+                </LinearLayout>
 
 
 
 
-    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/btn_edit_userinfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_save"
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/btn_edit_userinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_save"
 
-        android:textColor="#03A9F4"
-        android:textSize="25sp"
-        android:layout_margin="20dp"
-        android:padding="10dp"/>
+                    android:textColor="#03A9F4"
+                    android:textSize="25sp"
+                    android:layout_margin="20dp"
+                    android:padding="10dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/tv_edit_jump"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="跳过"
-            android:layout_centerInParent="true"
-            android:textColor="@color/tv_tip_small"/>
-    </RelativeLayout>
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_edit_jump"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="跳过"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:textColor="@color/tv_tip_small"/>-->
+<!--                </RelativeLayout>-->
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+
 
 
 </LinearLayout>

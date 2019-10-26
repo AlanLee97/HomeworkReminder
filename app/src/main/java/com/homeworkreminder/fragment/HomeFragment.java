@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * 首页界面的Fragment
  */
-public class HomeFragment extends Fragment  {
+public class HomeFragment extends Fragment {
     //private ImageView imageView;
 
     private HomeDataRecyclerViewAdapter homeDataRecyclerViewAdapter;
@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment  {
 
 
         initView(view);
+
 
         //悬浮按钮
         FloatingActionButton fab = view.findViewById(R.id.fab);
@@ -184,8 +185,6 @@ public class HomeFragment extends Fragment  {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        //callbackValueToActivity = (CallbackValueToActivity) context;
-
     }
 
 
@@ -237,5 +236,4 @@ public class HomeFragment extends Fragment  {
             }
         });
     }
-
 }

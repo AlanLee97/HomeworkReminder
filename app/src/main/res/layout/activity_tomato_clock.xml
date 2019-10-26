@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/reg_bg"
+    android:background="@drawable/img_clock_bg2"
     tools:context="com.homeworkreminder.activity.TomatoClockActivity">
 
 
@@ -25,7 +25,6 @@
             android:text="Tip:上下滑动分钟位置设置时间"
             android:textAlignment="center"
             android:textColor="@color/qmui_config_color_white"
-
             />
     </LinearLayout>
 

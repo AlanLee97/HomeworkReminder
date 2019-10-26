@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F2F1ED"
     android:orientation="vertical"
+    android:id="@+id/activity_index"
     tools:context="com.homeworkreminder.activity.IndexActivity">
 
 
@@ -17,62 +18,126 @@
         android:layout_height="64dp"
         android:background="#fff"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
 
-            <ImageView
-                android:id="@+id/tv_tab1"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/tv_tab1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_unselected_home"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/tv_tab2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_unselected_all_hw"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/tv_tab3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_unselected_my_hw"/>
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/tv_tab4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_unselected_my"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="-5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tab_tv_index"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_unselected_home"/>
-        </FrameLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#B6B6B6"
+                android:text="首页"
+                />
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/tv_tab2"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tab_tv_all_hw"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_unselected_all_hw"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="共享作业"
+                android:textColor="#B6B6B6"
 
-        </FrameLayout>
+                />
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/tv_tab3"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tab_tv_my_hw"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_unselected_my_hw"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="我的作业"
+                android:textColor="#B6B6B6"
 
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/tv_tab4"
-                android:layout_width="wrap_content"
+                />
+            <TextView
+                android:id="@+id/tab_tv_my"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_unselected_my"/>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#B6B6B6"
 
-        </FrameLayout>
+                android:text="我的"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 

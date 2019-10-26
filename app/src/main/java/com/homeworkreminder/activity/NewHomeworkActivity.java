@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -106,6 +109,13 @@ public class NewHomeworkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_homework);
 
+        if(Build.VERSION.SDK_INT >= 24) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+
         //初始化视图控件
         initView();
 
@@ -133,9 +143,6 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
                 ClockUtil.startAlarm(NewHomeworkActivity.this, ClockReceiver.class,calendar);
 
-                //提示消息
-//                Snackbar.make(view, "创建闹钟成功", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
 
 
                 /**
@@ -143,28 +150,38 @@ public class NewHomeworkActivity extends AppCompatActivity {
                  **/
                 getViewData();
 
-                uid = getUid();
-                url = url + "title=" + title
-                        + "&content=" + content
-                        + "&course=" + course
-                        + "&deadtime=" + deadtime
-                        + "&remind_date=" + remind_date
-                        + "&remind_time=" + remind_time
-                        + "&tag=" + tag
-                        + "&uid=" + uid;
+                if (title.equals("") ||
+                content.equals("") ||
+                course.equals("") ||
+                deadtime.equals("") ||
+                remind_date.equals("") ||
+                remind_time.equals("")){
+                    Toast.makeText(NewHomeworkActivity.this, "请填写相应的表单内容", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    uid = getUid();
+                    url = url + "title=" + title
+                            + "&content=" + content
+                            + "&course=" + course
+                            + "&deadtime=" + deadtime
+                            + "&remind_date=" + remind_date
+                            + "&remind_time=" + remind_time
+                            + "&tag=" + tag
+                            + "&uid=" + uid;
 
 
+                    //将数据传到服务器
+                    useVolleyGET(url);
 
-                //将数据传到服务器
-                useVolleyGET(url);
+                    Snackbar.make(view, "创建成功", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
 
-                Snackbar.make(view, "创建成功", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    //跳转到首页
+                    startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
 
-                //跳转到首页
-                startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
+                    finish();
+                }
 
-                finish();
             }
         });
 
