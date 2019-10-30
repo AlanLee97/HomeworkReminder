@@ -70,7 +70,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
 //        tvEditJump.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                startActivity(new Intent(getApplicationContext(), IndexActivity.class));
 //            }
 //        });
 
@@ -89,7 +89,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
             @Override
             public void onMySuccess(String result) {
                 Toast.makeText(getApplication(), "请求成功", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(EditUserInfoActivity.this, MainActivity.class));
+                startActivity(new Intent(EditUserInfoActivity.this, IndexActivity.class));
             }
 
             @Override

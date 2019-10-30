@@ -69,8 +69,6 @@ public class IndexActivity extends AppCompatActivity implements View.OnClickList
     Fragment fragment4 = new UserFragment();
 
 
-
-
     //保存登录状态
     private String loginState;
     //保存注册状态

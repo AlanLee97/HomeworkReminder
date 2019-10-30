@@ -107,7 +107,7 @@ public class UserActivity extends AppCompatActivity {
                 userInfoUtil.writeUserInfo("false", "login");
                 userInfoUtil.writeUserInfo("", "uid");
                 //app.setSTATE_LOGIN(false);
-                startActivity(new Intent(UserActivity.this, MainActivity.class));
+                startActivity(new Intent(UserActivity.this, IndexActivity.class));
 
                 finish();
             }

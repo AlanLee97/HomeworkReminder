@@ -177,7 +177,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
 
                     //跳转到首页
-                    startActivity(new Intent(NewHomeworkActivity.this, MainActivity.class));
+                    startActivity(new Intent(NewHomeworkActivity.this, IndexActivity.class));
 
                     finish();
                 }

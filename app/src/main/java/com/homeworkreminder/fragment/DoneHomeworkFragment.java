@@ -194,6 +194,7 @@ public class DoneHomeworkFragment extends Fragment {
                 course = homeworkDataBeanList.get(position).getCourse();
                 deadtime = homeworkDataBeanList.get(position).getDeadtime();
 
+
                 //callbackValueToActivity.sendValue(nickname);
                 Intent intent = new Intent(getActivity(), MyHomeworkDetailActivity.class);
                 Bundle bundle = new Bundle();
@@ -398,6 +399,7 @@ public class DoneHomeworkFragment extends Fragment {
         bundle.putCharSequence("date", date);
         bundle.putCharSequence("course", course);
         bundle.putCharSequence("deadtime", deadtime);
+        bundle.putCharSequence("hid", t_hid + "");
 
     }
 

@@ -126,30 +126,10 @@ public class ModifyPasswordActivity extends AppCompatActivity {
         });
     }
 
-    private void useVolleyPost(final String url, Map<String, String> paramMap) {
-        VolleyUtil.volleyPOST(ModifyPasswordActivity.this,
-                url, "107", paramMap,
-                new VolleyInterface(getApplicationContext(),
-                        VolleyInterface.mListener,
-                        VolleyInterface.mErrorListener) {
-            @Override
-            public void onMySuccess(String result) {
-                System.out.println(url);
-                System.out.println("result: " + result);
-                Toast.makeText(ModifyPasswordActivity.this, "密码修改成功", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ModifyPasswordActivity.this, MainActivity.class));
-                finish();
 
-            }
-
-            @Override
-            public void onMyError(VolleyError error) {
-                Toast.makeText(ModifyPasswordActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
+    /**
+     * 发送短信验证码
+     */
     private void sendSMS() {
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +139,8 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                 if (phoneNum.equals("")){
                     Toast.makeText(ModifyPasswordActivity.this, "请输入手机号码", Toast.LENGTH_SHORT).show();
                 }else {
+                    System.out.println("========== phoneNum：" + phoneNum);
+                    //请求验证码
                     BmobSMS.requestSMSCode(phoneNum, "", new QueryListener<Integer>() {
                         @Override
                         public void done(Integer integer, BmobException e) {
@@ -169,6 +151,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                             }
                         }
                     });
+
                 }
 
 
@@ -204,7 +187,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
 
                         Toast.makeText(ModifyPasswordActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                         Toast.makeText(ModifyPasswordActivity.this, "密码修改成功", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ModifyPasswordActivity.this, MainActivity.class));
+                        startActivity(new Intent(ModifyPasswordActivity.this, IndexActivity.class));
                         finish();
                     }
                 },

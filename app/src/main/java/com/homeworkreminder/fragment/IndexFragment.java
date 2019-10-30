@@ -26,6 +26,7 @@ import com.homeworkreminder.activity.NewHomeworkActivity;
 import com.homeworkreminder.activity.RegisterActivity;
 import com.homeworkreminder.activity.TomatoClockActivity;
 import com.homeworkreminder.entity.Weather;
+import com.homeworkreminder.entity.Weather2;
 import com.homeworkreminder.utils.GlideImageLoader;
 import com.homeworkreminder.utils.networkUtil.MyGson;
 import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
@@ -78,7 +79,7 @@ public class IndexFragment extends Fragment {
     Handler handler;
 
     //get请求的url
-    String url = "https://www.apiopen.top/weatherApi?city=";
+    String url = "http://wthrcdn.etouch.cn/weather_mini?city=";
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -263,8 +264,8 @@ public class IndexFragment extends Fragment {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 //将解析的数据显示到TextView中
-                Weather weather = MyGson.parseJsonByGson(result, Weather.class);
-                if (weather.getCode() == 200){
+                Weather2 weather = MyGson.parseJsonByGson(result, Weather2.class);
+                if (weather.getStatus() == 1000){
                     wendu = weather.getData().getWendu();
                     type = weather.getData().getForecast().get(0).getType();
                     city = weather.getData().getCity();
@@ -278,7 +279,7 @@ public class IndexFragment extends Fragment {
             }
         };
 
-        url = "https://www.apiopen.top/weatherApi?city=" + city;
+        url = "http://wthrcdn.etouch.cn/weather_mini?city=" + city;
         System.out.println("=========== url：" + url);
         useOkHttp3_AsyncGET(url);
     }
@@ -348,6 +349,9 @@ public class IndexFragment extends Fragment {
      * @param url 请求的url
      */
     private void useOkHttp3_AsyncGET(String url) {
+        System.out.println("========== useOkHttp3_AsyncGET(String url)：" + url);
+
+
         //1.创建OkHttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -374,6 +378,8 @@ public class IndexFragment extends Fragment {
                         try {
                             //获取响应的数据
                             result = response.body().string();
+
+                            System.out.println("======= json==result：" + result);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -429,7 +435,7 @@ public class IndexFragment extends Fragment {
                             System.out.println("======== ctiy：" + city);
                             Toast.makeText(getActivity(), "当前城市: " + text, Toast.LENGTH_SHORT).show();
 
-                            url = "https://www.apiopen.top/weatherApi?city=" + city;
+                            url = "http://wthrcdn.etouch.cn/weather_mini?city=" + city;
                             System.out.println("url ======== city：" + city);
                             useOkHttp3_AsyncGET(url);
 
