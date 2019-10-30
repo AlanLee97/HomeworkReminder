@@ -53,7 +53,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * 创建作业提醒类
+ * 创建作业提醒页面
  */
 public class NewHomeworkActivity extends AppCompatActivity {
     MyApplication app = new MyApplication();
@@ -74,16 +74,12 @@ public class NewHomeworkActivity extends AppCompatActivity {
     private EditText etHomeworkDeadtime;
 
 
-
-
     private int mYear;
     private int mMonth;
     private int mDay;
     private int mHour;
     private int mMin;
     private int mSec;
-
-
 
     Handler handler;
 
@@ -139,10 +135,7 @@ public class NewHomeworkActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //开启闹钟
-                //startAlarm();
-
                 ClockUtil.startAlarm(NewHomeworkActivity.this, ClockReceiver.class,calendar);
-
 
 
                 /**
@@ -184,11 +177,6 @@ public class NewHomeworkActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-        //useOkHttp3_POST_KV(url);
-
     }
 
     private int getUid() {
@@ -352,12 +340,10 @@ public class NewHomeworkActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * 拿view中的数据
      **/
     public void getViewData(){
-
         title = etHomeworkTitle.getText().toString();
         content = etHomeworkContent.getText().toString();
         tag = etHomeworkTag.getText().toString();
@@ -365,6 +351,5 @@ public class NewHomeworkActivity extends AppCompatActivity {
         remind_date = tvChooseDate.getText().toString();
         course = etHomeworkCourse.getText().toString();
         deadtime = etHomeworkDeadtime.getText().toString();
-
     }
 }

@@ -7,6 +7,9 @@ import android.os.Bundle;
 
 import com.homeworkreminder.R;
 
+/**
+ * 提醒界面
+ */
 public class ReminderActivity extends AppCompatActivity {
 
     @Override

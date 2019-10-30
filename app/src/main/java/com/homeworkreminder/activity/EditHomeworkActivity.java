@@ -21,9 +21,10 @@ import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
 import java.util.Calendar;
 
+/**
+ * 编辑作业的Activity
+ */
 public class EditHomeworkActivity extends AppCompatActivity {
-
-
     private EditText etEditHomeworkTitle;
     private EditText etEditHomeworkContent;
     private EditText etEditHomeworkDeadtime;
@@ -57,17 +58,13 @@ public class EditHomeworkActivity extends AppCompatActivity {
         ClockUtil.chooseDate(tvEditChooseDate, calendar, EditHomeworkActivity.this);
         ClockUtil.chooseTime(tvEditChooseTime, calendar, EditHomeworkActivity.this);
 
-
         app = (MyApplication) getApplication();
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
 
                 getData();
                 url = url + hid
@@ -108,6 +105,9 @@ public class EditHomeworkActivity extends AppCompatActivity {
         remind_time = tvEditChooseTime.getText().toString();
     }
 
+    /**
+     * 接收其他Activity传过来的数据，并显示当当前Activity
+     */
     private void setData() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -130,7 +130,6 @@ public class EditHomeworkActivity extends AppCompatActivity {
         tvEditChooseDate = (TextView) findViewById(R.id.tv_edit_chooseDate);
         tvEditChooseTime = (TextView) findViewById(R.id.tv_edit_chooseTime);
         etEditHomeworkCourse = (EditText) findViewById(R.id.et_edit_homework_course);
-
 
     }
 }

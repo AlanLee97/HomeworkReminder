@@ -27,6 +27,9 @@ import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 注册页面
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etRegUsername;
@@ -38,9 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
     //请求的url地址
     private String url = "http://www.nibuguai.cn/index.php/index/user/api_registerdowith?";
     MyApplication app = new MyApplication();
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         //去登录
         toLogin();
-
-
 
     }
 
@@ -108,12 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
         etRegUsername = (EditText) findViewById(R.id.et_reg_username);
         etRegPassword = (EditText) findViewById(R.id.et_reg_password);
         btnRegister = (Button) findViewById(R.id.btn_register);
-        //regReturnResult = (TextView) findViewById(R.id.reg_return_result);
-
-
-
         tvToLogin = (TextView) findViewById(R.id.tv_to_login);
-
     }
 
     /**

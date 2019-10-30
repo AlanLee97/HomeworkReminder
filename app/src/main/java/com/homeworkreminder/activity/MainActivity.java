@@ -35,6 +35,9 @@ import com.homeworkreminder.utils.userUtil.CheckUserInfoUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 旧版主页Activity
+ */
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -69,11 +72,8 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         //获取权限
         initPermission();
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

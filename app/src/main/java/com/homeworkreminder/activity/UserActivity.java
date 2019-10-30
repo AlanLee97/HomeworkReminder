@@ -25,6 +25,9 @@ import java.util.List;
 
 import cn.bmob.v3.util.V;
 
+/**
+ * 用户界面（已废弃，换成UserFragment）
+ */
 public class UserActivity extends AppCompatActivity {
     private TextView tvUserinfoUsername;
     private TextView tvUserinfoNickname;

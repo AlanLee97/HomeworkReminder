@@ -39,14 +39,10 @@ public class CountActivity extends AppCompatActivity {
     private TextView tvUndo;
     private TextView tvTip;
 
-    String wendu;
-    String type;
-
     String result = "";
     Handler handler;
 
     //get请求的url
-    String weatherUrl = "https://www.apiopen.top/weatherApi?city=东莞";
     String countHwUrl = "http://www.nibuguai.cn/index.php/index/homework/api_countHomeworkDoneState?uid=";
     private int uid;
 
@@ -68,8 +64,7 @@ public class CountActivity extends AppCompatActivity {
 
         getData();
 
-        //showWeather();
-
+        //显示统计数量
         showCount();
 
     }
@@ -101,27 +96,10 @@ public class CountActivity extends AppCompatActivity {
         indexTv2.setText(sdf.format(date));
     }
 
-/*
-    private void showWeather() {
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                //将解析的数据显示到TextView中
-                Weather weather = MyGson.parseJsonByGson(result, Weather.class);
-                String wendu = weather.getData().getWendu();
-                String type = weather.getData().getForecast().get(0).getType();
-                System.out.println("======== 天气类型：" + type);
-                System.out.println("======== 温度：" + wendu);
-                indexTv3.setText(type);
-                indexTv4.setText(wendu);
-            }
-        };
-        useOkHttp3_AsyncGET(weatherUrl);
-    }
-*/
 
-
+    /**
+     * 显示统计数量
+     */
     private void showCount(){
         handler = new Handler(){
             @Override
@@ -206,8 +184,10 @@ public class CountActivity extends AppCompatActivity {
         });
     }
 
-
-
+    /**
+     * 获取用户id
+     * @return
+     */
     private int getUid() {
         app = (MyApplication) getApplication();
         return app.getUserInfo().getData().get(0).getId();

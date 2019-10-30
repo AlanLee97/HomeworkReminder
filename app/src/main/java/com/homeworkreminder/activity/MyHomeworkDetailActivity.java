@@ -13,6 +13,9 @@ import com.homeworkreminder.R;
 import com.homeworkreminder.utils.MyApplication;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
+/**
+ * 作业详情页
+ */
 public class MyHomeworkDetailActivity extends AppCompatActivity {
 
     private QMUIRadiusImageView ivMyDetailHead;
@@ -24,10 +27,6 @@ public class MyHomeworkDetailActivity extends AppCompatActivity {
     private TextView tvMyDetailTag;
     private TextView tvMyDetailAlarmtime;
     private TextView tvDetailCourse;
-
-
-
-
 
     //private int headImg;
     private String nickname;
@@ -66,18 +65,13 @@ public class MyHomeworkDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//
                 Intent intent2 = new Intent(MyHomeworkDetailActivity.this, EditHomeworkActivity.class);
 
                 Bundle bundle = new Bundle();
 
-
                 convertDataToActivity(bundle);
 
                 intent2.putExtras(bundle);
-
 
                 startActivity(intent2);
 
@@ -88,8 +82,6 @@ public class MyHomeworkDetailActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
-
         ivMyDetailHead = (QMUIRadiusImageView) findViewById(R.id.iv_my_detail_head);
         tvMyDetailNickname = (TextView) findViewById(R.id.tv_my_detail_nickname);
         tvMyDetailDate = (TextView) findViewById(R.id.tv_my_detail_date);
@@ -99,9 +91,7 @@ public class MyHomeworkDetailActivity extends AppCompatActivity {
         tvMyDetailTag = (TextView) findViewById(R.id.tv_my_detail_tag);
         tvMyDetailAlarmtime = (TextView) findViewById(R.id.tv_my_detail_alarmtime);
         tvDetailCourse = (TextView) findViewById(R.id.tv_detail_course);
-
     }
-
 
 
     /**
@@ -132,7 +122,5 @@ public class MyHomeworkDetailActivity extends AppCompatActivity {
         course = tvDetailCourse.getText().toString();
         deadtime = tvMyDetailDeadtime.getText().toString();
         tag = tvMyDetailTag.getText().toString();
-
-
     }
 }

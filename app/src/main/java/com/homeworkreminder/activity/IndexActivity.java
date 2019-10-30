@@ -48,11 +48,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-
-
+/**
+ * 新版首页Activity
+ */
 public class IndexActivity extends AppCompatActivity implements View.OnClickListener{
-
-
     private ImageView tvTab1;
     private ImageView tvTab2;
     private ImageView tvTab3;

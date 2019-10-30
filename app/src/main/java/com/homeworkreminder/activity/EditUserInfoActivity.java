@@ -18,6 +18,10 @@ import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.networkUtil.VolleyInterface;
 import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
+
+/**
+ * 编辑用户信息界面
+ */
 public class EditUserInfoActivity extends AppCompatActivity {
 
     private EditText etEditNickname;
@@ -55,11 +59,6 @@ public class EditUserInfoActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         receiveDataFormBundle(bundle);
 
-//        etEditNickname.setText(nickname);
-//        etEditSchool.setText(school);
-//        etEditMajor.setText(major);
-//        etEditClass.setText(clazz);
-
         btnEditUserinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,15 +66,11 @@ public class EditUserInfoActivity extends AppCompatActivity {
             }
         });
 
-//        tvEditJump.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), IndexActivity.class));
-//            }
-//        });
-
     }
 
+    /**
+     * 发送请求
+     */
     private void sendRequest() {
         getData();
         int uid = app.getUserInfo().getData().get(0).getId();
@@ -113,10 +108,6 @@ public class EditUserInfoActivity extends AppCompatActivity {
         etEditMajor = (TextView) findViewById(R.id.et_edit_major);
         etEditClass = (EditText) findViewById(R.id.et_edit_class);
         btnEditUserinfo = (Button) findViewById(R.id.btn_edit_userinfo);
-
-
-        //tvEditJump = (TextView) findViewById(R.id.tv_edit_jump);
-
     }
 
 

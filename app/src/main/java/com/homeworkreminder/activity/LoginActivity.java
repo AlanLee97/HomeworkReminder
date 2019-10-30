@@ -30,6 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * 登录界面
+ */
 public class LoginActivity extends AppCompatActivity {
     //保存请求的结果
     private String result;
@@ -87,12 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                     useVolleyPOST(url, inp_username, inp_password);
                 }
 
-
-
             }
         });
-
-
     }
 
     /**
@@ -140,11 +140,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         UserInfo.DataBean dataBean = userInfo1.getData().get(0);
                         id = dataBean.getId();
-//                        mUsername = dataBean.getUsername();
-//                        nickname = dataBean.getNickname();
-//                        school = dataBean.getSchool();
-//                        clazz = dataBean.getClassX();
-//                        major = dataBean.getMajor();
 
                         //将登陆状态写入SharedPreference文件
                         checkUserInfoUtil.writeUserInfo("true","login");

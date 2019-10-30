@@ -20,6 +20,9 @@ import com.homeworkreminder.utils.MyApplication;
 import com.homeworkreminder.utils.networkUtil.VolleyInterface;
 import com.homeworkreminder.utils.networkUtil.VolleyUtil;
 
+/**
+ * 作业详情页
+ */
 public class HomeworkDetailActivity extends AppCompatActivity {
     private ImageView ivDetailHead;
     private TextView tvDetailNickname;
@@ -48,12 +51,8 @@ public class HomeworkDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_detail);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+
         app = (MyApplication) getApplication();
-
-
-
 
         initView();
         Intent intent = getIntent();
@@ -72,9 +71,6 @@ public class HomeworkDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-
                 boolean isLogin = false;
 
                 if (app.checkState(isLogin)){

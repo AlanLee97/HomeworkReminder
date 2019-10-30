@@ -33,6 +33,9 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+/**
+ * 修改密码页面
+ */
 public class ModifyPasswordActivity extends AppCompatActivity {
     private EditText etPhoneNum;
     private QMUIRoundButton btnSendSMS;
@@ -151,10 +154,7 @@ public class ModifyPasswordActivity extends AppCompatActivity {
                             }
                         }
                     });
-
                 }
-
-
             }
         });
     }

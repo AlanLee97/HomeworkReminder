@@ -95,14 +95,13 @@ public class HomeworkFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), Objects.requireNonNull(getActivity()).getSupportFragmentManager());
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = view.findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
 
-         //*/
+//        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+//        ViewPager viewPager = view.findViewById(R.id.view_pager);
+//        viewPager.setAdapter(sectionsPagerAdapter);
+//        TabLayout tabs = view.findViewById(R.id.tabs);
+//        tabs.setupWithViewPager(viewPager);
+
 
         initView(view);
         addViewPager(tabLayout);
@@ -135,6 +134,9 @@ public class HomeworkFragment extends Fragment {
 
         //添加tab布局
         tabLayout.setupWithViewPager(myViewPager);
+
+
+        //addViewPagerFragment(tabLayout);
     }
 
     /**
@@ -175,26 +177,5 @@ public class HomeworkFragment extends Fragment {
         //myRecyclerView = view.findViewById(R.id.homework_recyclerView);
         tabLayout = view.findViewById(R.id.tabs);
     }
-
-
-    private void checkUserState() {
-        CheckUserInfoUtil checkUserInfoUtil = new CheckUserInfoUtil(getActivity());
-        List<String> userStates = checkUserInfoUtil.checkUserState();
-
-        registerState = userStates.get(0);
-        loginState = userStates.get(1);
-
-        System.out.println("============= registerState：" + registerState);
-        System.out.println("============= loginState：" + loginState);
-
-        if (loginState.equals("false")){
-            startActivity(new Intent(getActivity(), RegisterActivity.class));
-            //getActivity().finish();
-        }
-
-
-
-    }
-
 
 }
