@@ -12,7 +12,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class CheckUserInfoUtil {
+public class CheckUserInfoUtil{
     private Context context;
 
     public CheckUserInfoUtil(Context context){
